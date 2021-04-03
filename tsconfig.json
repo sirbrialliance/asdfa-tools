@@ -1,0 +1,17 @@
+{
+	"compilerOptions": {
+		"jsx": "react-jsx",
+		"jsxImportSource": "./lib",
+
+		"noImplicitAny": true,
+		"removeComments": false,
+
+		"lib": ["es6", "dom"],
+		"module": "amd",
+		"moduleResolution": "node",
+
+		"rootDir": "web",
+		"outFile": "build/main.js",
+	},
+	"include": ["web/**/*.tsx"],
+}

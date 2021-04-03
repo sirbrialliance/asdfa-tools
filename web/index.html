@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>ASDFA Tools</title>
+	<link rel="stylesheet" type="text/css" href="main.css">
+	<script type="text/javascript">
+		// @developit/hazelnut:
+var require, define;
+(function() {
+	var modules = {},
+		factories = {};
+
+	(require = function(id) {
+		if (id.pop) id=id[0];
+		var m = modules[id];
+
+		if (!m) {
+			m = { id: id, exports:{} };
+			modules[id] = m.module = m;
+			m.exports = factories[id].apply(m, factories[id].deps.map(m.require=function(id) {
+				return m[id] || require(rel(id, m.id));
+			})) || m.exports;
+		}
+
+		return m.exports;
+	}).config = valueOf;
+
+	(define = function(id, deps, factory) {
+		(factories[id] = (typeof(factory = factory || deps)!=='function') ? function(){return factory;} : factory).deps = deps.pop ? deps : [];
+	}).amd = {};
+
+	function rel(name, path) {
+		name = name.replace(/^(?:\.\/|(\.\.\/))/, path.replace(/[^\/]+$/g,'') + '$1');
+		while ( name !== (name=name.replace(/[^\/]+\/\.\.\/?/g, '') ) );
+		return name;
+	}
+})();
+
+
+		// var require,define;!function(){function a(a,b){for(a=a.replace(/^(?:\.\/|(\.\.\/))/,b.replace(/[^\/]+$/g,"")+"$1");a!==(a=a.replace(/[^\/]+\/\.\.\/?/g,"")););return a}var b={},c={};(require=function(d){d.pop&&(d=d[0]);var e=b[d];return e||(e={id:d,exports:{}},b[d]=e.module=e,e.exports=c[d].apply(e,c[d].deps.map(e.require=function(b){return e[b]||require(a(b,e.id))}))||e.exports),e.exports}).config=valueOf,(define=function(a,b,d){(c[a]="function"!=typeof(d=d||b)?function(){return d}:d).deps=b.pop?b:[]}).amd={}}();
+	</script>
+	<script src="main.js" async="true"></script>
+	<script type="text/javascript">
+		// window.addEventListener("DOMContentLoaded", function() {
+		window.addEventListener("load", function() {
+			require(['main']);
+		});
+	</script>
+</head>
+<body>
+
+</body>
+</html>
+
