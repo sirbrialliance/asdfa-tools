@@ -26,11 +26,16 @@ SOFTWARE
 
 export type EventHandler = (ev: Event) => void;
 
+type AnyCSSStyleDeclaration = {
+	[K in keyof CSSStyleDeclaration]?: CSSStyleDeclaration[K];
+}
+
 export class NodeFactory {
 	class?: string;
 
 	children?: HTMLElement | string | Array<HTMLElement | string>;
-	style?: string;
+	// style?: string | Map<string, string>;
+	style?: string | AnyCSSStyleDeclaration;
 
 	//-------- events ---------
 
@@ -227,6 +232,8 @@ export class NodeFactory {
 
 declare global { namespace JSX {
 	// function createElement(tag: string, props: any, children: Array<HTMLElement>): HTMLElement;
+
+	type Element = HTMLElement;
 
   interface IntrinsicElements {
 		a: NodeFactory;

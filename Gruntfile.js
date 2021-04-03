@@ -4,6 +4,12 @@ module.exports = function(grunt) {
 
 		less: {
 			dev: {
+				options: {
+					sourceMap: true,
+					sourceMapBasepath: 'build',
+					sourceMapURL: 'main.css.map',
+					sourceMapRootpath: '..',
+				},
 				files: {
 					'build/main.css': 'web/main.less',
 				}

@@ -5,8 +5,8 @@
 	<title>ASDFA Tools</title>
 	<link rel="stylesheet" type="text/css" href="main.css">
 	<script type="text/javascript">
-		// @developit/hazelnut:
-var require, define;
+		// @developit/hazelnut, modified:
+var require, define, requireList;
 (function() {
 	var modules = {},
 		factories = {};
@@ -30,6 +30,14 @@ var require, define;
 		(factories[id] = (typeof(factory = factory || deps)!=='function') ? function(){return factory;} : factory).deps = deps.pop ? deps : [];
 	}).amd = {};
 
+	requireList = function(filterFunc) {
+		var ret = [];
+		for (var k in factories) {
+			if (!filterFunc || filterFunc(k)) ret.push(k);
+		}
+		return ret;
+	}
+
 	function rel(name, path) {
 		name = name.replace(/^(?:\.\/|(\.\.\/))/, path.replace(/[^\/]+$/g,'') + '$1');
 		while ( name !== (name=name.replace(/[^\/]+\/\.\.\/?/g, '') ) );
@@ -49,7 +57,13 @@ var require, define;
 	</script>
 </head>
 <body>
+	<header>
+		<h1>asdfa.net</h1>
+		<input type="text" id="searchBox" placeholder="Filter Modules">
+	</header>
+	<main>
 
+	</main>
 </body>
 </html>
 

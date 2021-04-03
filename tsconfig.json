@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
 		"jsx": "react-jsx",
-		"jsxImportSource": "./lib",
+		"jsxImportSource": "lib",
 
 		"noImplicitAny": true,
 		"removeComments": false,
@@ -13,6 +13,10 @@
 
 		"rootDir": "web",
 		"outFile": "build/main.js",
+
+		"paths": {
+			"lib/jsx-runtime": ["./web/lib/jsx-runtime"],
+		},
 	},
 	"include": ["web/**/*.tsx"],
 }

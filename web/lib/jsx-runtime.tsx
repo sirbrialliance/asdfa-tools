@@ -10,7 +10,7 @@ export function jsx(nodeType: string, props: NodeFactory): HTMLElement {
 }
 
 export function jsxs(nodeType: string, props: NodeFactory): HTMLElement {
-	console.log("jsxs: " , arguments);
+	// console.log("jsxs: " , arguments);
 
 	var el = document.createElement(nodeType);
 
@@ -33,7 +33,14 @@ export function jsxs(nodeType: string, props: NodeFactory): HTMLElement {
 		} else if (k === "class") {
 			el.className = props[k];
 		} else if (k === "style") {
-			el.style.cssText = props[k];
+			let style = props[k];//compiler isn't smart enough for typeof props[k] === "string"
+			if (typeof style === "string") {
+				el.style.cssText = style;
+			} else {
+				for (let k in style) {
+					el.style[k] = style[k];
+				}
+			}
 		} else if (k.startsWith("on")) {
 			el.addEventListener(k.toLowerCase().substring(2), (props as any)[k] as EventHandler);
 		} else {//anything with a "-" in it
@@ -43,35 +50,3 @@ export function jsxs(nodeType: string, props: NodeFactory): HTMLElement {
 
 	return el;
 }
-
-// export default function(html /*, ... */ ) {
-	// var el = $($.parseHTML(html)[0]);
-	// if (!el.length) throw new Error("Invalid markup " + html);
-
-	// for (var i = 1; i < arguments.length; i++) {
-	// 	var arg = arguments[i];
-	// 	if (!arg) continue;
-
-	// 	if (arg && arg.constructor == Array) {
-	// 		for (let j of arg) el.append(j);
-	// 	} else if (typeof arg === "string") {
-	// 		el.append(document.createTextNode(arg));
-	// 	} else if (arg.jquery) {
-	// 		el.append(arg);
-	// 	} else if (typeof arg === "object") {
-	// 		for (let k in arg) {
-	// 			var v = arg[k];
-	// 			if (k.match(/^on/)) {
-	// 				el.on(k.substr(2), v);
-	// 			} else if (k === "css") {
-	// 				el.css(v);
-	// 			} else {
-	// 				if (v) el.attr(k, v);
-	// 			}
-	// 		}
-	// 	}
-
-	// }
-
-	// return el;
-// }

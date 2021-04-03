@@ -1,19 +1,47 @@
 import Module from './modules/Module';
-import {jsx} from './lib/jsx-runtime';
 
-var a6: number = 4;
+declare global {
+	interface Window {
+		requireList(filterFn?: (name: string) => boolean): string[];
+		require(name: string): any;
+	}
+}
 
-var el = <div class="bob" onClick={ev => console.log("click")}>
-	hi!
-	<span>some stuff</span>
-	more things
-	<span style="display: none">another span</span>
-	<aside foo-bar-baz={44}></aside>
-	<span><b><i>foo</i></b></span>
-</div>;
+var moduleNames = window.requireList(x => x.startsWith("modules/") && x !== 'modules/Module');
+var modules: Module[] = [];
+
+for (let moduleName of moduleNames) {
+	let moduleClass = window.require(moduleName).default;
+	let module = new moduleClass() as Module;
+	modules.push(module);
+}
+
+console.log(modules);
+
+var main = document.querySelector("main");
 
 
-console.log("hello", el);
-document.body.appendChild(el);
+for (let module of modules) {
+	main.appendChild(
+		<div class={"moduleTile md" + module.constructor.name}>
+			<h2>{module.getName()}</h2>
+			{module.renderThumb()}
+		</div>
+	);
+}
+
+
+
+// var el = <div class="bob" onClick={ev => console.log("click")}>
+// 	hi!
+// 	<span>some stuff</span>
+// 	more things
+// 	<span style="display: none">another span</span>
+// 	<span style={{color: "red"}}>red span</span>
+// 	<aside foo-bar-baz={44}></aside>
+// 	<span><b><i>foo</i></b></span>
+// </div>;
+
+// document.body.appendChild(el);
 
 //ad
