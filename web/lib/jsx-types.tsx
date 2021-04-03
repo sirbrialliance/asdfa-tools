@@ -24,12 +24,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE
 */
 
-type EventHandler = (ev: Event) => void;
+export type EventHandler = (ev: Event) => void;
 
 export class NodeFactory {
 	class?: string;
 
 	children?: HTMLElement | string | Array<HTMLElement | string>;
+	style?: string;
+
+	//-------- events ---------
 
 	// Clipboard Events
 	onCopy?: EventHandler;

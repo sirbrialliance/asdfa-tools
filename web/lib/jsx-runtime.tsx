@@ -2,7 +2,7 @@
  * JSX-compatible DOM element creator, but returns regular DOM nodes.
  */
 
- import {NodeFactory} from "./jsx-types";
+ import {NodeFactory, EventHandler} from "./jsx-types";
 
 
 export function jsx(nodeType: string, props: NodeFactory): HTMLElement {
@@ -30,6 +30,14 @@ export function jsxs(nodeType: string, props: NodeFactory): HTMLElement {
 					el.appendChild(textNode);
 				}
 			}
+		} else if (k === "class") {
+			el.className = props[k];
+		} else if (k === "style") {
+			el.style.cssText = props[k];
+		} else if (k.startsWith("on")) {
+			el.addEventListener(k.toLowerCase().substring(2), (props as any)[k] as EventHandler);
+		} else {//anything with a "-" in it
+			el.setAttribute(k, (props as any)[k].toString());
 		}
 	}
 

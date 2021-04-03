@@ -3,7 +3,8 @@ Tasks
 -------------------------------------------------------------------------
 
 - next:
-	- JSX/TypeScript/LESS watcher and dev server
+	- a few very simple modules to build and test framework
+	- fancy urls
 
 - base design
 	- would like to use JSX + Less CSS + full fancy URLs

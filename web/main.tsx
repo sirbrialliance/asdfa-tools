@@ -7,8 +7,8 @@ var el = <div class="bob" onClick={ev => console.log("click")}>
 	hi!
 	<span>some stuff</span>
 	more things
-	<span>another span</span>
-	<span></span>
+	<span style="display: none">another span</span>
+	<aside foo-bar-baz={44}></aside>
 	<span><b><i>foo</i></b></span>
 </div>;
 
