@@ -20,7 +20,6 @@ console.log(modules);
 
 var main = document.querySelector("main");
 
-
 for (let module of modules) {
 	main.appendChild(
 		<div class={"moduleTile md" + module.constructor.name}>
@@ -30,18 +29,3 @@ for (let module of modules) {
 	);
 }
 
-
-
-// var el = <div class="bob" onClick={ev => console.log("click")}>
-// 	hi!
-// 	<span>some stuff</span>
-// 	more things
-// 	<span style="display: none">another span</span>
-// 	<span style={{color: "red"}}>red span</span>
-// 	<aside foo-bar-baz={44}></aside>
-// 	<span><b><i>foo</i></b></span>
-// </div>;
-
-// document.body.appendChild(el);
-
-//ad
