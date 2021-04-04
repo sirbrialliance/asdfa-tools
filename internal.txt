@@ -3,38 +3,39 @@ Tasks
 -------------------------------------------------------------------------
 
 - next:
-	- a few very simple modules to build and test framework
-		- xx user agent
-		- take notes
-		- show time
+	- xx a few very simple modules to build and test framework
+		- xx user agent/browser info
+		- xx take notes
+		- xx show time
+		- xx user agent rename to browser info
 	- fancy urls
+		- nn individual modules expand when clicked and update the URL
 
-- base design
-	- would like to use JSX + Less CSS + full fancy URLs
-		- will need web worker/lambda to take the url and serve the right resource
-		- html is static, most function is JS code or a specific api call (not done by default root page load)
-		- use grunt?
+		- serverless
+			- xx fix packagin
+			- serve static assets
+			- multipath
+				- server needs a list of modules...
 
-	- individual modules expand when clicked and just update the hash
-		- (though I guess we could have nice urls and then put duplicates on s3 to present the same base code)
-- page load
-	- "Loading it, the page..."
-	- noscript: "Testing complete. Test: Does this browser support JavaScript? Result: It does not."
+		- expand module on click
+		- web worker for fetching the right things when we start deeper
 
 
-- base framework
-	- modules
+
 
 - https://web.tools/, asdfa.io?
 
 - credits/licenses
 	- https://github.com/developit/hazelnut/blob/master/LICENSE
 
+
 -------------------------------------------------------------------------
 Ideas
 -------------------------------------------------------------------------
 
 - framework/base
+	- loading throbber, "Loading it, the page..."
+	- <noscript> landing, "Testing complete. Test: Does this browser support JavaScript? Result: It does not."
 	- add http/2+ server push for required resources
 		- add header "Link: </foo.js>; rel=preload; as=script, </link2...."
 		- as=https://fetch.spec.whatwg.org/#concept-request-destination
@@ -43,6 +44,7 @@ Ideas
 	- Source on GitHub, pull requests welcome
 		- License is public domain like if you just grab some module code as an example and use it
 		- Each module has view source button for tsx or resulting (formatted+commented) js.
+	- WrOnG caps urls gets redirected to cannon, but also http2/3 push the data for the new url and its deps
 
 - modules
 	- Touch/multitouch

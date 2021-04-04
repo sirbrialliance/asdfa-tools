@@ -1,0 +1,43 @@
+service: asdfa-tools
+frameworkVersion: '2'
+
+plugins:
+    - serverless-offline
+
+provider:
+    name: aws
+    runtime: nodejs12.x
+    lambdaHashingVersion: 20201221
+    region: us-west-2
+    versionFunctions: false
+
+custom:
+    serverless-offline:
+        noPrependStageInUrl: true
+
+package:
+    patterns:
+        - '!**'
+        - 'node_modules/**' # will only include non-dev dependencies
+        - '!node_modules/.bin/**' # ...maybe
+        - 'build/**'
+        - 'server/**'
+
+functions:
+    webResource:
+        handler: server/handler.webResource
+        events:
+            - httpApi:
+                method: GET
+                path: '*'
+            #ideally we'd just use '*' for all, but serverless-offline has issues
+            - httpApi:
+                method: GET
+                path: /
+            - httpApi:
+                method: GET
+                path: /{any}
+            - httpApi:
+                method: GET
+                path: /{any1}/{any2}
+

@@ -4,7 +4,9 @@
 	<meta charset="utf-8">
 	<title>ASDFA Tools</title>
 	<link rel="stylesheet" type="text/css" href="main.css">
+	<base href="/">
 	<script type="text/javascript">
+
 		// @developit/hazelnut, modified:
 var require, define, requireList;
 (function() {
@@ -48,10 +50,10 @@ var require, define, requireList;
 
 		// var require,define;!function(){function a(a,b){for(a=a.replace(/^(?:\.\/|(\.\.\/))/,b.replace(/[^\/]+$/g,"")+"$1");a!==(a=a.replace(/[^\/]+\/\.\.\/?/g,"")););return a}var b={},c={};(require=function(d){d.pop&&(d=d[0]);var e=b[d];return e||(e={id:d,exports:{}},b[d]=e.module=e,e.exports=c[d].apply(e,c[d].deps.map(e.require=function(b){return e[b]||require(a(b,e.id))}))||e.exports),e.exports}).config=valueOf,(define=function(a,b,d){(c[a]="function"!=typeof(d=d||b)?function(){return d}:d).deps=b.pop?b:[]}).amd={}}();
 	</script>
-	<script src="main.js" async="true"></script>
+	<script src="main.js" defer></script>
 	<script type="text/javascript">
-		// window.addEventListener("DOMContentLoaded", function() {
-		window.addEventListener("load", function() {
+		window.addEventListener("DOMContentLoaded", function() {
+		// window.addEventListener("load", function() {
 			require(['main']);
 		});
 	</script>
