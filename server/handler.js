@@ -1,8 +1,8 @@
 'use strict';
 
-//Result object definition:
-// https://github.com/DefinitelyTyped/DefinitelyTyped/blob/8ca303207015f9cbdbc0e548ad480a2258c9962d/types/aws-lambda/trigger/api-gateway-proxy.d.ts#L108
 var fs = require('fs');
+var myEvent = require('./event.js');
+
 
 function getMime(ext) {
 	switch (ext) {
@@ -12,6 +12,8 @@ function getMime(ext) {
 			return "text/css";
 		case "js":
 			return "application/javascript";
+		case "map":
+			return "application/json";
 		default:
 			return "application/otect-stream";
 	}
@@ -40,15 +42,24 @@ function errorResult(code, msg) {
 }
 
 module.exports.webResource = async (event) => {
-	// console.log(event);
 	try {
-		var path = (event.path + "").replace(/^\/+/g, "");//strip leading "/"
+		event = myEvent.fixupEvent(event);
+		console.log(event);
+
+		if (event.requestContext.http.method !== "GET") {
+			console.log("Invalid method", event);
+			return errorResult(400, "Invalid method");
+		}
+
+		var path = (event.rawPath + "").replace(/^\/+/g, "");//strip leading "/"
 		// console.log("path " + event.path);
 		switch (path) {
 			case '':
 				return resourceResult("index.html");
 			case 'main.css':
+			case 'main.css.map':
 			case 'main.js':
+			case 'main.js.map':
 				return resourceResult(path);
 			default:
 				return errorResult(404, "Not found");
@@ -58,3 +69,5 @@ module.exports.webResource = async (event) => {
 		return errorResult(500, "Server run error");
 	}
 };
+
+

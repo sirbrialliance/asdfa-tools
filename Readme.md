@@ -18,6 +18,13 @@ A set of browser-based and browser tests written for running on asdfa.net, such 
 
 	grunt build
 	serverless deploy
+	# test
+	serverless deploy --stage prod
 
+Quick update a function:
 
+	serverless deploy function --function webResource
 
+And maybe find out why it broke:
+
+	serverless logs --function webResource # add -t to tail

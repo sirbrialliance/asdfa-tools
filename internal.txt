@@ -17,6 +17,7 @@ Tasks
 			- multipath
 				- server needs a list of modules...
 
+		- compress response data
 		- expand module on click
 		- web worker for fetching the right things when we start deeper
 
@@ -45,6 +46,9 @@ Ideas
 		- License is public domain like if you just grab some module code as an example and use it
 		- Each module has view source button for tsx or resulting (formatted+commented) js.
 	- WrOnG caps urls gets redirected to cannon, but also http2/3 push the data for the new url and its deps
+	- favicon
+	- Load and function as much as possible if Internet is down (and make it clear when in "offline mode" )
+	- can we trim down serverless's IAM role with serverless-puresec-cli?
 
 - modules
 	- Touch/multitouch
@@ -54,10 +58,14 @@ Ideas
 	- Wasm test
 	- Camera/mic check (and pick from multiple sources)
 		- can we do slow-mo capture?
+		- Save audio clip (wav or mp3)
 	- Basic speaker test, select an output, pan to any speaker (even past l/r)
-	- List out all identifiable data we can did out of you browser.
+	- Browser info:
+		- User agent, and put a browsecap or related somewhere and tell what it says
+		- List out all identifiable data we can did out of you browser.
 	- Network tests:
 		- Latency to assorted targets, dns lookup latency
+			- (like to every amazon, google cloud, and Azur edatacenter)
 		- (and use metrics to get page load times/etc)
 		- bandwidth+latency test (open a handful of connections to local CloudFlare node running web workers, graph results and measure latency as you go, full duplex)
 	- jot down notes, saved in browser, can export/import
@@ -70,7 +78,7 @@ Ideas
 		- Altdrag, clasic start menu, greenshot, superf4, wirtuawin, console (2 or z)
 			- any good porfile settings I tweak, or a .zip
 	- Speech api test
-	- Web workers test? Is that even useful?
+	- Web workers test? Maybe give out a performance number?
 	- Web serial?
 	- Web bluetooth?
 	- Other special browser apis?

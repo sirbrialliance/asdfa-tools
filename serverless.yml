@@ -10,6 +10,8 @@ provider:
     lambdaHashingVersion: 20201221
     region: us-west-2
     versionFunctions: false
+    profile: asdfa
+    memorySize: 128 # don't need much
 
 custom:
     serverless-offline:
@@ -27,9 +29,7 @@ functions:
     webResource:
         handler: server/handler.webResource
         events:
-            - httpApi:
-                method: GET
-                path: '*'
+            - httpApi: '*'
             #ideally we'd just use '*' for all, but serverless-offline has issues
             - httpApi:
                 method: GET
