@@ -66,7 +66,7 @@ function redirectResult(newURL, isPerm = true) {
 }
 
 module.exports.webResource = async (event) => {
-	console.log(event);
+	//console.log(event);
 	try {
 		event = myEvent.fixupEvent(event);
 

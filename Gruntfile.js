@@ -112,8 +112,7 @@ module.exports = ${JSON.stringify(items)};
 		concurrent: {
 			'build': ['less', 'copy', ['moduleList', 'typeScript']],
 			'watch': {
-				// tasks: ['_watch', 'typeScriptWatch', 'serverlessLocal'],
-				tasks: ['typeScriptWatch', 'serverlessLocal'],
+				tasks: ['_watch', 'typeScriptWatch', 'serverlessLocal'],
 				options: {
 					logConcurrentOutput: true,
 				}
@@ -130,11 +129,11 @@ module.exports = ${JSON.stringify(items)};
 	grunt.renameTask('watch', '_watch');
 
 	grunt.registerTask('moduleList', "Build a list of modules", buildModuleList);
-	grunt.registerTask('typeScript', "Compile TypeScript", getShellTask("tsc", []));
+	grunt.registerTask('typeScript', "Compile TypeScript", getShellTask("tsc", ['--pretty']));
 	grunt.registerTask('typeScriptWatch', "Compile TypeScript, watch changes", getShellTask(
-		"tsc", ["-w", "--preserveWatchOutput"]
+		"tsc", ["-w", "--preserveWatchOutput", '--pretty']
 	));
-	grunt.registerTask('serverlessLocal', "Run service locally", getShellTask("serverless", ["offline"]));
+	grunt.registerTask('serverlessLocal', "Run service locally", getShellTask("serverless", ["offline", "--color"]));
 	grunt.registerTask('arrgh', "arrgh", getShellTask("echo", ["fizz", "baz"]));
 
 	grunt.registerTask('watch', ['concurrent:watch']);

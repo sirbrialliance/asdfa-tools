@@ -49,6 +49,7 @@ Ideas
 		- add header "Link: </foo.js>; rel=preload; as=script, </link2...."
 		- as=https://fetch.spec.whatwg.org/#concept-request-destination
 	- design: logo showing asdf a on keybaord to hint origin and help remind
+	- maybe add a "go back" arrow next to the logo when not on the main page
 	- Hit url for non extant module sends 404 but page loaded shows search based on what you tried
 	- Source on GitHub, pull requests welcome
 		- License is public domain like if you just grab some module code as an example and use it
@@ -96,7 +97,8 @@ Ideas
 	- Simple binary viewer/editor
 	- Unicode codepoint lookup, also ASCII lookup
 	- Random number, lines shuffle, using rand() with link to random.org
-	- time.is
+	- time.is, but without ads
+		 - could we use time.cloudflare.com and CloudFlare workers?
 	- Tar command line builder (and xkcd joke)
 	- file hash calculation (drag and drop, automatically states if hashes match (or if they are exactly binary equal), or better yet, if the aren't equal calculate a number of hashes and warn about any collisions, or if just doing sums warn about slimiar not not exact hashes (esp. if more than 1 start or end chars match))
 	- quick lookup for port numbers, mime-types

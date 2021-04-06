@@ -9,7 +9,12 @@ export default class Time extends Module {
 		var el = <span></span>;
 
 		var task = () => {
-			el.textContent = new Date().toTimeString();
+			var updated = new Date().toTimeString();
+			if (el.textContent != updated) {
+				el.textContent = updated;
+				//console.log("Update time");
+			}
+
 			if (el.isConnected) requestAnimationFrame(task);
 		};
 		requestAnimationFrame(task);
