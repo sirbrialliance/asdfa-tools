@@ -13,13 +13,15 @@ Tasks
 
 		- serverless
 			- xx fix packagin
-			- serve static assets
+			- xx serve static assets
 			- multipath
 				- server needs a list of modules...
 
 		- compress response data
 		- expand module on click
 		- web worker for fetching the right things when we start deeper
+
+		- fix source maps
 
 
 

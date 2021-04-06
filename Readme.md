@@ -12,11 +12,14 @@ A set of browser-based and browser tests written for running on asdfa.net, such 
 
 ## Writing code:
 
-	grunt watch & tsc -w & serverless offline
+	grunt watch
+	# open http://localhost:3000/
+
+Starts up tasks to redo certain build steps, watch for TypeScript changes, and starts a local server to serve content.
 
 ## Deploy
 
-	grunt build
+	grunt
 	serverless deploy
 	# test
 	serverless deploy --stage prod
@@ -27,4 +30,4 @@ Quick update a function:
 
 And maybe find out why it broke:
 
-	serverless logs --function webResource # add -t to tail
+	serverless logs --function webResource # add -t for log tailing

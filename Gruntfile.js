@@ -1,9 +1,23 @@
+var child_process = require("child_process");
+
+
 module.exports = function(grunt) {
+
+	function webFiles(inWebFolder) {
+		var files = grunt.file.expand(['web/**']);
+		files = files.filter(x => !x.match(/\.(less|tsx)$/) && !grunt.file.isDir(x));
+		if (inWebFolder) {
+			files = files.map(x => x.substr(4)).filter(x => x);
+		}
+		// console.log("files: ", files);
+		return files;
+	}
+
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 
 		less: {
-			dev: {
+			'build': {
 				options: {
 					sourceMap: true,
 					sourceMapBasepath: 'build',
@@ -16,118 +30,64 @@ module.exports = function(grunt) {
 			}
 		},
 
-
-		ts: {
-			options: {
-				// additionalFlags: '--jsx react-jsx --jsxImportSource lib',
-				// additionalFlags: '--jsx react-jsx --jsxFactory jim',
-				// 		"jsx": "react-jsx",		"jsxFactory": "jim",		"jsxImportSource": "jsx-runtime",
-
-			},
-			// options: {
-			// 	jsx: "react-jsx",
-			// },
-			// options: {
-				// jsx: 'react-jsx',
-				// jsxImportSource: 'jsx-runtime',
-				// lib: ["es6", 'dom'],
-				// removeComments: false,
-				// module: 'amd',
-				// moduleResolution: 'node',
-				// fast: "never",//quell warnings about fast not working with --out
-				// rootDir: "web",
-			// },
-			dev: {
-				tsconfig: {
-					tsconfig: "tsconfig.json",
-					passThrough: true,
-				},
-			},
-			// dev: {
-			// 	options: {
-			// 		removeComments: true,
-			// 	},
-			// 	src: ["web/**/*.tsx"],
-			// 	out: 'build/main.js',
-			// 	// files: {
-			// 	// 	'build/**.js': 'web/**.tsx',
-			// 	// }
-			// }
-		},
-
+		clean: ['build/'],
 
 		copy: {
-			dev: {
+			'build': {
 				expand: true,
 				cwd: 'web',
-				src: '*.html',
+				src: webFiles(true),
 				dest: 'build/',
 			}
 		},
 
-
-
-		watch: {
-			buildSystem: {
+		_watch: {
+			'buildSystem': {
 				files: ['Gruntfile.js', 'tsconfig.json'],
 				options: {reload: true},
 				tasks: ['default'],
 			},
-			html: {
+			'html': {
 				options: {atBegin: true,},
-				files: [
-					'web/**.html',
-				],
+				files: webFiles(false),
 				tasks: ['copy'],
 			},
-			styles: {
+			'styles': {
 				options: {atBegin: true,},
 				files: [
 					'web/**.less',
 				],
 				tasks: ['less'],
 			},
-
-			//run `tsc -w` instead
-			// scripts: {
-			// 	options: {atBegin: true,},
-			// 	files: [
-			// 		'web/**.tsx',
-			// 	],
-			// 	tasks: ['ts'],
-			// }
 		},
 
-		// babel: {
-		// 	options: {
-		// 		parserOpts: { strictMode: true },
-		// 		plugins: [
-		// 			["@babel/plugin-transform-typescript", {
-		// 			}],
+		typeScript: {},
+		typeScriptWatch: {},
+		serverlessLocal: {},
 
-		// 			["@babel/plugin-transform-react-jsx", {
-		// 				isTSX: true,
-		// 			}],
-		// 		],
-		// 		// "presets": [
-		// 		// 	"@babel/preset-typescript",
-		// 		// 	"@babel/preset-react",
-		// 		// ],
-		// 	},
-		// 	dev: {
-		// 		files: {
-		// 			'build/main.js': 'scripts/main.tsx',
-		// 		}
-		// 	}
-		// },
-
+		concurrent: {
+			'build': ['less', 'copy', 'typeScript'],
+			'watch': {
+				tasks: ['_watch', 'typeScriptWatch', 'serverlessLocal'],
+				options: {
+					logConcurrentOutput: true,
+				}
+			}
+		}
 	});
 
-	grunt.loadNpmTasks('grunt-contrib-less');
+	grunt.loadNpmTasks('grunt-concurrent');
+	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-contrib-watch');
-	// grunt.loadNpmTasks('grunt-babel');
-	grunt.loadNpmTasks('grunt-ts');
 
-	grunt.registerTask('default', ['less', 'ts', 'copy']);
+	grunt.renameTask('watch', '_watch');
+
+	grunt.registerTask('typeScript', "Compile TypeScript", () => child_process.execSync("tsc"));
+	grunt.registerTask('typeScriptWatch', "Compile TypeScript, watch changes", () => child_process.execSync("tsc -w"));
+	grunt.registerTask('serverlessLocal', "Run service locally", () => child_process.execSync("serverless offline"));
+
+	grunt.registerTask('watch', ['concurrent:watch']);
+	grunt.registerTask('default', ['concurrent:build']);
 };

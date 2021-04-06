@@ -14,6 +14,12 @@ function getMime(ext) {
 			return "application/javascript";
 		case "map":
 			return "application/json";
+		case "png":
+			return "image/png";
+		case "ico":
+			return "image/x-icon";
+		case "svg":
+			return "image/svg+xml";
 		default:
 			return "application/otect-stream";
 	}
@@ -60,6 +66,8 @@ module.exports.webResource = async (event) => {
 			case 'main.css.map':
 			case 'main.js':
 			case 'main.js.map':
+			case 'favicon.ico':
+			case 'favicon.svg':
 				return resourceResult(path);
 			default:
 				return errorResult(404, "Not found");
