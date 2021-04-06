@@ -3,6 +3,21 @@ var child_process = require("child_process");
 
 module.exports = function(grunt) {
 
+	function buildModuleList() {
+		var items = [];
+
+		grunt.file.recurse('web/modules', (path, root, subdir, filename) => {
+			if (filename.match(/\.tsx$/)) {
+				let name = filename.replace(/\.tsx$/, "");
+				if (name !== "Module") items.push(name);
+			}
+		});
+
+		grunt.file.write("server/moduleList.js", `//Automatically generated, don't hand-edit.
+module.exports = ${JSON.stringify(items)};
+`);
+	}
+
 	function webFiles(inWebFolder) {
 		var files = grunt.file.expand(['web/**']);
 		files = files.filter(x => !x.match(/\.(less|tsx)$/) && !grunt.file.isDir(x));
@@ -11,6 +26,27 @@ module.exports = function(grunt) {
 		}
 		// console.log("files: ", files);
 		return files;
+	}
+
+	function getShellTask(command, args = []) {
+		function subTask() {
+			var done = this.async();
+			grunt.log.writeln("Starting " + command + " with " + JSON.stringify(args));
+			// Beware: https://github.com/nodejs/node-v0.x-archive/issues/2318
+			// To workaround we run cmd.exe as the target instead.
+			var args2 = ["/S", "/C", command, ...args];
+			var child = child_process.spawn("cmd.exe", args2, {
+				stdio: 'inherit',
+				env: {
+					PATH: process.env.PATH,
+				},
+			});
+			child.on('close', code => {
+				if (code !== 0) done(new Error("Child process failed, exited with code " + code));
+				else done();
+			});
+		}
+		return subTask;
 	}
 
 	grunt.initConfig({
@@ -59,16 +95,25 @@ module.exports = function(grunt) {
 				],
 				tasks: ['less'],
 			},
+			'moduleList': {
+				options: {atBegin: true,},
+				files: [
+					'web/modules/**.tsx',
+				],
+				tasks: ['moduleList'],
+			},
 		},
 
 		typeScript: {},
 		typeScriptWatch: {},
 		serverlessLocal: {},
+		moduleList: {},
 
 		concurrent: {
-			'build': ['less', 'copy', 'typeScript'],
+			'build': ['less', 'copy', ['moduleList', 'typeScript']],
 			'watch': {
-				tasks: ['_watch', 'typeScriptWatch', 'serverlessLocal'],
+				// tasks: ['_watch', 'typeScriptWatch', 'serverlessLocal'],
+				tasks: ['typeScriptWatch', 'serverlessLocal'],
 				options: {
 					logConcurrentOutput: true,
 				}
@@ -84,9 +129,13 @@ module.exports = function(grunt) {
 
 	grunt.renameTask('watch', '_watch');
 
-	grunt.registerTask('typeScript', "Compile TypeScript", () => child_process.execSync("tsc"));
-	grunt.registerTask('typeScriptWatch', "Compile TypeScript, watch changes", () => child_process.execSync("tsc -w"));
-	grunt.registerTask('serverlessLocal', "Run service locally", () => child_process.execSync("serverless offline"));
+	grunt.registerTask('moduleList', "Build a list of modules", buildModuleList);
+	grunt.registerTask('typeScript', "Compile TypeScript", getShellTask("tsc", []));
+	grunt.registerTask('typeScriptWatch', "Compile TypeScript, watch changes", getShellTask(
+		"tsc", ["-w", "--preserveWatchOutput"]
+	));
+	grunt.registerTask('serverlessLocal', "Run service locally", getShellTask("serverless", ["offline"]));
+	grunt.registerTask('arrgh', "arrgh", getShellTask("echo", ["fizz", "baz"]));
 
 	grunt.registerTask('watch', ['concurrent:watch']);
 	grunt.registerTask('default', ['concurrent:build']);

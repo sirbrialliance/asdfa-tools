@@ -2,7 +2,17 @@
 
 var fs = require('fs');
 var myEvent = require('./event.js');
+var moduleList = require('./moduleList.js');
+var moduleListLowercase = moduleList.map(x => x.toLowerCase());
 
+var staticResources = [
+	'main.css',
+	'main.css.map',
+	'main.js',
+	'main.js.map',
+	'favicon.ico',
+	'favicon.svg',
+];
 
 function getMime(ext) {
 	switch (ext) {
@@ -47,10 +57,18 @@ function errorResult(code, msg) {
 	};
 }
 
+function redirectResult(newURL, isPerm = true) {
+	return {
+		statusCode: isPerm ? 301 : 302,
+		headers: {'Location': newURL},
+		body: '',
+	};
+}
+
 module.exports.webResource = async (event) => {
+	console.log(event);
 	try {
 		event = myEvent.fixupEvent(event);
-		console.log(event);
 
 		if (event.requestContext.http.method !== "GET") {
 			console.log("Invalid method", event);
@@ -58,19 +76,23 @@ module.exports.webResource = async (event) => {
 		}
 
 		var path = (event.rawPath + "").replace(/^\/+/g, "");//strip leading "/"
-		// console.log("path " + event.path);
-		switch (path) {
-			case '':
-				return resourceResult("index.html");
-			case 'main.css':
-			case 'main.css.map':
-			case 'main.js':
-			case 'main.js.map':
-			case 'favicon.ico':
-			case 'favicon.svg':
-				return resourceResult(path);
-			default:
-				return errorResult(404, "Not found");
+		var softerPath = (path + "").replace(/\/+$/g, "");//strip trailing "/" too
+		var idx;
+		// console.log("path " + path);
+
+		if (path === "")  {
+			return resourceResult("index.html");
+		} else if (staticResources.indexOf(path) >= 0) {
+			return resourceResult(path);
+		} else if ((idx = moduleListLowercase.indexOf(softerPath.toLowerCase())) >= 0) {
+			if (moduleList[idx] !== path) {
+				//wRoNg cAps, or trailing "/"
+				return redirectResult("/" + moduleList[idx]);
+			}
+
+			return resourceResult("index.html");
+		} else {
+			return errorResult(404, "Not found");
 		}
 	} catch (ex) {
 		console.error(ex, event);

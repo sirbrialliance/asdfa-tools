@@ -14,8 +14,14 @@ Tasks
 		- serverless
 			- xx fix packagin
 			- xx serve static assets
+
 			- multipath
-				- server needs a list of modules...
+				- xx server needs a list of modules
+				- route
+					- xx core
+
+
+		- make sure routes work with trailing slashes
 
 		- compress response data
 		- expand module on click
