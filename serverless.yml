@@ -12,6 +12,8 @@ provider:
     versionFunctions: false
     profile: asdfa
     memorySize: 128 # don't need much
+    apiGateway:
+        minimumCompressionSize: 200
 
 custom:
     serverless-offline:

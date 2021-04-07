@@ -1,42 +1,36 @@
 -------------------------------------------------------------------------
 Tasks
 -------------------------------------------------------------------------
+	- xx WrOnG caps urls gets redirected to cannon, but also http2/3 push the data for the new url and its deps
+	- xx favicon
 
 - next:
-	- xx a few very simple modules to build and test framework
-		- xx user agent/browser info
-		- xx take notes
-		- xx show time
-		- xx user agent rename to browser info
-	- fancy urls
-		- nn individual modules expand when clicked and update the URL
+	- can middle-click module thumbs to open in new tab
+	- loading message
+	- noscript message
+	- http2 push resources
+	- logo
+	- robots.txt
 
-		- serverless
-			- xx fix packagin
-			- xx serve static assets
-
-			- multipath
-				- xx server needs a list of modules
-				- route
-					- xx core
-
-
-		- make sure routes work with trailing slashes
-
-		- compress response data
-		- expand module on click
-		- web worker for fetching the right things when we start deeper
-
-		- fix source maps
+	- midi
+	- touch
+	- browser info
+		- IP, user agent, local ip, server ip, etc.
+		- what http proocol we used to load the page (e.g. http/3)
+	- basic webgl
+		- spining cube thumb
+		- something cool looking fractal for bigger
+	- notes
+	- speaker test
+	- time
 
 
 
 
-- https://web.tools/, asdfa.io?
 
 - credits/licenses
 	- https://github.com/developit/hazelnut/blob/master/LICENSE
-
+- https://web.tools/, asdfa.io?
 
 -------------------------------------------------------------------------
 Ideas
@@ -54,10 +48,12 @@ Ideas
 	- Source on GitHub, pull requests welcome
 		- License is public domain like if you just grab some module code as an example and use it
 		- Each module has view source button for tsx or resulting (formatted+commented) js.
-	- WrOnG caps urls gets redirected to cannon, but also http2/3 push the data for the new url and its deps
-	- favicon
 	- Load and function as much as possible if Internet is down (and make it clear when in "offline mode" )
-	- can we trim down serverless's IAM role with serverless-puresec-cli?
+	- zz can we trim down serverless's IAM role with serverless-puresec-cli?
+	- zz compress response data
+	- serve the original sources so source maps work deployed?
+	- offline manifest
+
 
 - modules
 	- Touch/multitouch
@@ -111,6 +107,7 @@ Ideas
 	- quick api reference, for example rmemberinf in python you make a directory with os.mkdir
 	- http status: what http proocol we used to load the page (e.g. http/3)
 		- https://gf.dev/http3-test
+	- enter specific date/time, show countdown (and the url can be re-used/shared)
 
 
 
