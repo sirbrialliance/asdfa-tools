@@ -8,7 +8,10 @@ Tasks
 	- xx <noscript> landing, "Testing complete. Test: Does this browser support JavaScript? Result: It does not."
 
 - next:
+	- get it running with CloudFlare
+		- looks like I need to set up a cert and custom domain name in the gateway
 	- http2 push resources
+
 		- also push resources on bad caps redirect
 	- logo
 	- robots.txt
@@ -51,6 +54,7 @@ Ideas
 	- serve the original sources so source maps work deployed?
 	- offline manifest
 	- modules can have alternate names and typing one in the URL takes us to the real module
+	- Firefox double-requests CSS?
 
 
 - modules

@@ -14,56 +14,89 @@ var staticResources = [
 	'favicon.svg',
 ];
 
+var mimeTypes = {
+	"html": "text/html",
+	"css": "text/css",
+	"js": "application/javascript",
+	"map": "application/json",
+	"png": "image/png",
+	"ico": "image/x-icon",
+	"svg": "image/svg+xml",
+	"*": "application/otect-stream",
+};
+
 function getMime(ext) {
-	switch (ext) {
-		case "html":
-			return "text/html";
-		case "css":
-			return "text/css";
-		case "js":
-			return "application/javascript";
-		case "map":
-			return "application/json";
-		case "png":
-			return "image/png";
-		case "ico":
-			return "image/x-icon";
-		case "svg":
-			return "image/svg+xml";
-		default:
-			return "application/otect-stream";
+	return mimeTypes[ext] || mimeTypes['*'];
+}
+
+class Response {
+	constructor() {
+		this.clear();
+	}
+
+	clear() {
+		this.statusCode = 500;
+		this.headers = { 'x-foo-bar': 'baz' };
+		this.body = null;
+		// this.multiValueHeader = {};//doesn't work
+		// this.multiValueHeaders = {};//doesn't work
+		this.isBase64Encoded = false;
+		return this;
+	}
+
+	resource(file) {
+		try {
+			this.body = fs.readFileSync("build/" + file).toString();
+			this.statusCode = 200;
+			this.headers['Content-Type'] = getMime(file.split('.').pop());
+		} catch (ex) {
+			console.error(ex);
+			return this.error(500, "Server file error");
+		}
+		return this;
+	}
+
+	error(code, message) {
+		this.clear();
+		this.body = message;
+		this.statusCode = code;
+		this.headers['Content-Type'] = "text/plain";
+		return this;
+	}
+
+	redirect(newURL, isPerm = true) {
+		this.statusCode = isPerm ? 301 : 302;
+		this.headers = {'Location': newURL};
+		this.body = '';
+		return this;
+	}
+
+	_addPush(url, as) {
+		if (this.headers['Link']) this.headers['Link'] += ", ";
+		else this.headers['Link'] = "";
+		this.headers['Link'] += `<${url}>; rel=preload; as=${as}`;
+	}
+
+	//http 2 or 3 server push resources (https://www.cloudflare.com/website-optimization/http2/serverpush/)
+	pushRes() {
+		this._addPush("/main.js", "script");
+		this._addPush("/main.css", "style");
+		// this.multiValueHeader['Link'] = this.multiValueHeader['Link'] || [];
+		// this.multiValueHeader['Link'].push(
+		// 	"</main.js>; rel=preload;",
+		// 	"</main.css>; rel=preload;",
+		// );
+		return this;
+	}
+
+	pushDocument(path) {
+		this._addPush(path, "document");
+		// this.multiValueHeader['Link'] = this.multiValueHeader['Link'] || [];
+		// this.multiValueHeader['Link'].push("</>; rel=preload;");
+		return this;
 	}
 }
 
-function resourceResult(file) {
-	try {
-		var data = fs.readFileSync("build/" + file).toString();
-	} catch (ex) {
-		console.error(ex);
-		return errorResult(500, "Server file error");
-	}
-	return {
-		statusCode: 200,
-		headers: {'Content-Type': getMime(file.split('.').pop())},
-		body: data,
-	};
-}
-
-function errorResult(code, msg) {
-	return {
-		statusCode: code,
-		headers: {'Content-Type': "text/plain"},
-		body: msg,
-	};
-}
-
-function redirectResult(newURL, isPerm = true) {
-	return {
-		statusCode: isPerm ? 301 : 302,
-		headers: {'Location': newURL},
-		body: '',
-	};
-}
 
 module.exports.webResource = async (event) => {
 	//console.log(event);
@@ -75,7 +108,6 @@ module.exports.webResource = async (event) => {
 			return errorResult(400, "Invalid method");
 		}
 
-
 		var path = (event.rawPath + "").replace(/^\/+/g, "");//strip leading "/"
 		var softerPath = (path + "").replace(/\/+$/g, "");//strip trailing "/" too
 		var idx;
@@ -85,22 +117,25 @@ module.exports.webResource = async (event) => {
 		// if (path.match(/js/)) await new Promise(r => setTimeout(r, 500));//debug test
 
 		if (path === "")  {
-			return resourceResult("index.html");
+			return new Response().resource("index.html").pushRes();
 		} else if (staticResources.indexOf(path) >= 0) {
-			return resourceResult(path);
+			return new Response().resource(path);
 		} else if ((idx = moduleListLowercase.indexOf(softerPath.toLowerCase())) >= 0) {
 			if (moduleList[idx] !== path) {
 				//wRoNg cAps, or trailing "/"
-				return redirectResult("/" + moduleList[idx]);
+				var newPath = "/" + moduleList[idx];
+				return new Response().redirect(newPath).pushDocument(newPath).pushRes();
 			}
 
-			return resourceResult("index.html");
+			//console.log("will send", new Response().resource("index.html").pushRes());
+
+			return new Response().resource("index.html").pushRes();
 		} else {
-			return errorResult(404, "Not found");
+			return new Response().error(404, "Not found");
 		}
 	} catch (ex) {
 		console.error(ex, event);
-		return errorResult(500, "Server run error");
+		return new Response().error(500, "Server run error");
 	}
 };
 
