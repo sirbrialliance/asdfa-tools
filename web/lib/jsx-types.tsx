@@ -37,7 +37,12 @@ export class NodeFactory {
 	// style?: string | Map<string, string>;
 	style?: string | AnyCSSStyleDeclaration;
 
+	id?: string;
+
 	href?: string;
+
+	type?: string;
+	placeholder?: string;
 
 	//-------- events ---------
 

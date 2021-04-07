@@ -3,11 +3,11 @@ Tasks
 -------------------------------------------------------------------------
 	- xx WrOnG caps urls gets redirected to cannon
 	- xx favicon
+	- xx can middle-click module thumbs to open in new tab
+	- xx loading throbber, "Loading it, the page..."
+	- xx <noscript> landing, "Testing complete. Test: Does this browser support JavaScript? Result: It does not."
 
 - next:
-	- can middle-click module thumbs to open in new tab
-	- loading message
-	- noscript message
 	- http2 push resources
 		- also push resources on bad caps redirect
 	- logo
@@ -38,8 +38,6 @@ Ideas
 -------------------------------------------------------------------------
 
 - framework/base
-	- loading throbber, "Loading it, the page..."
-	- <noscript> landing, "Testing complete. Test: Does this browser support JavaScript? Result: It does not."
 	- add http/2+ server push for required resources
 		- add header "Link: </foo.js>; rel=preload; as=script, </link2...."
 		- as=https://fetch.spec.whatwg.org/#concept-request-destination
@@ -50,10 +48,9 @@ Ideas
 		- License is public domain like if you just grab some module code as an example and use it
 		- Each module has view source button for tsx or resulting (formatted+commented) js.
 	- Load and function as much as possible if Internet is down (and make it clear when in "offline mode" )
-	- zz can we trim down serverless's IAM role with serverless-puresec-cli?
-	- zz compress response data
 	- serve the original sources so source maps work deployed?
 	- offline manifest
+	- modules can have alternate names and typing one in the URL takes us to the real module
 
 
 - modules
@@ -109,6 +106,6 @@ Ideas
 	- http status: what http proocol we used to load the page (e.g. http/3)
 		- https://gf.dev/http3-test
 	- enter specific date/time, show countdown (and the url can be re-used/shared)
-
+	- js minifier/deep minifier
 
 

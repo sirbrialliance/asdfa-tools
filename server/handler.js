@@ -75,10 +75,14 @@ module.exports.webResource = async (event) => {
 			return errorResult(400, "Invalid method");
 		}
 
+
 		var path = (event.rawPath + "").replace(/^\/+/g, "");//strip leading "/"
 		var softerPath = (path + "").replace(/\/+$/g, "");//strip trailing "/" too
 		var idx;
 		// console.log("path " + path);
+
+		// if (path.match(/css/)) await new Promise(r => setTimeout(r, 500));//debug test
+		// if (path.match(/js/)) await new Promise(r => setTimeout(r, 500));//debug test
 
 		if (path === "")  {
 			return resourceResult("index.html");

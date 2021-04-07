@@ -23,17 +23,27 @@ for (let modulePath of modulePaths) {
 	}
 }
 
-//console.log(modules);
+// console.log(modules);
 
-var currentModule: Module = null;
-var main = document.querySelector("main");
+document.body.textContent = '';
+
+var main = <main/>;
+document.body.appendChild(main);
+document.body.appendChild(<header>
+	<h1><a href="/">asdfa.net</a></h1>
+	<input type="text" id="searchBox" placeholder="Filter Modules"/>
+</header>);
+
 var originalTitle = document.head.querySelector("title").textContent;
+
 window.addEventListener("popstate", ev => {
 	updatePage();
 });
-updatePage();
 
+var currentModule: Module = null;
 document.addEventListener("click", ev => {
+	if (ev.defaultPrevented) return;
+
 	var target = ev.target as HTMLElement;
 	while (target && target.tagName !== "A") target = target.parentElement;
 	if (!target) return;
@@ -49,8 +59,7 @@ document.addEventListener("click", ev => {
 	}
 }, true);
 
-
-
+updatePage();
 
 
 /** Goes the to given URL (without a leading /) on our site as if (or because) the user clicked it. */
@@ -95,15 +104,7 @@ function renderIndex() {
 					navTo(id);
 				}}
 				>
-				<h2><a
-					onClick={ev => {
-						if (ev.defaultPrevented) return;
-						ev.preventDefault();
-						navTo(id);
-					}}
-					href={"/" + id}>
-						{module.getName()}
-				</a></h2>
+				<h2><a href={"/" + id}>{module.getName()}</a></h2>
 				{module.renderThumb()}
 			</div>
 		);
