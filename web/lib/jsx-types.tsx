@@ -37,6 +37,8 @@ export class NodeFactory {
 	// style?: string | Map<string, string>;
 	style?: string | AnyCSSStyleDeclaration;
 
+	href?: string;
+
 	//-------- events ---------
 
 	// Clipboard Events

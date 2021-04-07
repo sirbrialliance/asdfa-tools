@@ -89,9 +89,21 @@ function renderIndex() {
 		return (
 			<div
 				class={"moduleTile md" + id}
-				onClick={ev => navTo(id)}
-			>
-				<h2>{module.getName()}</h2>
+				onClick={ev => {
+					if (ev.defaultPrevented) return;
+					ev.preventDefault();
+					navTo(id);
+				}}
+				>
+				<h2><a
+					onClick={ev => {
+						if (ev.defaultPrevented) return;
+						ev.preventDefault();
+						navTo(id);
+					}}
+					href={"/" + id}>
+						{module.getName()}
+				</a></h2>
 				{module.renderThumb()}
 			</div>
 		);

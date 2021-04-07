@@ -2,7 +2,7 @@
  * JSX-compatible DOM element creator, but returns regular DOM nodes.
  */
 
- import {NodeFactory, EventHandler} from "./jsx-types";
+import {NodeFactory, EventHandler} from "./jsx-types";
 
 
 export function jsx(nodeType: string, props: NodeFactory): HTMLElement {

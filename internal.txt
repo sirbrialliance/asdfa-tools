@@ -1,7 +1,7 @@
 -------------------------------------------------------------------------
 Tasks
 -------------------------------------------------------------------------
-	- xx WrOnG caps urls gets redirected to cannon, but also http2/3 push the data for the new url and its deps
+	- xx WrOnG caps urls gets redirected to cannon
 	- xx favicon
 
 - next:
@@ -9,6 +9,7 @@ Tasks
 	- loading message
 	- noscript message
 	- http2 push resources
+		- also push resources on bad caps redirect
 	- logo
 	- robots.txt
 

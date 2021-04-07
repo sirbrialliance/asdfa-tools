@@ -1,65 +1,77 @@
 html {
-  background: blue;
+	background: blue;
 }
 
 * { box-sizing: border-box; }
 
 header {
-  color: white;
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  height: 40px;
-  border-bottom: 1px solid black;
-  background-color: mediumvioletred;
-  padding: 5px;
+	color: white;
+	position: fixed;
+	top: 0; left: 0; right: 0;
+	height: 40px;
+	border-bottom: 1px solid black;
+	background-color: mediumvioletred;
+	padding: 5px;
 
-  h1 {
-    margin: 0; padding: 0;
-    font-size: 20px;
-  }
+	h1 {
+		margin: 0; padding: 0;
+		font-size: 20px;
+	}
 
-  #searchBox {
-    position: absolute;
-    right: 3px; top: 3px;
-  }
+	#searchBox {
+		position: absolute;
+		right: 3px; top: 3px;
+	}
 }
 
 main {
-  position: fixed;
-  top: 40px; right: 0; left: 0; bottom: 0;
-  overflow: auto;
-  background-color: darkblue;
+	position: fixed;
+	top: 40px; right: 0; left: 0; bottom: 0;
+	overflow: auto;
+	background-color: darkblue;
 }
 
 .moduleTile {
-  display: inline-block;
-  border-radius: 20px;
-  width: 150px; height: 90px;
-  border: 1px solid black;
-  box-shadow: black 0 0 4px;
-  color: black;
-  background-color: goldenrod;
-  padding: 6px 10px;
-  margin: 7px;
-  cursor: pointer;
-  overflow: hidden;
-  font-size: 15px;
+	display: inline-block;
+	border-radius: 20px;
+	width: 150px; height: 90px;
+	border: 1px solid black;
+	box-shadow: black 0 0 4px;
+	color: black;
+	background-color: goldenrod;
+	padding: 6px 10px;
+	margin: 7px;
+	overflow: hidden;
+	font-size: 15px;
+	cursor: default;
 
-  h2 {
-    margin: 0;
-    padding: 0;
-    font-size: 19px;
-  }
+	&:hover {
+		box-shadow: white 0 0 4px;
+		border-color: white;
+	}
 
-  &.mdUserAgent {
-    font-family: monospace;
-    font-size: 10px;
-  }
 
-  textarea {
-    width: 100%;
-    height: 53px;
-  }
+	h2 {
+		margin: 0;
+		padding: 0;
+		font-size: 19px;
+	}
+
+	&.mdUserAgent {
+		font-family: monospace;
+		font-size: 10px;
+	}
+
+	textarea {
+		width: 100%;
+		height: 53px;
+	}
+
+}
+
+h1 a, h2 a {
+	text-decoration: inherit;
+	color: inherit;
 }
 
 
