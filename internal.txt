@@ -1,20 +1,10 @@
 -------------------------------------------------------------------------
 Tasks
 -------------------------------------------------------------------------
-	- xx WrOnG caps urls gets redirected to cannon
-	- xx favicon
-	- xx can middle-click module thumbs to open in new tab
-	- xx loading throbber, "Loading it, the page..."
-	- xx <noscript> landing, "Testing complete. Test: Does this browser support JavaScript? Result: It does not."
 
 - next:
-	- get it running with CloudFlare
-		- looks like I need to set up a cert and custom domain name in the gateway
-	- http2 push resources
-
-		- also push resources on bad caps redirect
+	- xx robots.txt
 	- logo
-	- robots.txt
 
 	- midi
 	- touch
@@ -27,6 +17,8 @@ Tasks
 	- notes
 	- speaker test
 	- time
+
+	- credits (convert to module)
 
 
 
@@ -41,9 +33,6 @@ Ideas
 -------------------------------------------------------------------------
 
 - framework/base
-	- add http/2+ server push for required resources
-		- add header "Link: </foo.js>; rel=preload; as=script, </link2...."
-		- as=https://fetch.spec.whatwg.org/#concept-request-destination
 	- design: logo showing asdf a on keybaord to hint origin and help remind
 	- maybe add a "go back" arrow next to the logo when not on the main page
 	- Hit url for non extant module sends 404 but page loaded shows search based on what you tried
@@ -51,10 +40,11 @@ Ideas
 		- License is public domain like if you just grab some module code as an example and use it
 		- Each module has view source button for tsx or resulting (formatted+commented) js.
 	- Load and function as much as possible if Internet is down (and make it clear when in "offline mode" )
-	- serve the original sources so source maps work deployed?
-	- offline manifest
+	- serve the original sources so source maps work deployed
+	- works offline (PWA/manifest.json/background worker)
 	- modules can have alternate names and typing one in the URL takes us to the real module
 	- Firefox double-requests CSS?
+	- sitemap.xml?
 
 
 - modules
@@ -86,8 +76,7 @@ Ideas
 			- any good porfile settings I tweak, or a .zip
 	- Speech api test
 	- Web workers test? Maybe give out a performance number?
-	- Web serial?
-	- Web bluetooth?
+	- Web serial, webusb, Web bluetooth
 	- Other special browser apis?
 	- link to browser spectre tests
 	- New/exotic image formats (jpeg2000, apng, webp, flif, avif, jxl, etc.)

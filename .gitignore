@@ -5,4 +5,4 @@ package-lock.json
 .vscode/
 .tscache/
 .serverless
-server/moduleList.js
+server/contentList.js

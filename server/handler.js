@@ -2,17 +2,11 @@
 
 var fs = require('fs');
 var myEvent = require('./event.js');
-var moduleList = require('./moduleList.js');
+var contentList = require('./contentList.js');
+var moduleList = contentList.modules;
 var moduleListLowercase = moduleList.map(x => x.toLowerCase());
 
-var staticResources = [
-	'main.css',
-	'main.css.map',
-	'main.js',
-	'main.js.map',
-	'favicon.ico',
-	'favicon.svg',
-];
+var staticResources = contentList.webFiles;
 
 var mimeTypes = {
 	"html": "text/html",
@@ -22,6 +16,7 @@ var mimeTypes = {
 	"png": "image/png",
 	"ico": "image/x-icon",
 	"svg": "image/svg+xml",
+	"txt": "text/plain",
 	"*": "application/otect-stream",
 };
 
@@ -111,7 +106,7 @@ module.exports.webResource = async (event) => {
 		var path = (event.rawPath + "").replace(/^\/+/g, "");//strip leading "/"
 		var softerPath = (path + "").replace(/\/+$/g, "");//strip trailing "/" too
 		var idx;
-		// console.log("path " + path);
+		// console.log("path " + path, staticResources);
 
 		// if (path.match(/css/)) await new Promise(r => setTimeout(r, 500));//debug test
 		// if (path.match(/js/)) await new Promise(r => setTimeout(r, 500));//debug test

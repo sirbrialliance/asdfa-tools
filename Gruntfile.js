@@ -1,30 +1,53 @@
 var child_process = require("child_process");
 
+Array.prototype.contains = function(v) { return this.indexOf(v) >= 0; };
 
 module.exports = function(grunt) {
 
 	function buildModuleList() {
-		var items = [];
+		var modules = [];
 
 		grunt.file.recurse('web/modules', (path, root, subdir, filename) => {
 			if (filename.match(/\.tsx$/)) {
 				let name = filename.replace(/\.tsx$/, "");
-				if (name !== "Module") items.push(name);
+				if (name !== "Module") modules.push(name);
 			}
 		});
 
-		grunt.file.write("server/moduleList.js", `//Automatically generated, don't hand-edit.
-module.exports = ${JSON.stringify(items)};
+		grunt.file.write("server/contentList.js", `"user strict";
+//Automatically generated, don't hand-edit.
+module.exports = {
+	modules: ${JSON.stringify(modules)},
+	webFiles: ${JSON.stringify(webFiles({includeBuilt: true}))},
+};
 `);
 	}
 
-	function webFiles(inWebFolder) {
+	/**
+	 * Returns an array of web resource files.
+	 * Pass in a number of string flags to change options:
+	 */
+	function webFiles(options) {
+		options = {...{
+			projectRelative: false,
+			includeBuilt: false,
+		}, ...options};
+
 		var files = grunt.file.expand(['web/**']);
 		files = files.filter(x => !x.match(/\.(less|tsx)$/) && !grunt.file.isDir(x));
-		if (inWebFolder) {
+
+		if (options.includeBuilt) {
+			files.push("web/main.js");
+			files.push("web/main.js.map");
+			files.push("web/main.css");
+			files.push("web/main.css.map");
+		}
+
+		if (!options.projectRelative) {
 			files = files.map(x => x.substr(4)).filter(x => x);
 		}
-		// console.log("files: ", files);
+
+		//console.log("files: ", options, files);
 		return files;
 	}
 
@@ -72,7 +95,7 @@ module.exports = ${JSON.stringify(items)};
 			'build': {
 				expand: true,
 				cwd: 'web',
-				src: webFiles(true),
+				src: webFiles(),
 				dest: 'build/',
 			}
 		},
@@ -85,7 +108,7 @@ module.exports = ${JSON.stringify(items)};
 			},
 			'html': {
 				options: {atBegin: true,},
-				files: webFiles(false),
+				files: webFiles({projectRelative: true}),
 				tasks: ['copy'],
 			},
 			'styles': {
@@ -95,22 +118,22 @@ module.exports = ${JSON.stringify(items)};
 				],
 				tasks: ['less'],
 			},
-			'moduleList': {
+			'contentList': {
 				options: {atBegin: true,},
 				files: [
 					'web/modules/**.tsx',
 				],
-				tasks: ['moduleList'],
+				tasks: ['contentList'],
 			},
 		},
 
 		typeScript: {},
 		typeScriptWatch: {},
 		serverlessLocal: {},
-		moduleList: {},
+		contentList: {},
 
 		concurrent: {
-			'build': ['less', 'copy', ['moduleList', 'typeScript']],
+			'build': ['less', 'copy', ['contentList', 'typeScript']],
 			'watch': {
 				tasks: ['_watch', 'typeScriptWatch', 'serverlessLocal'],
 				options: {
@@ -128,7 +151,7 @@ module.exports = ${JSON.stringify(items)};
 
 	grunt.renameTask('watch', '_watch');
 
-	grunt.registerTask('moduleList', "Build a list of modules", buildModuleList);
+	grunt.registerTask('contentList', "Build a list of modules, files, etc. we have/use.", buildModuleList);
 	grunt.registerTask('typeScript', "Compile TypeScript", getShellTask("tsc", ['--pretty']));
 	grunt.registerTask('typeScriptWatch', "Compile TypeScript, watch changes", getShellTask(
 		"tsc", ["-w", "--preserveWatchOutput", '--pretty']
