@@ -6,6 +6,11 @@ Tasks
 	- xx robots.txt
 	- logo
 
+	- serial
+		- connect
+		- type text, see in console
+		- if connected, confirm user leaving
+		- feature availible test
 	- midi
 	- touch
 	- browser info
@@ -19,6 +24,9 @@ Tasks
 	- time
 
 	- credits (convert to module)
+	- xx hide search box since it's not implemented
+	- first release
+
 
 
 

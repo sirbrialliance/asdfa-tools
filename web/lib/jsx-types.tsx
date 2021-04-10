@@ -38,6 +38,7 @@ export class NodeFactory {
 	style?: string | AnyCSSStyleDeclaration;
 
 	id?: string;
+	title?: string;
 
 	href?: string;
 
@@ -243,6 +244,8 @@ declare global { namespace JSX {
 	type Element = HTMLElement;
 
   interface IntrinsicElements {
+		terminal: NodeFactory;
+
 		a: NodeFactory;
 		abbr: NodeFactory;
 		address: NodeFactory;

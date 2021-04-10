@@ -1,4 +1,5 @@
 import Module from './modules/Module';
+import {jsxText} from 'lib/jsx-runtime';
 
 declare global {
 	interface Window {
@@ -28,11 +29,13 @@ for (let modulePath of modulePaths) {
 document.body.textContent = '';
 
 var main = <main/>;
-document.body.appendChild(main);
-document.body.appendChild(<header>
-	<h1><a href="/">asdfa.net</a></h1>
+var titleHeader: HTMLElement = null;
+var header = <header>
+	{/* will add an h1 with the tile here in a moment */}
 	<input type="text" id="searchBox" placeholder="Filter Modules"/>
-</header>);
+</header>;
+document.body.appendChild(main);
+document.body.appendChild(header);
 
 var originalTitle = document.head.querySelector("title").textContent;
 
@@ -41,6 +44,7 @@ window.addEventListener("popstate", ev => {
 });
 
 var currentModule: Module = null;
+var currentModuleActive = false;
 document.addEventListener("click", ev => {
 	if (ev.defaultPrevented) return;
 
@@ -71,33 +75,54 @@ function navTo(url: string) {
 
 function updatePage() {
 	main.textContent = '';
-	currentModule?.closed();
-	currentModule = null;
+	main.className = '';
+
+	if (currentModuleActive) currentModule?.closed();
+	currentModule = null; currentModuleActive = false;
+
 	var page = document.location.pathname.substr(1);
 
 	if (!page) {
 		renderIndex();
-		return;
+	} else {
+		var idx = moduleIds.indexOf(page);
+		if (idx < 0) {
+			renderSearch(page);
+		} else {
+			currentModule = modules[idx];
+			var supported = currentModule.isSupported();
+
+			if (supported === true) {
+				renderModule(currentModule);
+				currentModule.opened();
+				currentModuleActive = true;
+			} else {
+				renderUnsupported(supported);
+			}
+		}
 	}
 
-	var idx = moduleIds.indexOf(page);
-	if (idx < 0) {
-		renderSearch(page);
-	} else {
-		currentModule = modules[idx];
-		renderModule(currentModule);
-		currentModule.opened();
+	titleHeader?.remove();
+	titleHeader = <h1><a href="/">asdfa.net</a></h1>;
+	if (currentModule) {
+		titleHeader.appendChild(jsxText(" » "));
+		titleHeader.appendChild(<a href={"/" + currentModule.getId()}>{currentModule.getName()}</a>);
 	}
+	header.prepend(titleHeader);
 }
 
 function renderIndex() {
 	document.title = originalTitle;
 
+	main.className = "indexPage";
+
 	function renderThumb(module: Module) {
 		var id = module.getId();
+		var supported = module.isSupported() === true;
 		return (
 			<div
-				class={"moduleTile md" + id}
+				class={"moduleTile m_" + id + (supported ? "" : " unsupported")}
+				title={supported ? module.getName() : "Not supported on this device+browser"}
 				onClick={ev => {
 					if (ev.defaultPrevented) return;
 					ev.preventDefault();
@@ -117,13 +142,35 @@ function renderIndex() {
 
 function renderModule(module: Module) {
 	document.title = module.getName();
-	main.appendChild(<div class={"modulePage md" + module.getId()}>
-		<h2>{module.getName()}</h2>
-		{module.render()}
-	</div>);
+	main.className = "modulePage m_" + module.getId();
+
+	var el = module.render();
+	if (Array.isArray(el)) {
+		for (let e of el) main.appendChild(e);
+	} else {
+		main.appendChild(el);
+	}
+}
+
+function renderUnsupported(supported: boolean | HTMLElement | string) {
+	main.appendChild(<h2>Unsupported - {currentModule.getName()}</h2>);
+	main.className = "unsupported";
+
+	if (typeof supported === "boolean") {
+		main.appendChild(<span>This is not supported in your browser.</span>)
+	} else if (typeof supported === "string") {
+		var parts = supported.split('=');
+		main.appendChild(<span>
+			Using this requires a browser with support for <a href={"https://caniuse.com/" + parts[1]}>{parts[0]}</a>.
+		</span>);
+	} else {
+		main.appendChild(supported);
+	}
+
 }
 
 function renderSearch(page: string) {
+	//todo: search feature
 	document.title = "Not Found";
 	main.appendChild(<h2>Not found (todo: search)</h2>);
 }

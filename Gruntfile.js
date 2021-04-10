@@ -115,6 +115,7 @@ module.exports = {
 				options: {atBegin: true,},
 				files: [
 					'web/**.less',
+					'web/**/**.less',
 				],
 				tasks: ['less'],
 			},

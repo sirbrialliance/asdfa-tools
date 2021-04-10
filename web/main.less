@@ -20,6 +20,8 @@ header {
 	}
 
 	#searchBox {
+		display: none;//not implemented
+
 		position: absolute;
 		right: 3px; top: 3px;
 	}
@@ -29,6 +31,18 @@ main {
 	position: fixed;
 	top: 40px; right: 0; left: 0; bottom: 0;
 	overflow: auto;
+	background: #e1e1ff;
+	padding: 8px;
+	color: black;
+
+	&.indexPage {
+		background: transparent;
+		margin: 0;
+	}
+
+	&.unsupported {
+		background: #ffe1e1;
+	}
 }
 
 .moduleTile {
@@ -50,6 +64,9 @@ main {
 		border-color: white;
 	}
 
+	&.unsupported {
+		opacity: .5;
+	}
 
 	h2 {
 		margin: 0;
@@ -57,7 +74,7 @@ main {
 		font-size: 19px;
 	}
 
-	&.mdUserAgent {
+	&.m_BrowserInfo span {
 		font-family: monospace;
 		font-size: 10px;
 	}
@@ -67,6 +84,7 @@ main {
 		height: 53px;
 	}
 
+
 }
 
 h1 a, h2 a {
@@ -74,7 +92,15 @@ h1 a, h2 a {
 	color: inherit;
 }
 
+terminal {
+	display: block;
+	white-space: pre;
+	background: black;
+	color: #EEE;
+	font-size: 16px;
+	font-family: "Monospace", "Consolas", "Menlo-Regular", monospace;
+	overflow: auto;
+}
 
 
-
-
+@import "modules/SerialTerminal.less";

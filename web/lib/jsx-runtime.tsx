@@ -4,6 +4,9 @@
 
 import {NodeFactory, EventHandler} from "./jsx-types";
 
+export function jsxText(text: string) {
+	return document.createTextNode(text);
+}
 
 export function jsx(nodeType: string, props: NodeFactory): HTMLElement {
 	return jsxs(nodeType, props);
