@@ -7,11 +7,16 @@ Tasks
 	- logo
 
 	- serial
-		- connect
-		- type text, see in console
-		- if connected, confirm user leaving
+		- xx connect
+		- xx type text, see in console
 		- xx feature availible test
-		- push erros to user (e.g. can't connect, mistyped options object)
+		- xx push error to user (e.g. can't connect, mistyped options object)
+
+		- if connected, confirm user leaving
+		- first message from port is lost?
+		- contenteditable gives funky text, things like <div><br></div> instead of "\n" causes issues
+			- hit enter several times when blank, won't send
+			- sending weird 0xC2 chars
 	- midi
 	- touch
 	- browser info

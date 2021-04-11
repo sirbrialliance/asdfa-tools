@@ -18,7 +18,7 @@ export default abstract class Module {
 	render(): HTMLElement | HTMLElement[] { return this.renderThumb(); }
 	/**
 	 * Called when we try to leave an opened module (by internal link or page unload).
-	 * Return true if that's fine, a message for the user if they should conform leaving.
+	 * Return true if that's fine, a message for the user if they should confirm leaving.
 	 * Note that the message likely won't be seen by the user if it's not internal navigation.
 	 */
 	mayClose(): boolean | string { return true; }

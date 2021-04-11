@@ -1,5 +1,6 @@
 import Module from './modules/Module';
 import {jsxText} from 'lib/jsx-runtime';
+import * as util from './lib/util';
 
 declare global {
 	interface Window {
@@ -27,6 +28,7 @@ for (let modulePath of modulePaths) {
 // console.log(modules);
 
 document.body.textContent = '';
+util.init();
 
 var main = <main/>;
 var titleHeader: HTMLElement = null;

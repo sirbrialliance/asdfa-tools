@@ -102,13 +102,22 @@ terminal {
 	font-size: 16px;
 	font-family: "Monospace", "Consolas", "Menlo-Regular", monospace;
 	overflow: auto;
+	line-height: 1.1em;
 
 	span {
 		display: inline-block;
 
+		&.input {
+			display: block;
+			color: #BB0;
+			caret-color: #BB0;
+			padding: 4px;
+			margin: 4px;
+		}
+
 		&.inbound { color: #099; }
 		&.inboundBinary { background: #099; color: black; } //padding: 0 3px; } //background: #70B
-		&.outbound { color: #BB0; }
+		&.outbound { color: #BB0; display: block; }
 
 		&.system { display: block; color: white; font-weight: bold; }
 		//&.deviceLog {}

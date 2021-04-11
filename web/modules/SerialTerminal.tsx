@@ -8,6 +8,7 @@ export default class SerialTerminal extends Module {
 	ports: SerialPort[] = [];
 	trayEl: HTMLElement;
 	terminalEl: HTMLElement;
+	_inputEl: HTMLElement;
 	connected = false;
 	_reader: ReadableStreamDefaultReader;
 	_writer: WritableStreamDefaultWriter;
@@ -54,7 +55,9 @@ export default class SerialTerminal extends Module {
 
 	render() {
 		this.trayEl = <div class="tray"></div>;
-		this.terminalEl = <terminal></terminal>;
+		this.terminalEl = <terminal onClick={ev => {
+			if (this._inputEl) this._inputEl.focus();
+		}}></terminal>;
 		this.renderTray();
 		this.log("[Not Connected]");
 
@@ -143,8 +146,13 @@ export default class SerialTerminal extends Module {
 			pushSection();
 		} else {
 			//connected
+			items.push(<h3>{"Connected to " + this.getPortName(this.port)}</h3>);
+			items.push(<button onClick={ev => {
+				this.errorCatch(() => this.disconnect());
+			}}>Disconnect</button>);
 		}
 
+		pushSection();
 	}
 
 	async askForNewDevice() {
@@ -172,7 +180,10 @@ export default class SerialTerminal extends Module {
 		this._reader = this.port.readable.getReader();
 		this._writer = this.port.writable.getWriter();
 		let readerTask = async () => {
-			let forcedTextChars = ["\n", "\t"];
+			let forcedTextChars = [
+				"\n".charCodeAt(0),
+				"\t".charCodeAt(0),
+			];
 
 			while (true) {
 				let {value, done} = await this._reader.read();
@@ -182,6 +193,7 @@ export default class SerialTerminal extends Module {
 				let outBuf = "";
 				let textMode = true;
 				let flush = () => {
+					if (!outBuf) return;
 					this.log(outBuf, textMode ? "inbound" : "inboundBinary");
 					outBuf = "";
 				};
@@ -189,8 +201,7 @@ export default class SerialTerminal extends Module {
 				for (let c of value) {
 					let isText = (c >= 32 && c <= 126) || forcedTextChars.indexOf(c) >= 0;
 
-					if (isText != textMode && outBuf) {
-						//flush buffer
+					if (isText != textMode) {
 						flush();
 						textMode = isText;
 					}
@@ -205,13 +216,21 @@ export default class SerialTerminal extends Module {
 				flush();
 			}
 
-			this._reader.releaseLock();
+			try { this._reader.releaseLock(); } catch (ex) {}
 			this.log("Close reader.");
 		};
 		this._readerTask = readerTask();
 		this.connected = true;
 
-		await this._writer.write(new TextEncoder().encode("Foo bar baz"));
+		this.renderTray();
+		this.setInputEnabled(true);
+
+		// await this._writer.write(new TextEncoder().encode("Foo bar baz"));
+	}
+
+	async send(message: string) {
+		await this._writer.write(new TextEncoder().encode(message));
+		this.log(message, "outbound");
 	}
 
 	/**
@@ -220,9 +239,11 @@ export default class SerialTerminal extends Module {
 	async disconnect() {
 		if (!this.connected) return;
 
+		this.setInputEnabled(false);
+
 		this.log("Disconnecting from " + this.getPortName(this.port) + "...");
 
-		this._writer.releaseLock();
+		try { this._writer.releaseLock(); } catch (ex) {}
 		this._reader.cancel();
 		await this._readerTask;
 
@@ -230,12 +251,21 @@ export default class SerialTerminal extends Module {
 		this.log("Disconnected.");
 
 		this.connected = false;
+		this.renderTray();
 	}
 
 	clearLog() { this.terminalEl.textContent = ''; }
 
 	log(msg: string, className: string = "system") {
-		this.terminalEl.appendChild(<span class={className}>{msg}</span>);
+		let msgEl = <span class={className}>{msg}</span>;
+		if (this._inputEl) {
+			this.terminalEl.insertBefore(msgEl, this._inputEl);
+		} else {
+			this.terminalEl.appendChild(msgEl);
+		}
+
+		//scroll to bottom (todo: only do that if already scrolled to bottom)
+		this.terminalEl.scrollTo(0, this.terminalEl.scrollHeight);
 	}
 
 	errorCatch(action: () => Promise<any>) {
@@ -243,10 +273,40 @@ export default class SerialTerminal extends Module {
 			action().catch(err => {
 				this.log(err, "error");
 				console.error(err);
-			})
+			});
 		} catch (ex) {
 			this.log(ex, "error");
 			console.error(ex);
+		}
+	}
+
+	setInputEnabled(enabled: boolean) {
+		if (enabled) {
+			if (!this._inputEl) {
+				this._inputEl = <span class="input" contenteditable="true" onInput={_ev => {
+					let ev = _ev as InputEvent;
+
+					let hitEnter = ev.inputType === "insertLineBreak";
+					//alt
+					if (ev.data === null && ev.inputType === "insertText") hitEnter = true;
+
+					//console.log("type ", ev.inputType, ev)
+
+					if (hitEnter && !util.shiftKeyDown) {
+						//typed "\n" without shift held
+						let text = this._inputEl.textContent;
+						this.errorCatch(() => this.send(text));
+						this._inputEl.textContent = '';
+					}
+				}}/>;
+				this.terminalEl.appendChild(this._inputEl);
+			}
+			this._inputEl.focus();
+		} else {
+			if (this._inputEl) {
+				this._inputEl.remove();
+				this._inputEl = null;
+			}
 		}
 	}
 
