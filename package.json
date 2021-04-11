@@ -5,6 +5,7 @@
   "author": "sirbrialliance",
   "license": "MIT",
   "devDependencies": {
+    "@types/dom-serial": "^1.0.0",
     "grunt": "^1.3.0",
     "grunt-concurrent": "^3.0.0",
     "grunt-contrib-clean": "^2.0.0",

@@ -8,6 +8,21 @@ main.m_SerialTerminal {
 	&>div.tray {
 		position: absolute;
 		right: 0; left: 0; bottom: 0; height: @tray-height;
+		overflow: auto;
+		display: flex;
+
+		section {
+			padding: 8px;
+			border: 1px solid black;
+			border-top: none; border-bottom: none;
+
+			textarea {
+				display: block;
+				width: 100%;
+				min-width: 203px;
+				height: calc(@tray-height - 62px);
+			}
+		}
 	}
 
 

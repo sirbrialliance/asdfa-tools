@@ -10,7 +10,8 @@ Tasks
 		- connect
 		- type text, see in console
 		- if connected, confirm user leaving
-		- feature availible test
+		- xx feature availible test
+		- push erros to user (e.g. can't connect, mistyped options object)
 	- midi
 	- touch
 	- browser info
@@ -53,6 +54,7 @@ Ideas
 	- modules can have alternate names and typing one in the URL takes us to the real module
 	- Firefox double-requests CSS?
 	- sitemap.xml?
+	- lookd/works decenty on mobile
 
 
 - modules
@@ -108,5 +110,11 @@ Ideas
 		- https://gf.dev/http3-test
 	- enter specific date/time, show countdown (and the url can be re-used/shared)
 	- js minifier/deep minifier
+
+	- Serial:
+		- add option to choose text encoding for send/recv (including hex and base64)
+		- upload file, save recv'd data to file
+		- pick line ending when you hit enter (\r, \n, \r\n, none)
+		- webusb fallback?
 
 

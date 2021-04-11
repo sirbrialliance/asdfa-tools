@@ -5,6 +5,8 @@ html {
 
 * { box-sizing: border-box; }
 
+h1, h2, h3, h4, h5, h6 { margin: 0; }
+
 header {
 	color: white;
 	position: fixed;
@@ -94,12 +96,25 @@ h1 a, h2 a {
 
 terminal {
 	display: block;
-	white-space: pre;
+	white-space: pre-line;
 	background: black;
-	color: #EEE;
+	color: #CCC;
 	font-size: 16px;
 	font-family: "Monospace", "Consolas", "Menlo-Regular", monospace;
 	overflow: auto;
+
+	span {
+		display: inline-block;
+
+		&.inbound { color: #099; }
+		&.inboundBinary { background: #099; color: black; } //padding: 0 3px; } //background: #70B
+		&.outbound { color: #BB0; }
+
+		&.system { display: block; color: white; font-weight: bold; }
+		//&.deviceLog {}
+		&.error { display: block; color: red; font-weight: bold; }
+
+	}
 }
 
 

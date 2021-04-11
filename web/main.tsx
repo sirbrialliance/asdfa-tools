@@ -122,7 +122,7 @@ function renderIndex() {
 		return (
 			<div
 				class={"moduleTile m_" + id + (supported ? "" : " unsupported")}
-				title={supported ? module.getName() : "Not supported on this device+browser"}
+				title={supported ? module.getName() : "Not supported on this device/browser"}
 				onClick={ev => {
 					if (ev.defaultPrevented) return;
 					ev.preventDefault();
@@ -143,6 +143,9 @@ function renderIndex() {
 function renderModule(module: Module) {
 	document.title = module.getName();
 	main.className = "modulePage m_" + module.getId();
+
+	//export current module for easy debugging
+	(window as any).__currentModule = currentModule;
 
 	var el = module.render();
 	if (Array.isArray(el)) {

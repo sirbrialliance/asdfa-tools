@@ -42,7 +42,9 @@ export class NodeFactory {
 
 	href?: string;
 
+	name?: string;
 	type?: string;
+	value?: string;
 	placeholder?: string;
 
 	//-------- events ---------
