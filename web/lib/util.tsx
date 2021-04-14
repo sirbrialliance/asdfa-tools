@@ -9,14 +9,14 @@ export function toHex2(val: number) {
 	return ('0' + val.toString(16)).substr(-2).toUpperCase();
 }
 
-export var shiftKeyDown = false;
+// export var shiftKeyDown = false;
 
 export function init() {
-	document.addEventListener("keydown", ev => {
-		// console.log(ev);
-		if (ev.key === "Shift") shiftKeyDown = true;
-	});
-	document.addEventListener("keyup", ev => {
-		if (ev.key === "Shift") shiftKeyDown = false;
-	});
+	// document.addEventListener("keydown", ev => {
+	// 	// console.log(ev);
+	// 	if (ev.key === "Shift") shiftKeyDown = true;
+	// });
+	// document.addEventListener("keyup", ev => {
+	// 	if (ev.key === "Shift") shiftKeyDown = false;
+	// });
 }

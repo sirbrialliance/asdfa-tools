@@ -3,6 +3,9 @@ export default abstract class Module {
 	abstract getName(): string;
 	abstract renderThumb(): HTMLElement;
 
+	__beforeUnload: (ev: Event) => void;
+	unloadConcern: string = null;
+
 	/**
 	 * Called before doing the usual render/open of the module.
 	 * If this returns true, the feature is supported and things work normally.
@@ -17,11 +20,23 @@ export default abstract class Module {
 	opened(): void {}
 	render(): HTMLElement | HTMLElement[] { return this.renderThumb(); }
 	/**
-	 * Called when we try to leave an opened module (by internal link or page unload).
-	 * Return true if that's fine, a message for the user if they should confirm leaving.
-	 * Note that the message likely won't be seen by the user if it's not internal navigation.
+	 * Modules should call this when they start or stop a state that should prompt the user before leaving.
+	 * Call with a string to set a reason why the user would want to confirm leaving, set to null/falsy
+	 * if there's no longer a concern.
 	 */
-	mayClose(): boolean | string { return true; }
+	setUnloadConcern(concern: string) {
+		this.unloadConcern = concern;
+		if (concern) {
+			this.__beforeUnload = this.__beforeUnload || (ev => {
+				ev.preventDefault();
+				(ev.returnValue as any) = this.unloadConcern;
+			});
+			window.addEventListener("beforeunload", this.__beforeUnload);
+		} else {
+			window.removeEventListener("beforeunload", this.__beforeUnload);
+		}
+	}
+
 	closed(): void {}
 
 	getId(): string { return this.constructor.name; }

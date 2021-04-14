@@ -8,7 +8,7 @@ export default class SerialTerminal extends Module {
 	ports: SerialPort[] = [];
 	trayEl: HTMLElement;
 	terminalEl: HTMLElement;
-	_inputEl: HTMLElement;
+	_inputEl: HTMLInputElement;
 	connected = false;
 	_reader: ReadableStreamDefaultReader;
 	_writer: WritableStreamDefaultWriter;
@@ -34,6 +34,7 @@ export default class SerialTerminal extends Module {
 		navigator.serial.getPorts().then(ports => {
 			console.log("existing ports:", ports)
 			this.ports = ports;
+			if (ports.length > 0) this.port = ports[0];
 			this.renderTray();
 		}, err => console.error(err));
 		navigator.serial.addEventListener("connect", ev => {
@@ -42,11 +43,6 @@ export default class SerialTerminal extends Module {
 		navigator.serial.addEventListener("disconnect", ev => {
 			console.log("disconnect ev", ev);
 		});
-	}
-
-	mayClose() {
-		if (this.connected) return "Are you sure? We're connected to a serial port.";
-		else return true;
 	}
 
 	closed() {
@@ -170,62 +166,68 @@ export default class SerialTerminal extends Module {
 	async connect(options: any) {
 		await this.disconnect();
 
-		// this.clearLog();
-		this.log("Connecting to " + this.getPortName(this.port));
+		try {
+			this.setUnloadConcern("Are you sure? We're connected to a serial port.");
+			// this.clearLog();
+			this.log("Connecting to " + this.getPortName(this.port));
 
-		await this.port.open(options);
+			await this.port.open(options);
+		} catch (ex) {
+			this.setUnloadConcern(null);
+			throw ex;
+		}
 
 		this.log("Port opened.");
 
 		this._reader = this.port.readable.getReader();
 		this._writer = this.port.writable.getWriter();
-		let readerTask = async () => {
-			let forcedTextChars = [
-				"\n".charCodeAt(0),
-				"\t".charCodeAt(0),
-			];
-
-			while (true) {
-				let {value, done} = await this._reader.read();
-				if (done) break;
-
-				//convert binary to text, but only printable ASCII characters.
-				let outBuf = "";
-				let textMode = true;
-				let flush = () => {
-					if (!outBuf) return;
-					this.log(outBuf, textMode ? "inbound" : "inboundBinary");
-					outBuf = "";
-				};
-
-				for (let c of value) {
-					let isText = (c >= 32 && c <= 126) || forcedTextChars.indexOf(c) >= 0;
-
-					if (isText != textMode) {
-						flush();
-						textMode = isText;
-					}
-
-					if (isText) outBuf += String.fromCharCode(c);
-					else {
-						if (outBuf) outBuf += " ";
-						outBuf += util.toHex2(c);
-					}
-				}
-
-				flush();
-			}
-
-			try { this._reader.releaseLock(); } catch (ex) {}
-			this.log("Close reader.");
-		};
-		this._readerTask = readerTask();
+		this._readerTask = this._readerTaskFn();
 		this.connected = true;
 
 		this.renderTray();
 		this.setInputEnabled(true);
+	}
 
-		// await this._writer.write(new TextEncoder().encode("Foo bar baz"));
+	async _readerTaskFn() {
+		let forcedTextChars = [
+			"\n".charCodeAt(0),
+			"\t".charCodeAt(0),
+		];
+
+		while (true) {
+			let {value, done} = await this._reader.read();
+			if (done) break;
+			//console.log(value)
+
+			//convert the binary data to printable ASCII and hex
+			let outBuf = "";
+			let textMode = true;
+			let flush = () => {
+				if (!outBuf) return;
+				this.log(outBuf, textMode ? "inbound" : "inboundBinary");
+				outBuf = "";
+			};
+
+			for (let c of value) {
+				let isText = (c >= 32 && c <= 126) || forcedTextChars.indexOf(c) >= 0;
+
+				if (isText != textMode) {
+					flush();
+					textMode = isText;
+				}
+
+				if (isText) outBuf += String.fromCharCode(c);
+				else {
+					if (outBuf) outBuf += " ";
+					outBuf += util.toHex2(c);
+				}
+			}
+
+			flush();
+		}
+
+		try { this._reader.releaseLock(); } catch (ex) {}
+		this.log("Close reader.");
 	}
 
 	async send(message: string) {
@@ -249,6 +251,7 @@ export default class SerialTerminal extends Module {
 
 		await (this.port as any).close();
 		this.log("Disconnected.");
+		this.setUnloadConcern(null);
 
 		this.connected = false;
 		this.renderTray();
@@ -283,22 +286,14 @@ export default class SerialTerminal extends Module {
 	setInputEnabled(enabled: boolean) {
 		if (enabled) {
 			if (!this._inputEl) {
-				this._inputEl = <span class="input" contenteditable="true" onInput={_ev => {
-					let ev = _ev as InputEvent;
-
-					let hitEnter = ev.inputType === "insertLineBreak";
-					//alt
-					if (ev.data === null && ev.inputType === "insertText") hitEnter = true;
-
-					//console.log("type ", ev.inputType, ev)
-
-					if (hitEnter && !util.shiftKeyDown) {
-						//typed "\n" without shift held
-						let text = this._inputEl.textContent;
+				this._inputEl = <textarea class="input" onKeyUp={_ev => {
+					let ev = _ev as KeyboardEvent;
+					if (ev.key === "Enter" && !ev.shiftKey) {
+						let text = this._inputEl.value;
 						this.errorCatch(() => this.send(text));
-						this._inputEl.textContent = '';
+						this._inputEl.value = '';
 					}
-				}}/>;
+				}}/> as HTMLInputElement;
 				this.terminalEl.appendChild(this._inputEl);
 			}
 			this._inputEl.focus();

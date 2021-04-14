@@ -3,7 +3,6 @@ Tasks
 -------------------------------------------------------------------------
 
 - next:
-	- xx robots.txt
 	- logo
 
 	- serial
@@ -11,12 +10,10 @@ Tasks
 		- xx type text, see in console
 		- xx feature availible test
 		- xx push error to user (e.g. can't connect, mistyped options object)
+		- xx contenteditable gives funky text, things like <div><br></div> instead of "\n" causes issues
+		- zz first message from port is lost? - looks like garbage/old data from before port reset
+		- xx if connected, confirm user leaving
 
-		- if connected, confirm user leaving
-		- first message from port is lost?
-		- contenteditable gives funky text, things like <div><br></div> instead of "\n" causes issues
-			- hit enter several times when blank, won't send
-			- sending weird 0xC2 chars
 	- midi
 	- touch
 	- browser info
@@ -79,7 +76,13 @@ Ideas
 		- Latency to assorted targets, dns lookup latency
 			- (like to every amazon, google cloud, and Azur edatacenter)
 		- (and use metrics to get page load times/etc)
-		- bandwidth+latency test (open a handful of connections to local CloudFlare node running web workers, graph results and measure latency as you go, full duplex)
+		- latency test (open a handful of connections to local CloudFlare node running web workers, graph
+		results and measure latency as you go, full duplex)
+		- max packet size
+		- bandwidth
+			- burst a pile of UDP packets at different rates and track packet loss
+			- how to serve that doesn't have notable cost?
+				- https://www.measurementlab.net/develop/ ?
 	- jot down notes, saved in browser, can export/import
 		- bonus: option to save data by unique, random user key, keep changes on server for a week, other browsers with same key update their notes from sever ("No expectation of privacy", liability terms)
 		- bonus: log into an oauth, like Google, and we'll save the data on their server
@@ -101,6 +104,9 @@ Ideas
 	- Random number, lines shuffle, using rand() with link to random.org
 	- time.is, but without ads
 		 - could we use time.cloudflare.com and CloudFlare workers?
+			 - doesn't look like it for UDP (NTP)
+			 - maybe spin up a t5g.nano/lightsail to do time sync, have it aggressively follow a stratum 0 server. (can also use for bandwidth, packet loss tests)
+			 	- then have it source NTP packet data, but send it to the browser over WebRTC
 	- Tar command line builder (and xkcd joke)
 	- file hash calculation (drag and drop, automatically states if hashes match (or if they are exactly binary equal), or better yet, if the aren't equal calculate a number of hashes and warn about any collisions, or if just doing sums warn about slimiar not not exact hashes (esp. if more than 1 start or end chars match))
 	- quick lookup for port numbers, mime-types
@@ -115,6 +121,8 @@ Ideas
 		- https://gf.dev/http3-test
 	- enter specific date/time, show countdown (and the url can be re-used/shared)
 	- js minifier/deep minifier
+	- a certain URL that you use curl {url} | bash to run performance testing (sysbench, etc) on a USB-booted Linux system
+	- Display tests: links to testufo, lagom.nl, rtings.com
 
 	- Serial:
 		- add option to choose text encoding for send/recv (including hex and base64)

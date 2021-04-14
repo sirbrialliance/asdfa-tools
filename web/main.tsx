@@ -42,6 +42,11 @@ document.body.appendChild(header);
 var originalTitle = document.head.querySelector("title").textContent;
 
 window.addEventListener("popstate", ev => {
+	if (!askMayLeave()) {
+		ev.preventDefault();
+		return;
+	}
+
 	updatePage();
 });
 
@@ -58,7 +63,10 @@ document.addEventListener("click", ev => {
 
 	if (link.href.startsWith(document.location.origin)) {
 		//local link:
-		ev.preventDefault();
+		ev.preventDefault();//don't use usual nav, we don't need to reload the page
+
+		if (!askMayLeave()) return;//maybe don't leave
+
 		navTo(link.href.substring(document.location.origin.length + 1));
 	} else {
 		//external link, don't preventDefault.
@@ -66,6 +74,18 @@ document.addEventListener("click", ev => {
 }, true);
 
 updatePage();
+
+/**
+ * If our current module wants us to confirm leaving, asks. Returns true if there's no such concern or
+ * the user confirmed. False if we should not leave.
+ */
+function askMayLeave() {
+	if (currentModule && currentModule.unloadConcern) {
+		return confirm(currentModule.unloadConcern + "\nLeave anyway?");
+	} else {
+		return true;
+	}
+}
 
 
 /** Goes the to given URL (without a leading /) on our site as if (or because) the user clicked it. */
