@@ -5,16 +5,11 @@ Tasks
 - next:
 	- logo
 
-	- serial
-		- xx connect
-		- xx type text, see in console
-		- xx feature availible test
-		- xx push error to user (e.g. can't connect, mistyped options object)
-		- xx contenteditable gives funky text, things like <div><br></div> instead of "\n" causes issues
-		- zz first message from port is lost? - looks like garbage/old data from before port reset
-		- xx if connected, confirm user leaving
-
 	- midi
+		- toggle items on/off
+		- option to capture sysex, remember
+		- refactor <terminal> to a class
+		- global error handler shows any error to user
 	- touch
 	- browser info
 		- IP, user agent, local ip, server ip, etc.
@@ -84,6 +79,7 @@ Ideas
 			- how to serve that doesn't have notable cost?
 				- https://www.measurementlab.net/develop/ ?
 	- jot down notes, saved in browser, can export/import
+		- update when changed in another tab
 		- bonus: option to save data by unique, random user key, keep changes on server for a week, other browsers with same key update their notes from sever ("No expectation of privacy", liability terms)
 		- bonus: log into an oauth, like Google, and we'll save the data on their server
 	- maybe have links to repl.it
@@ -123,6 +119,7 @@ Ideas
 	- js minifier/deep minifier
 	- a certain URL that you use curl {url} | bash to run performance testing (sysbench, etc) on a USB-booted Linux system
 	- Display tests: links to testufo, lagom.nl, rtings.com
+	- Encding tool: encode/decode: URL, HTML chars, base64, rot13, binary ("1010" => ASCII), etc.
 
 	- Serial:
 		- add option to choose text encoding for send/recv (including hex and base64)

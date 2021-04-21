@@ -4,6 +4,8 @@ A set of browser-based and browser tests written for running on asdfa.net, such 
 
 ## Project Goals
 
+> What can we find out, test, or verify, from an ordinary webpage?
+
 Ever want see if your touchscreen is working right, if your camera/microphone work, or if your MIDI device is working right? All these tasks and more can be done from within a modern browser. asdfa-tools targets having a bunch of these such utilities that are quick and easy to use.
 
 - All useful basic tests we can run from a web browser.

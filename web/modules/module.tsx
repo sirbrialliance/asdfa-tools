@@ -16,7 +16,7 @@ export default abstract class Module {
 	 */
 	isSupported(): boolean | HTMLElement | string { return true;}
 
-	/** The page for the module has been opened, called after render(). */
+	/** The page for the module has been opened. Called after render(). */
 	opened(): void {}
 	render(): HTMLElement | HTMLElement[] { return this.renderThumb(); }
 	/**

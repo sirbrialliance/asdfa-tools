@@ -90,7 +90,7 @@ function askMayLeave() {
 
 /** Goes the to given URL (without a leading /) on our site as if (or because) the user clicked it. */
 function navTo(url: string) {
-	console.log("Nav to", url);
+	//console.log("Nav to", url);
 	history.pushState(null, "", "/" + url);
 	updatePage();
 }
