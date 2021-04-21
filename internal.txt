@@ -27,7 +27,8 @@ Tasks
 
 
 
-
+- issues
+	- On a certain tablet, after I refresh it loads AND shows the loading throbber
 
 
 - credits/licenses
@@ -105,6 +106,8 @@ Ideas
 			 	- then have it source NTP packet data, but send it to the browser over WebRTC
 	- Tar command line builder (and xkcd joke)
 	- file hash calculation (drag and drop, automatically states if hashes match (or if they are exactly binary equal), or better yet, if the aren't equal calculate a number of hashes and warn about any collisions, or if just doing sums warn about slimiar not not exact hashes (esp. if more than 1 start or end chars match))
+	- WebRTC file transfer (server only helps the connection get started, files are 100% P2P between open browser windows, refuse to proxy packets through server if clients can't directly connect)
+		- wonder if we can do this with Lambda functions and no data storage
 	- quick lookup for port numbers, mime-types
 	- quick search box that starts focused, type a few letters of the module you want to interact, hit enter
 	- load a remote site (as server), render image or pdf, show load timings, link to load speed sites, pick a place to request from?, inject cookies or headers?
@@ -120,6 +123,7 @@ Ideas
 	- a certain URL that you use curl {url} | bash to run performance testing (sysbench, etc) on a USB-booted Linux system
 	- Display tests: links to testufo, lagom.nl, rtings.com
 	- Encding tool: encode/decode: URL, HTML chars, base64, rot13, binary ("1010" => ASCII), etc.
+	- image crunching (like tinypng, but everything is done client-side) and conversion (also client-side, change image formats, including to newer web formats)
 
 	- Serial:
 		- add option to choose text encoding for send/recv (including hex and base64)

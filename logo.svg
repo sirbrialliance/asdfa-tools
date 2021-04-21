@@ -1,0 +1,642 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg2"
+   sodipodi:docname="logo.svg"
+   viewBox="0 0 1021.4 368.71"
+   version="1.1"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
+  <defs
+     id="defs4">
+    <linearGradient
+       id="linearGradient5099"
+       y2="282.92999"
+       gradientUnits="userSpaceOnUse"
+       x2="196.27"
+       gradientTransform="translate(-60.707,-83.207)"
+       y1="322.82999"
+       x1="195.06"
+       inkscape:collect="always">
+      <stop
+         id="stop3829-4-0-0"
+         style="stop-color:#666666"
+         offset="0" />
+      <stop
+         id="stop3831-0-2-6"
+         style="stop-color:#666666;stop-opacity:0"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       y2="282.92999"
+       x2="196.27"
+       y1="322.82999"
+       x1="195.06"
+       gradientTransform="translate(-60.707,-83.207)"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient5522"
+       xlink:href="#linearGradient5099"
+       inkscape:collect="always" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5099"
+       id="linearGradient5820"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-60.707,-83.207)"
+       x1="195.06"
+       y1="322.82999"
+       x2="196.27"
+       y2="282.92999" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5099"
+       id="linearGradient5822"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-60.707,-83.207)"
+       x1="195.06"
+       y1="322.82999"
+       x2="196.27"
+       y2="282.92999" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5099"
+       id="linearGradient5824"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-113.51989,-126.40638)"
+       x1="195.06"
+       y1="322.82999"
+       x2="196.27"
+       y2="282.92999" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5099"
+       id="linearGradient5826"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-60.707,-83.207)"
+       x1="195.06"
+       y1="322.82999"
+       x2="196.27"
+       y2="282.92999" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5099"
+       id="linearGradient5828"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-60.707,-83.207)"
+       x1="195.06"
+       y1="322.82999"
+       x2="196.27"
+       y2="282.92999" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5099"
+       id="linearGradient5830"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-60.707,-83.207)"
+       x1="195.06"
+       y1="322.82999"
+       x2="196.27"
+       y2="282.92999" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5099"
+       id="linearGradient5832"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-60.707,-83.207)"
+       x1="195.06"
+       y1="322.82999"
+       x2="196.27"
+       y2="282.92999" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5099"
+       id="linearGradient5834"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-60.707,-83.207)"
+       x1="195.06"
+       y1="322.82999"
+       x2="196.27"
+       y2="282.92999" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5099"
+       id="linearGradient5836"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-60.707,-83.207)"
+       x1="195.06"
+       y1="322.82999"
+       x2="196.27"
+       y2="282.92999" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5099"
+       id="linearGradient5838"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-60.707,-83.207)"
+       x1="195.06"
+       y1="322.82999"
+       x2="196.27"
+       y2="282.92999" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5099"
+       id="linearGradient5842"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-60.707,-83.207)"
+       x1="195.06"
+       y1="322.82999"
+       x2="196.27"
+       y2="282.92999" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5099"
+       id="linearGradient5844"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-60.707,-83.207)"
+       x1="195.06"
+       y1="322.82999"
+       x2="196.27"
+       y2="282.92999" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5099"
+       id="linearGradient5846"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-60.707,-83.207)"
+       x1="195.06"
+       y1="322.82999"
+       x2="196.27"
+       y2="282.92999" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5099"
+       id="linearGradient5883"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-60.707,-83.207)"
+       x1="195.06"
+       y1="322.82999"
+       x2="196.27"
+       y2="282.92999" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5099"
+       id="linearGradient6026"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-60.707,-83.207)"
+       x1="195.06"
+       y1="322.82999"
+       x2="196.27"
+       y2="282.92999" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     fit-margin-left="0"
+     inkscape:zoom="3.7712361"
+     borderopacity="1.0"
+     inkscape:current-layer="g3094-4-83-8-8"
+     inkscape:cx="164.93417"
+     inkscape:cy="314.59828"
+     inkscape:window-maximized="0"
+     showgrid="false"
+     fit-margin-right="0"
+     inkscape:snap-global="true"
+     inkscape:document-units="px"
+     bordercolor="#666666"
+     inkscape:window-x="2343"
+     inkscape:window-y="2092"
+     inkscape:snap-smooth-nodes="true"
+     inkscape:object-nodes="true"
+     fit-margin-bottom="0"
+     inkscape:window-width="2091"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     pagecolor="#ffffff"
+     inkscape:window-height="1237"
+     fit-margin-top="0" />
+  <g
+     id="layer4"
+     inkscape:label="keyboard"
+     transform="translate(-21.207,-473.82)"
+     inkscape:groupmode="layer" />
+  <g
+     id="layer3"
+     style="opacity:0.40517046"
+     inkscape:label="boxes"
+     transform="translate(-21.207,-473.82)"
+     inkscape:groupmode="layer" />
+  <g
+     id="layer1"
+     inkscape:label="buttom"
+     transform="translate(-21.207,-473.82)"
+     inkscape:groupmode="layer">
+    <g
+       id="g3094-4-0-0"
+       inkscape:export-ydpi="300"
+       inkscape:export-xdpi="300"
+       inkscape:export-filename="V:\fabi_val\06_Sviluppo\02_Grafica\Mouse&amp;Keyboard\keyboard.png"
+       transform="translate(-56.769676,280.25849)">
+      <path
+         id="rect2985-4-8-70-5"
+         style="fill:url(#linearGradient5820);stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         d="m 119.1,199.81 h 31.085 c 1.9034,0 3.4357,1.5323 3.4357,3.4357 v 31.085 c 0,1.9034 -1.5323,3.4357 -3.4357,3.4357 H 119.1 c -1.9034,0 -3.4357,-1.5323 -3.4357,-3.4357 v -31.085 c 0,-1.9034 1.5323,-3.4357 3.4357,-3.4357 z" />
+      <path
+         id="rect2985-1-8-65-3-2"
+         style="fill:#ffffff;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         d="m 120.81,201.91 h 27.656 c 1.6934,0 3.0567,1.3633 3.0567,3.0567 v 27.656 c 0,1.6934 -1.3633,3.0567 -3.0567,3.0567 H 120.81 c -1.6934,0 -3.0567,-1.3633 -3.0567,-3.0567 v -27.656 c 0,-1.6934 1.3633,-3.0567 3.0567,-3.0567 z" />
+      <g
+         id="text3793-8-0-4-5"
+         style="fill:#000000">
+        <path
+           id="path4788"
+           inkscape:connector-curvature="0"
+           d="m 129.45,216.5 c 0.70312,0.48438 1.3516,0.83854 1.9453,1.0625 l -0.44531,1.0547 c -0.82293,-0.29688 -1.6432,-0.76563 -2.4609,-1.4062 -0.84896,0.47396 -1.7865,0.71093 -2.8125,0.71093 -1.0365,0 -1.9766,-0.25 -2.8203,-0.75 -0.84375,-0.49999 -1.4935,-1.2031 -1.9492,-2.1094 -0.45573,-0.90625 -0.68359,-1.9271 -0.68359,-3.0625 0,-1.1302 0.22916,-2.1588 0.6875,-3.0859 0.45833,-0.92707 1.1107,-1.6328 1.957,-2.1172 0.84635,-0.48436 1.793,-0.72655 2.8398,-0.72656 1.0573,1e-5 2.0104,0.25132 2.8594,0.75391 0.84895,0.50261 1.4961,1.2057 1.9414,2.1094 0.44531,0.90366 0.66796,1.9232 0.66797,3.0586 -1e-5,0.94271 -0.14324,1.7904 -0.42968,2.543 -0.28647,0.7526 -0.71876,1.4076 -1.2969,1.9648 z m -3.3359,-1.9375 c 0.875,0.24479 1.5964,0.60938 2.1641,1.0938 0.89061,-0.8125 1.3359,-2.0338 1.3359,-3.6641 -1e-5,-0.92708 -0.15756,-1.737 -0.47265,-2.4297 -0.31512,-0.6927 -0.77605,-1.2305 -1.3828,-1.6133 -0.60677,-0.3828 -1.2878,-0.57421 -2.043,-0.57422 -1.1302,1e-5 -2.0677,0.38673 -2.8125,1.1602 -0.7448,0.77344 -1.1172,1.9284 -1.1172,3.4648 0,1.4896 0.36849,2.6328 1.1055,3.4297 0.73697,0.79687 1.6784,1.1953 2.8242,1.1953 0.54166,0 1.0521,-0.10156 1.5312,-0.30469 -0.47397,-0.30729 -0.97397,-0.52604 -1.5,-0.65625 z" />
+      </g>
+    </g>
+    <g
+       id="g3094-44-3-7"
+       inkscape:export-ydpi="300"
+       inkscape:export-xdpi="300"
+       inkscape:export-filename="V:\fabi_val\06_Sviluppo\02_Grafica\Mouse&amp;Keyboard\keyboard.png"
+       transform="translate(-16.531676,280.25849)">
+      <path
+         id="rect2985-4-6-1-2"
+         style="fill:url(#linearGradient5822);stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         d="m 119.1,199.81 h 31.085 c 1.9034,0 3.4357,1.5323 3.4357,3.4357 v 31.085 c 0,1.9034 -1.5323,3.4357 -3.4357,3.4357 H 119.1 c -1.9034,0 -3.4357,-1.5323 -3.4357,-3.4357 v -31.085 c 0,-1.9034 1.5323,-3.4357 3.4357,-3.4357 z" />
+      <path
+         id="rect2985-1-8-0-06-8"
+         style="fill:#ffffff;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         d="m 120.81,201.91 h 27.656 c 1.6934,0 3.0567,1.3633 3.0567,3.0567 v 27.656 c 0,1.6934 -1.3633,3.0567 -3.0567,3.0567 H 120.81 c -1.6934,0 -3.0567,-1.3633 -3.0567,-3.0567 v -27.656 c 0,-1.6934 1.3633,-3.0567 3.0567,-3.0567 z" />
+      <g
+         id="text3793-8-6-75-0"
+         style="fill:#000000">
+        <path
+           id="path4783"
+           inkscape:connector-curvature="0"
+           d="m 123.44,217.73 -3.0391,-11.453 h 1.5547 l 1.7422,7.5078 c 0.1875,0.78646 0.34896,1.5677 0.48438,2.3438 0.29166,-1.224 0.46353,-1.9297 0.51562,-2.1172 l 2.1797,-7.7344 h 1.8281 l 1.6406,5.7969 c 0.41145,1.4375 0.70832,2.7891 0.89062,4.0547 0.14583,-0.72396 0.33593,-1.5547 0.57032,-2.4922 l 1.7969,-7.3594 h 1.5234 l -3.1406,11.453 h -1.4609 l -2.4141,-8.7266 c -0.20313,-0.72916 -0.32292,-1.1771 -0.35937,-1.3438 -0.1198,0.52605 -0.23178,0.97397 -0.33594,1.3438 l -2.4297,8.7266 z" />
+      </g>
+    </g>
+    <g
+       id="g3094-9-5-3"
+       inkscape:export-ydpi="300"
+       inkscape:export-xdpi="300"
+       inkscape:export-filename="V:\fabi_val\06_Sviluppo\02_Grafica\Mouse&amp;Keyboard\keyboard.png"
+       transform="translate(76.519217,323.45787)">
+      <path
+         id="rect2985-4-13-4-0"
+         style="fill:url(#linearGradient5824);stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         d="m 66.287107,156.61062 h 31.085 c 1.9034,0 3.435703,1.5323 3.435703,3.4357 v 31.085 c 0,1.9034 -1.532303,3.4357 -3.435703,3.4357 h -31.085 c -1.9034,0 -3.4357,-1.5323 -3.4357,-3.4357 v -31.085 c 0,-1.9034 1.5323,-3.4357 3.4357,-3.4357 z" />
+      <path
+         id="rect2985-1-8-5-95-6"
+         style="fill:#ffffff;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         d="m 67.997107,158.71062 h 27.656 c 1.6934,0 3.0567,1.3633 3.0567,3.0567 v 27.656 c 0,1.6934 -1.3633,3.0567 -3.0567,3.0567 h -27.656 c -1.6934,0 -3.0567,-1.3633 -3.0567,-3.0567 v -27.656 c 0,-1.6934 1.3633,-3.0567 3.0567,-3.0567 z" />
+      <g
+         id="text3793-8-9-64-4"
+         style="fill:#000000"
+         transform="translate(-52.812893,-43.199379)">
+        <path
+           id="path4775"
+           inkscape:connector-curvature="0"
+           d="m 121.68,217.73 v -11.453 h 8.2812 v 1.3516 h -6.7656 v 3.5078 h 6.3359 v 1.3438 h -6.3359 v 3.8984 h 7.0312 v 1.3516 z" />
+      </g>
+    </g>
+    <g
+       id="g3094-42-8-5"
+       inkscape:export-ydpi="300"
+       inkscape:export-xdpi="300"
+       inkscape:export-filename="V:\fabi_val\06_Sviluppo\02_Grafica\Mouse&amp;Keyboard\keyboard.png"
+       transform="translate(63.940327,280.25849)">
+      <path
+         id="rect2985-4-0-3-2"
+         style="fill:url(#linearGradient5826);stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         d="m 119.1,199.81 h 31.085 c 1.9034,0 3.4357,1.5323 3.4357,3.4357 v 31.085 c 0,1.9034 -1.5323,3.4357 -3.4357,3.4357 H 119.1 c -1.9034,0 -3.4357,-1.5323 -3.4357,-3.4357 v -31.085 c 0,-1.9034 1.5323,-3.4357 3.4357,-3.4357 z" />
+      <path
+         id="rect2985-1-8-97-1-0"
+         style="fill:#ffffff;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         d="m 120.81,201.91 h 27.656 c 1.6934,0 3.0567,1.3633 3.0567,3.0567 v 27.656 c 0,1.6934 -1.3633,3.0567 -3.0567,3.0567 H 120.81 c -1.6934,0 -3.0567,-1.3633 -3.0567,-3.0567 v -27.656 c 0,-1.6934 1.3633,-3.0567 3.0567,-3.0567 z" />
+      <g
+         id="text3793-8-3-4-7"
+         style="fill:#000000">
+        <path
+           id="path4770"
+           inkscape:connector-curvature="0"
+           d="m 121.23,217.73 v -11.453 h 5.0781 c 1.0208,1e-5 1.7969,0.10287 2.3281,0.30859 0.53124,0.20574 0.95572,0.56902 1.2734,1.0898 0.3177,0.52085 0.47655,1.0964 0.47656,1.7266 -1e-5,0.8125 -0.26303,1.4974 -0.78906,2.0547 -0.52605,0.5573 -1.3386,0.91147 -2.4375,1.0625 0.40103,0.19272 0.70572,0.38282 0.91406,0.57032 0.4427,0.40625 0.86197,0.91406 1.2578,1.5234 l 1.9922,3.1172 h -1.9062 l -1.5156,-2.3828 c -0.44272,-0.6875 -0.8073,-1.2135 -1.0938,-1.5781 -0.28647,-0.36457 -0.54298,-0.61978 -0.76954,-0.76562 -0.22656,-0.14583 -0.45703,-0.24739 -0.6914,-0.30469 -0.17188,-0.0365 -0.45313,-0.0547 -0.84375,-0.0547 h -1.7578 v 5.0859 z m 1.5156,-6.3984 h 3.2578 c 0.6927,1e-5 1.2344,-0.0716 1.625,-0.21484 0.39062,-0.14322 0.68749,-0.37239 0.89062,-0.6875 0.20312,-0.3151 0.30468,-0.65754 0.30469,-1.0273 -1e-5,-0.54166 -0.19662,-0.98697 -0.58984,-1.3359 -0.39324,-0.34895 -1.0143,-0.52343 -1.8633,-0.52344 h -3.625 z" />
+      </g>
+    </g>
+    <g
+       id="g3094-4-83-8"
+       inkscape:export-ydpi="300"
+       inkscape:export-xdpi="300"
+       inkscape:export-filename="V:\fabi_val\06_Sviluppo\02_Grafica\Mouse&amp;Keyboard\keyboard.png"
+       transform="translate(104.45033,280.25849)">
+      <path
+         id="rect2985-4-8-0-1"
+         style="fill:url(#linearGradient5828);stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         d="m 119.1,199.81 h 31.085 c 1.9034,0 3.4357,1.5323 3.4357,3.4357 v 31.085 c 0,1.9034 -1.5323,3.4357 -3.4357,3.4357 H 119.1 c -1.9034,0 -3.4357,-1.5323 -3.4357,-3.4357 v -31.085 c 0,-1.9034 1.5323,-3.4357 3.4357,-3.4357 z" />
+      <path
+         id="rect2985-1-8-65-22-8"
+         style="fill:#ffffff;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         d="m 120.81,201.91 h 27.656 c 1.6934,0 3.0567,1.3633 3.0567,3.0567 v 27.656 c 0,1.6934 -1.3633,3.0567 -3.0567,3.0567 H 120.81 c -1.6934,0 -3.0567,-1.3633 -3.0567,-3.0567 v -27.656 c 0,-1.6934 1.3633,-3.0567 3.0567,-3.0567 z" />
+      <g
+         id="text3793-8-0-36-5"
+         style="fill:#000000">
+        <path
+           id="path4765"
+           inkscape:connector-curvature="0"
+           d="m 125.01,217.73 v -10.102 h -3.7734 v -1.3516 h 9.0781 v 1.3516 h -3.7891 v 10.102 z" />
+      </g>
+    </g>
+    <g
+       id="g3094-4-0-0-3"
+       inkscape:export-ydpi="300"
+       inkscape:export-xdpi="300"
+       inkscape:export-filename="V:\fabi_val\06_Sviluppo\02_Grafica\Mouse&amp;Keyboard\keyboard.png"
+       transform="translate(-48.474276,320.63849)">
+      <path
+         id="rect2985-4-8-70-5-8"
+         style="fill:url(#linearGradient5830);stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         d="m 119.1,199.81 h 31.085 c 1.9034,0 3.4357,1.5323 3.4357,3.4357 v 31.085 c 0,1.9034 -1.5323,3.4357 -3.4357,3.4357 H 119.1 c -1.9034,0 -3.4357,-1.5323 -3.4357,-3.4357 v -31.085 c 0,-1.9034 1.5323,-3.4357 3.4357,-3.4357 z" />
+      <path
+         id="rect2985-1-8-65-3-2-9"
+         style="fill:#ffffff;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         d="m 120.81,201.91 h 27.656 c 1.6934,0 3.0567,1.3633 3.0567,3.0567 v 27.656 c 0,1.6934 -1.3633,3.0567 -3.0567,3.0567 H 120.81 c -1.6934,0 -3.0567,-1.3633 -3.0567,-3.0567 v -27.656 c 0,-1.6934 1.3633,-3.0567 3.0567,-3.0567 z" />
+      <g
+         id="text3793-8-0-4-5-2"
+         style="fill:#000000">
+        <path
+           id="path4717"
+           inkscape:connector-curvature="0"
+           d="m 120.39,225.37993 7.33627,-19.10293 h 2.72341 l 7.81848,19.10293 h -2.87987 l -2.2282,-5.78576 h -7.98794 l -2.09793,5.78576 z m 5.51204,-7.8445 h 6.47628 l -1.99369,-5.29054 c -0.60811,-1.60711 -1.05984,-2.92757 -1.3552,-3.96136 -0.24325,1.22492 -0.5864,2.4412 -1.02943,3.64862 z"
+           style="stroke-width:1.66794074" />
+      </g>
+    </g>
+    <g
+       id="g3094-44-3-7-7"
+       inkscape:export-ydpi="300"
+       inkscape:export-xdpi="300"
+       inkscape:export-filename="V:\fabi_val\06_Sviluppo\02_Grafica\Mouse&amp;Keyboard\keyboard.png"
+       transform="translate(-8.2356764,320.63849)">
+      <path
+         id="rect2985-4-6-1-2-5"
+         style="fill:url(#linearGradient5832);stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         d="m 119.1,199.81 h 31.085 c 1.9034,0 3.4357,1.5323 3.4357,3.4357 v 31.085 c 0,1.9034 -1.5323,3.4357 -3.4357,3.4357 H 119.1 c -1.9034,0 -3.4357,-1.5323 -3.4357,-3.4357 v -31.085 c 0,-1.9034 1.5323,-3.4357 3.4357,-3.4357 z" />
+      <path
+         id="rect2985-1-8-0-06-8-8"
+         style="fill:#ffffff;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         d="m 120.81,201.91 h 27.656 c 1.6934,0 3.0567,1.3633 3.0567,3.0567 v 27.656 c 0,1.6934 -1.3633,3.0567 -3.0567,3.0567 H 120.81 c -1.6934,0 -3.0567,-1.3633 -3.0567,-3.0567 v -27.656 c 0,-1.6934 1.3633,-3.0567 3.0567,-3.0567 z" />
+      <g
+         id="text3793-8-6-75-0-4"
+         style="fill:#000000"
+         transform="matrix(1.671665,0,0,1.671665,-81.358779,-138.41759)">
+        <path
+           id="path4712"
+           inkscape:connector-curvature="0"
+           d="m 121.13,214.05 1.4297,-0.125 c 0.0677,0.57292 0.22525,1.043 0.47265,1.4102 0.2474,0.36719 0.63151,0.66407 1.1524,0.89063 0.52083,0.22656 1.1068,0.33984 1.7578,0.33984 0.57812,0 1.0885,-0.0859 1.5312,-0.25781 0.4427,-0.17188 0.77213,-0.40755 0.98828,-0.70703 0.21614,-0.29948 0.32421,-0.6263 0.32422,-0.98047 -1e-5,-0.35937 -0.10418,-0.67318 -0.3125,-0.94141 -0.20834,-0.26822 -0.55209,-0.49348 -1.0312,-0.67578 -0.3073,-0.11979 -0.98699,-0.30598 -2.0391,-0.55859 -1.0521,-0.2526 -1.7891,-0.49088 -2.2109,-0.71485 -0.54688,-0.28645 -0.95443,-0.64192 -1.2227,-1.0664 -0.26823,-0.42448 -0.40234,-0.89974 -0.40234,-1.4258 0,-0.57811 0.16406,-1.1185 0.49219,-1.6211 0.32812,-0.50259 0.80729,-0.8841 1.4375,-1.1445 0.6302,-0.26041 1.3307,-0.39061 2.1016,-0.39063 0.84895,2e-5 1.5976,0.13673 2.2461,0.41016 0.64843,0.27345 1.1471,0.67579 1.4961,1.207 0.34895,0.53126 0.53645,1.1328 0.5625,1.8047 l -1.4531,0.10937 c -0.0781,-0.72394 -0.34245,-1.2708 -0.79297,-1.6406 -0.45053,-0.36978 -1.1159,-0.55468 -1.9961,-0.55469 -0.91667,1e-5 -1.5846,0.16798 -2.0039,0.50391 -0.41927,0.33595 -0.62891,0.74089 -0.6289,1.2148 -1e-5,0.41147 0.14843,0.75001 0.44531,1.0156 0.29166,0.26563 1.0534,0.53776 2.2852,0.8164 1.2318,0.27866 2.0768,0.52214 2.5352,0.73047 0.66666,0.3073 1.1588,0.69662 1.4766,1.168 0.3177,0.47136 0.47656,1.0143 0.47657,1.6289 -1e-5,0.60937 -0.17449,1.1836 -0.52344,1.7226 -0.34897,0.53907 -0.85027,0.95834 -1.5039,1.2578 -0.65365,0.29947 -1.3893,0.44921 -2.207,0.44921 -1.0365,0 -1.905,-0.15104 -2.6055,-0.45312 -0.70052,-0.30208 -1.25,-0.75651 -1.6484,-1.3633 -0.39843,-0.60677 -0.60807,-1.293 -0.6289,-2.0586 z" />
+      </g>
+    </g>
+    <g
+       id="g3094-9-5-3-4"
+       inkscape:export-ydpi="300"
+       inkscape:export-xdpi="300"
+       inkscape:export-filename="V:\fabi_val\06_Sviluppo\02_Grafica\Mouse&amp;Keyboard\keyboard.png"
+       transform="translate(32.002324,320.63849)">
+      <path
+         id="rect2985-4-13-4-0-3"
+         style="fill:url(#linearGradient5834);stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         d="m 119.1,199.81 h 31.085 c 1.9034,0 3.4357,1.5323 3.4357,3.4357 v 31.085 c 0,1.9034 -1.5323,3.4357 -3.4357,3.4357 H 119.1 c -1.9034,0 -3.4357,-1.5323 -3.4357,-3.4357 v -31.085 c 0,-1.9034 1.5323,-3.4357 3.4357,-3.4357 z" />
+      <path
+         id="rect2985-1-8-5-95-6-5"
+         style="fill:#ffffff;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         d="m 120.81,201.91 h 27.656 c 1.6934,0 3.0567,1.3633 3.0567,3.0567 v 27.656 c 0,1.6934 -1.3633,3.0567 -3.0567,3.0567 H 120.81 c -1.6934,0 -3.0567,-1.3633 -3.0567,-3.0567 v -27.656 c 0,-1.6934 1.3633,-3.0567 3.0567,-3.0567 z" />
+      <g
+         id="text3793-8-9-64-4-8"
+         style="fill:#000000"
+         transform="matrix(1.6720965,0,0,1.6720965,-81.464822,-138.63806)">
+        <path
+           id="path4707"
+           inkscape:connector-curvature="0"
+           d="m 121.21,217.73 v -11.453 h 3.9453 c 0.89062,1e-5 1.5703,0.0547 2.0391,0.16406 0.65624,0.15105 1.2161,0.42449 1.6797,0.82031 0.60415,0.51043 1.056,1.1628 1.3555,1.957 0.29947,0.79428 0.44921,1.7018 0.44922,2.7227 -1e-5,0.8698 -0.10157,1.6406 -0.30468,2.3125 -0.20314,0.67188 -0.46356,1.2279 -0.78125,1.668 -0.31772,0.4401 -0.66538,0.78646 -1.043,1.0391 -0.37761,0.25261 -0.83334,0.44401 -1.3672,0.57422 -0.53386,0.13021 -1.1471,0.19531 -1.8398,0.19531 z m 1.5156,-1.3516 h 2.4453 c 0.7552,0 1.3476,-0.0703 1.7773,-0.21094 0.42969,-0.14062 0.77213,-0.33854 1.0274,-0.59375 0.35937,-0.35937 0.63931,-0.84244 0.83984,-1.4492 0.20051,-0.60676 0.30077,-1.3424 0.30078,-2.207 -1e-5,-1.1979 -0.19662,-2.1185 -0.58984,-2.7617 -0.39324,-0.64322 -0.8711,-1.0742 -1.4336,-1.293 -0.40626,-0.15624 -1.0599,-0.23436 -1.9609,-0.23437 h -2.4062 z" />
+      </g>
+    </g>
+    <g
+       id="g3094-42-8-5-3"
+       inkscape:export-ydpi="300"
+       inkscape:export-xdpi="300"
+       inkscape:export-filename="V:\fabi_val\06_Sviluppo\02_Grafica\Mouse&amp;Keyboard\keyboard.png"
+       transform="translate(72.240327,320.63849)">
+      <path
+         id="rect2985-4-0-3-2-3"
+         style="fill:url(#linearGradient5836);stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         d="m 119.1,199.81 h 31.085 c 1.9034,0 3.4357,1.5323 3.4357,3.4357 v 31.085 c 0,1.9034 -1.5323,3.4357 -3.4357,3.4357 H 119.1 c -1.9034,0 -3.4357,-1.5323 -3.4357,-3.4357 v -31.085 c 0,-1.9034 1.5323,-3.4357 3.4357,-3.4357 z" />
+      <path
+         id="rect2985-1-8-97-1-0-4"
+         style="fill:#ffffff;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         d="m 120.81,201.91 h 27.656 c 1.6934,0 3.0567,1.3633 3.0567,3.0567 v 27.656 c 0,1.6934 -1.3633,3.0567 -3.0567,3.0567 H 120.81 c -1.6934,0 -3.0567,-1.3633 -3.0567,-3.0567 v -27.656 c 0,-1.6934 1.3633,-3.0567 3.0567,-3.0567 z" />
+      <g
+         id="text3793-8-3-4-7-0"
+         style="fill:#000000"
+         transform="matrix(1.6714094,0,0,1.6714094,-82.032804,-138.49632)">
+        <path
+           id="path4702"
+           inkscape:connector-curvature="0"
+           d="m 122.18,217.73 v -11.453 h 7.7266 v 1.3516 h -6.2109 v 3.5469 h 5.375 v 1.3516 h -5.375 v 5.2031 z" />
+      </g>
+    </g>
+    <g
+       id="g3094-4-83-8-5"
+       inkscape:export-ydpi="300"
+       inkscape:export-xdpi="300"
+       inkscape:export-filename="V:\fabi_val\06_Sviluppo\02_Grafica\Mouse&amp;Keyboard\keyboard.png"
+       transform="translate(112.75033,320.63849)">
+      <path
+         id="rect2985-4-8-0-1-6"
+         style="fill:url(#linearGradient5838);stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         d="m 119.1,199.81 h 31.085 c 1.9034,0 3.4357,1.5323 3.4357,3.4357 v 31.085 c 0,1.9034 -1.5323,3.4357 -3.4357,3.4357 H 119.1 c -1.9034,0 -3.4357,-1.5323 -3.4357,-3.4357 v -31.085 c 0,-1.9034 1.5323,-3.4357 3.4357,-3.4357 z" />
+      <path
+         id="rect2985-1-8-65-22-8-0"
+         style="fill:#ffffff;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         d="m 120.81,201.91 h 27.656 c 1.6934,0 3.0567,1.3633 3.0567,3.0567 v 27.656 c 0,1.6934 -1.3633,3.0567 -3.0567,3.0567 H 120.81 c -1.6934,0 -3.0567,-1.3633 -3.0567,-3.0567 v -27.656 c 0,-1.6934 1.3633,-3.0567 3.0567,-3.0567 z" />
+    </g>
+    <g
+       id="g3094-44-3-7-3"
+       inkscape:export-ydpi="300"
+       inkscape:export-xdpi="300"
+       inkscape:export-filename="V:\fabi_val\06_Sviluppo\02_Grafica\Mouse&amp;Keyboard\keyboard.png"
+       transform="translate(-29.871676,361.57849)">
+      <path
+         id="rect2985-4-6-1-2-6"
+         style="fill:url(#linearGradient5842);stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         d="m 119.1,199.81 h 31.085 c 1.9034,0 3.4357,1.5323 3.4357,3.4357 v 31.085 c 0,1.9034 -1.5323,3.4357 -3.4357,3.4357 H 119.1 c -1.9034,0 -3.4357,-1.5323 -3.4357,-3.4357 v -31.085 c 0,-1.9034 1.5323,-3.4357 3.4357,-3.4357 z" />
+      <path
+         id="rect2985-1-8-0-06-8-3"
+         style="fill:#ffffff;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         d="m 120.81,201.91 h 27.656 c 1.6934,0 3.0567,1.3633 3.0567,3.0567 v 27.656 c 0,1.6934 -1.3633,3.0567 -3.0567,3.0567 H 120.81 c -1.6934,0 -3.0567,-1.3633 -3.0567,-3.0567 v -27.656 c 0,-1.6934 1.3633,-3.0567 3.0567,-3.0567 z" />
+    </g>
+    <g
+       id="g3094-9-5-3-8"
+       inkscape:export-ydpi="300"
+       inkscape:export-xdpi="300"
+       inkscape:export-filename="V:\fabi_val\06_Sviluppo\02_Grafica\Mouse&amp;Keyboard\keyboard.png"
+       transform="translate(10.367324,361.57849)">
+      <path
+         id="rect2985-4-13-4-0-7"
+         style="fill:url(#linearGradient5844);stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         d="m 119.1,199.81 h 31.085 c 1.9034,0 3.4357,1.5323 3.4357,3.4357 v 31.085 c 0,1.9034 -1.5323,3.4357 -3.4357,3.4357 H 119.1 c -1.9034,0 -3.4357,-1.5323 -3.4357,-3.4357 v -31.085 c 0,-1.9034 1.5323,-3.4357 3.4357,-3.4357 z" />
+      <path
+         id="rect2985-1-8-5-95-6-6"
+         style="fill:#ffffff;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         d="m 120.81,201.91 h 27.656 c 1.6934,0 3.0567,1.3633 3.0567,3.0567 v 27.656 c 0,1.6934 -1.3633,3.0567 -3.0567,3.0567 H 120.81 c -1.6934,0 -3.0567,-1.3633 -3.0567,-3.0567 v -27.656 c 0,-1.6934 1.3633,-3.0567 3.0567,-3.0567 z" />
+    </g>
+    <g
+       id="g3094-42-8-5-5"
+       inkscape:export-ydpi="300"
+       inkscape:export-xdpi="300"
+       inkscape:export-filename="V:\fabi_val\06_Sviluppo\02_Grafica\Mouse&amp;Keyboard\keyboard.png"
+       transform="translate(50.600327,361.57849)">
+      <path
+         id="rect2985-4-0-3-2-6"
+         style="fill:url(#linearGradient5846);stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         d="m 119.1,199.81 h 31.085 c 1.9034,0 3.4357,1.5323 3.4357,3.4357 v 31.085 c 0,1.9034 -1.5323,3.4357 -3.4357,3.4357 H 119.1 c -1.9034,0 -3.4357,-1.5323 -3.4357,-3.4357 v -31.085 c 0,-1.9034 1.5323,-3.4357 3.4357,-3.4357 z" />
+      <path
+         id="rect2985-1-8-97-1-0-1"
+         style="fill:#ffffff;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         d="m 120.81,201.91 h 27.656 c 1.6934,0 3.0567,1.3633 3.0567,3.0567 v 27.656 c 0,1.6934 -1.3633,3.0567 -3.0567,3.0567 H 120.81 c -1.6934,0 -3.0567,-1.3633 -3.0567,-3.0567 v -27.656 c 0,-1.6934 1.3633,-3.0567 3.0567,-3.0567 z" />
+    </g>
+    <g
+       id="g3094-4-83-8-8"
+       inkscape:export-ydpi="300"
+       inkscape:export-xdpi="300"
+       inkscape:export-filename="V:\fabi_val\06_Sviluppo\02_Grafica\Mouse&amp;Keyboard\keyboard.png"
+       transform="translate(91.110327,361.57849)">
+      <path
+         id="rect2985-4-8-0-1-5"
+         style="fill:url(#linearGradient5522);stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         d="m 119.1,199.81 h 31.085 c 1.9034,0 3.4357,1.5323 3.4357,3.4357 v 31.085 c 0,1.9034 -1.5323,3.4357 -3.4357,3.4357 H 119.1 c -1.9034,0 -3.4357,-1.5323 -3.4357,-3.4357 v -31.085 c 0,-1.9034 1.5323,-3.4357 3.4357,-3.4357 z" />
+      <path
+         id="rect2985-1-8-65-22-8-09"
+         style="fill:#ffffff;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         d="m 120.81,201.91 h 27.656 c 1.6934,0 3.0567,1.3633 3.0567,3.0567 v 27.656 c 0,1.6934 -1.3633,3.0567 -3.0567,3.0567 H 120.81 c -1.6934,0 -3.0567,-1.3633 -3.0567,-3.0567 v -27.656 c 0,-1.6934 1.3633,-3.0567 3.0567,-3.0567 z" />
+    </g>
+    <g
+       id="g3094-4-83-8-5-0"
+       inkscape:export-ydpi="300"
+       inkscape:export-xdpi="300"
+       inkscape:export-filename="V:\fabi_val\06_Sviluppo\02_Grafica\Mouse&amp;Keyboard\keyboard.png"
+       transform="translate(-88.430676,320.63849)">
+      <path
+         id="rect2985-4-8-0-1-6-7"
+         style="fill:url(#linearGradient5883);stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         d="m 119.1,199.81 h 31.085 c 1.9034,0 3.4357,1.5323 3.4357,3.4357 v 31.085 c 0,1.9034 -1.5323,3.4357 -3.4357,3.4357 H 119.1 c -1.9034,0 -3.4357,-1.5323 -3.4357,-3.4357 v -31.085 c 0,-1.9034 1.5323,-3.4357 3.4357,-3.4357 z" />
+      <path
+         id="rect2985-1-8-65-22-8-0-4"
+         style="fill:#ffffff;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         d="m 120.81,201.91 h 27.656 c 1.6934,0 3.0567,1.3633 3.0567,3.0567 v 27.656 c 0,1.6934 -1.3633,3.0567 -3.0567,3.0567 H 120.81 c -1.6934,0 -3.0567,-1.3633 -3.0567,-3.0567 v -27.656 c 0,-1.6934 1.3633,-3.0567 3.0567,-3.0567 z" />
+    </g>
+    <path
+       style="fill:#ff0074;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 387.39993,606.26793 c 79.28436,-0.7955 265.16506,-7.42462 265.96055,-3.44715 0.7955,3.97748 -18.56155,106.59635 -15.37957,118.26362 3.18198,11.66726 -74.24621,89.89095 -89.09545,86.17864 -14.84925,-3.71231 -178.72125,-42.69158 -181.63807,-45.34323 -2.91681,-2.65165 -24.66035,-93.33809 -20.68287,-103.9447 3.97747,-10.6066 40.83541,-51.70718 40.83541,-51.70718 z"
+       id="path5975"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 347.98565,530.38208 c 4.4125,-9.23213 100.51096,-14.89259 100.51096,-14.89259 0,0 9.30438,60.90422 3.80234,65.49989 -5.50205,4.59567 -112.89389,26.86954 -113.68939,25.27855 -0.79549,-1.59099 9.37609,-75.88585 9.37609,-75.88585 z"
+       id="path5977"
+       inkscape:connector-curvature="0" />
+    <g
+       id="g3094-4-83-8-5-5"
+       inkscape:export-ydpi="300"
+       inkscape:export-xdpi="300"
+       inkscape:export-filename="V:\fabi_val\06_Sviluppo\02_Grafica\Mouse&amp;Keyboard\keyboard.png"
+       transform="translate(-70.743927,362.02389)">
+      <path
+         id="rect2985-4-8-0-1-6-3"
+         style="fill:url(#linearGradient6026);stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         d="m 119.1,199.81 h 31.085 c 1.9034,0 3.4357,1.5323 3.4357,3.4357 v 31.085 c 0,1.9034 -1.5323,3.4357 -3.4357,3.4357 H 119.1 c -1.9034,0 -3.4357,-1.5323 -3.4357,-3.4357 v -31.085 c 0,-1.9034 1.5323,-3.4357 3.4357,-3.4357 z" />
+      <path
+         id="rect2985-1-8-65-22-8-0-2"
+         style="fill:#ffffff;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         d="m 120.81,201.91 h 27.656 c 1.6934,0 3.0567,1.3633 3.0567,3.0567 v 27.656 c 0,1.6934 -1.3633,3.0567 -3.0567,3.0567 H 120.81 c -1.6934,0 -3.0567,-1.3633 -3.0567,-3.0567 v -27.656 c 0,-1.6934 1.3633,-3.0567 3.0567,-3.0567 z" />
+    </g>
+  </g>
+  <metadata
+     id="metadata816">
+    <rdf:RDF>
+      <cc:Work>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <cc:license
+           rdf:resource="http://creativecommons.org/publicdomain/zero/1.0/" />
+        <dc:publisher>
+          <cc:Agent
+             rdf:about="http://openclipart.org/">
+            <dc:title>Openclipart</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title></dc:title>
+        <dc:date>2012-10-10T11:47:43</dc:date>
+        <dc:description>a simple Italian Keyboard</dc:description>
+        <dc:source>https://openclipart.org/detail/172673/keyboard-by-fabiovaleggia-172673</dc:source>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>fabiovaleggia</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>Keyboard</rdf:li>
+            <rdf:li>tastiera</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/publicdomain/zero/1.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>

@@ -42,6 +42,9 @@ export class NodeFactory {
 	contenteditable?: string;
 
 	href?: string;
+	src?: string;
+	alt?: string;
+
 
 	name?: string;
 	type?: string;

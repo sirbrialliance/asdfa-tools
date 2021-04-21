@@ -17,7 +17,7 @@ var moduleIds: string[] = [];
 var main = <main/>;
 var titleHeader: HTMLElement = null;
 var header = <header>
-	{/* will add an h1 with the tile here in a moment */}
+	{/* will add an h1 with the title here in a moment */}
 	<input type="text" id="searchBox" placeholder="Filter Modules"/>
 </header>;
 var originalTitle = "";
@@ -166,10 +166,12 @@ function updatePage() {
 	}
 
 	titleHeader?.remove();
-	titleHeader = <h1><a href="/">asdfa.net</a></h1>;
+	titleHeader = <h1><a class="logo" href="/"><img src="/logo.png" alt="asdfa"/></a></h1>;
 	if (currentModule) {
 		titleHeader.appendChild(jsxText(" » "));
 		titleHeader.appendChild(<a href={"/" + currentModule.getId()}>{currentModule.getName()}</a>);
+	} else {
+		titleHeader.appendChild(<span class="subTitle">A Set of Decently Functional Assessments</span>);
 	}
 	header.prepend(titleHeader);
 }
