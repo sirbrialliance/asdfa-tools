@@ -23,7 +23,7 @@ module.exports = {
 `);
 
 		grunt.file.write("web/lib/BGImageList.tsx", `//Automatically generated, don't hand-edit.
-export default ${JSON.stringify(webFiles({bgImages: true}).map(x => x.substr(3)))};
+export default ${JSON.stringify(webFiles({bgImages: true}).map(x => x.substr(3, x.length - 7)))};
 `);
 	}
 

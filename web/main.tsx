@@ -91,15 +91,24 @@ function initDOM() {
 
 	//pick a random BG image
 	setTimeout(() => {
+		//pick an image
+		let recentBGs = (localStorage.getItem("main.recentBGs") || "").split(",");
+		let candidates = bgImageList.filter(x => recentBGs.indexOf(x) < 0);
+		if (!candidates.length) {
+			recentBGs = [];
+			candidates = bgImageList;
+		}
+		let bg = candidates[Math.floor(Math.random() * candidates.length)];
+		recentBGs.push(bg);
+		localStorage.setItem("main.recentBGs", recentBGs.join(','));
 
+		//find html::before and add as background
 		let mainSheet = document.querySelector("link[rel=stylesheet][href='main.css']") as HTMLLinkElement;
 		let sheet = mainSheet.sheet;
-		//find html::before and add a background
 		for (let i = 0; i < sheet.rules.length; i++) {
 			const item = sheet.rules.item(i) as CSSStyleRule;
 			if (item.selectorText == "html::before") {
-				let bg = bgImageList[Math.floor(Math.random() * bgImageList.length)];
-				item.style.backgroundImage = "url('/bg/" + bg + "')";
+				item.style.backgroundImage = `url('/bg/${bg}.jpg')`;
 				return;
 			}
 		}
