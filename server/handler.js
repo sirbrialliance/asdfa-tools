@@ -14,6 +14,7 @@ var mimeTypes = {
 	"js": "application/javascript",
 	"map": "application/json",
 	"png": "image/png",
+	"jpg": "image/jpeg",
 	"ico": "image/x-icon",
 	"svg": "image/svg+xml",
 	"txt": "text/plain",
@@ -41,7 +42,8 @@ class Response {
 
 	resource(file) {
 		try {
-			this.body = fs.readFileSync("build/" + file).toString();
+			this.body = fs.readFileSync("build/" + file).toString('base64');
+			this.isBase64Encoded = true;
 			this.statusCode = 200;
 			this.headers['Content-Type'] = getMime(file.split('.').pop());
 		} catch (ex) {

@@ -14,12 +14,16 @@ module.exports = function(grunt) {
 			}
 		});
 
-		grunt.file.write("server/contentList.js", `"user strict";
+		grunt.file.write("server/contentList.js", `"use strict";
 //Automatically generated, don't hand-edit.
 module.exports = {
 	modules: ${JSON.stringify(modules)},
 	webFiles: ${JSON.stringify(webFiles({includeBuilt: true}))},
 };
+`);
+
+		grunt.file.write("web/lib/BGImageList.tsx", `//Automatically generated, don't hand-edit.
+export default ${JSON.stringify(webFiles({bgImages: true}).map(x => x.substr(3)))};
 `);
 	}
 
@@ -31,10 +35,15 @@ module.exports = {
 		options = {...{
 			projectRelative: false,
 			includeBuilt: false,
+			bgImages: false,
 		}, ...options};
 
 		var files = grunt.file.expand(['web/**']);
 		files = files.filter(x => !x.match(/\.(less|tsx)$/) && !grunt.file.isDir(x));
+
+		if (options.bgImages) {
+			files = files.filter(x => x.match(/^web\/bg\/.*\.jpg$/));
+		}
 
 		if (options.includeBuilt) {
 			files.push("web/main.js");

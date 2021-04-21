@@ -6,3 +6,4 @@ package-lock.json
 .tscache/
 .serverless
 server/contentList.js
+bg-src/

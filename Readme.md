@@ -45,6 +45,10 @@ To keep costs down and speeds up here's how things are currently set up to work:
 
 Starts up tasks to redo certain build steps, watch for TypeScript changes, and starts a local server to serve content.
 
+And if you want to test on your LAN on other devices:
+
+	serverless offline --host 192.168.1.123 # replace with your own IP
+
 ## Deploy
 
 	grunt
