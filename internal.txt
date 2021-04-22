@@ -3,16 +3,9 @@ Tasks
 -------------------------------------------------------------------------
 
 - next:
-	- xx hide search box since it's not implemented
-	- xx logo
-	- xx credits
-
 	- more design pass
-		- xx flex main page, more size
-		- xx sort by name + sort
-		- xx link colors
-
 		- look good on narrow device
+
 	- sources:
 		- export js sources for source maps
 		- crunch/minify js
