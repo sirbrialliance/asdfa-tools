@@ -32,7 +32,7 @@ export default class About extends MetaModule {
 					</ul>
 				</p>
 				<p>
-					To contact the site owner, reach out to [GitHub username for code repo]@gmail.com.
+					To contact the site owner, reach out to [GitHub username for code repo, with exact misspelling]@gmail.com.
 				</p>
 			</div>
 		];

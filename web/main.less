@@ -17,6 +17,9 @@ html {
 	}
 }
 
+body {
+	min-width: 250px;
+}
 
 * { box-sizing: border-box; }
 
@@ -40,12 +43,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
-
+@header-height: 47px;
 header {
 	color: white;
 	position: fixed;
 	top: 5px; left: 0; right: 0;
-	height: 36px;
+	height: @header-height - 11px;
 	border: 1px solid black;
 	border-right: none; border-left: none;
 	background-color: #44444455;
@@ -58,6 +61,7 @@ header {
 		.logo {
 			display: inline-block;
 			width: 215px;
+			height: 38px;
 
 			img {
 				position: absolute;
@@ -66,6 +70,10 @@ header {
 				top: -12px;
 				left: -4px;
 			}
+		}
+
+		.subTitle {
+			vertical-align: top;
 		}
 	}
 
@@ -79,7 +87,7 @@ header {
 
 main {
 	position: fixed;
-	top: 47px; right: 0; left: 0; bottom: 0;
+	top: @header-height; right: 0; left: 0; bottom: 0;
 	overflow: auto;
 	background: #000000a8;
 	padding: 8px;
@@ -93,63 +101,53 @@ main {
 	}
 }
 
-main.indexPage {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-	grid-auto-rows: 180px;
-	column-gap: 17px;
-	row-gap: 17px;
+@media (max-width: 720px) {
+	@header-height: 47px;
 
-	background: transparent;
-	margin: 0;
-	box-shadow: none;
+	header {
+		height: @header-height - 11px;
+		h1 {
 
-	.moduleTile {
-		border-radius: 22px;
-		box-shadow: black 0 0 12px;
-		color: white;
-		background-color: #00000087;
-		border-top: 2px solid #656565;
-		padding: 0px;
-		overflow: hidden;
-		font-size: 15px;
-		cursor: default;
-
-		&:hover {
-			box-shadow: white 0 0 12px;
-		}
-
-		&.unsupported {
-			opacity: .5;
-		}
-
-		&>* {
-			display: block;
-			padding: 6px 10px;
-		}
-
-		h2 {
-			margin: 0;
-			padding: 7px 15px;
-			font-size: 17px;
-			background: #474747;
-		}
-		&.meta {
-			border-color: hsl(60deg 32% 37%);
-			h2 { background: hsl(60deg 32% 28%); }
-		}
-
-		&.m_BrowserInfo span {
-			font-family: monospace;
-			font-size: 10px;
-		}
-
-		textarea {
-			width: 100%;
-			height: 53px;
+			.subTitle.home {
+				font-size: 12px;
+				line-height: 2em;
+			}
 		}
 	}
+	main {
+		top: @header-height;
+	}
 }
+
+@media (max-width: 510px) {
+	@header-height: 69px + 9px;
+
+	header {
+		height: @header-height - 11px;
+		h1 {
+			font-size: 12px;
+
+			.subTitle.home {
+				line-height: initial;
+			}
+
+			.subTitle {
+				display: block;
+			}
+		}
+	}
+	main {
+		top: @header-height;
+	}
+}
+
+@media (max-width: 300px) {
+	header h1 .subTitle.home {
+		font-size: 8.5px;
+	}
+}
+
+
 
 p {
 	margin: .5em 0;
@@ -204,6 +202,7 @@ terminal {
 	}
 }
 
+@import "index.less";
 @import "modules/SerialTerminal.less";
 @import "modules/Midi.less";
 @import "modules/Credits.less";

@@ -3,6 +3,9 @@ Tasks
 -------------------------------------------------------------------------
 
 - next:
+	- xx about
+	- xx source
+
 	- more design pass
 		- look good on narrow device
 
@@ -31,8 +34,6 @@ Tasks
 		- time
 		- basic webcam/mic?
 
-	- about
-	- source
 
 	- first release
 

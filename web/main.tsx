@@ -177,10 +177,12 @@ function updatePage() {
 	titleHeader?.remove();
 	titleHeader = <h1><a class="logo" href="/"><img src="/logo.png" alt="asdfa"/></a></h1>;
 	if (currentModule) {
-		titleHeader.appendChild(jsxText(" » "));
-		titleHeader.appendChild(<a href={"/" + currentModule.getId()}>{currentModule.getName()}</a>);
+		titleHeader.appendChild(<span class="subTitle">
+			»
+			<a href={"/" + currentModule.getId()}>{currentModule.getName()}</a>
+		</span>);
 	} else {
-		titleHeader.appendChild(<span class="subTitle">A Set of Decently Functional Assessments</span>);
+		titleHeader.appendChild(<span class="subTitle home">A Set of Decently Functional Assessments</span>);
 	}
 	header.prepend(titleHeader);
 }

@@ -1,0 +1,58 @@
+
+main.indexPage {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+	grid-auto-rows: 180px;
+	column-gap: 17px;
+	row-gap: 17px;
+
+	background: transparent;
+	margin: 0;
+	box-shadow: none;
+
+	.moduleTile {
+		border-radius: 22px;
+		box-shadow: black 0 0 12px;
+		color: white;
+		background-color: #00000087;
+		border-top: 2px solid #656565;
+		padding: 0px;
+		overflow: hidden;
+		font-size: 15px;
+		cursor: default;
+
+		&:hover {
+			box-shadow: white 0 0 12px;
+		}
+
+		&.unsupported {
+			opacity: .5;
+		}
+
+		&>* {
+			display: block;
+			padding: 6px 10px;
+		}
+
+		h2 {
+			margin: 0;
+			padding: 7px 15px;
+			font-size: 17px;
+			background: #474747;
+		}
+		&.meta {
+			border-color: hsl(60deg 32% 37%);
+			h2 { background: hsl(60deg 32% 28%); }
+		}
+
+		&.m_BrowserInfo span {
+			font-family: monospace;
+			font-size: 10px;
+		}
+
+		textarea {
+			width: 100%;
+			height: 53px;
+		}
+	}
+}
