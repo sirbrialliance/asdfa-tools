@@ -5,9 +5,7 @@ Tasks
 - next:
 	- xx about
 	- xx source
-
-	- more design pass
-		- look good on narrow device
+	- xx look good on narrow device
 
 	- sources:
 		- export js sources for source maps
@@ -144,5 +142,7 @@ Ideas
 		- upload file, save recv'd data to file
 		- pick line ending when you hit enter (\r, \n, \r\n, none)
 		- webusb fallback?
+	- user media:
+		- access screen too
 
 

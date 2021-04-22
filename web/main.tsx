@@ -55,7 +55,7 @@ function initModules() {
 
 	moduleIds = modules.map(x => x.getId());
 
-	console.log(modules, moduleIds);
+	//console.log(modules, moduleIds);
 }
 
 function initDOM() {
@@ -178,7 +178,7 @@ function updatePage() {
 	titleHeader = <h1><a class="logo" href="/"><img src="/logo.png" alt="asdfa"/></a></h1>;
 	if (currentModule) {
 		titleHeader.appendChild(<span class="subTitle">
-			»
+			{"» "}
 			<a href={"/" + currentModule.getId()}>{currentModule.getName()}</a>
 		</span>);
 	} else {

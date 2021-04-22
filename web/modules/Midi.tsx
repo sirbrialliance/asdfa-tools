@@ -24,8 +24,10 @@ export default class Midi extends Module {
 
 	render() {
 		return [
-			<h3>Inputs</h3>,
-			this.inputsEl = <ul class="inputs"/>,
+			<div class="ioBox input">
+				<h3>Inputs</h3>
+				{this.inputsEl = <ul class="inputs"/>}
+			</div>,
 			<h3>Outputs</h3>,
 			this.outputsEl = <ul class="outputs"/>,
 			this.terminal = <terminal/>,
