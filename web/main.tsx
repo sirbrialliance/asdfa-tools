@@ -43,10 +43,19 @@ function initModules() {
 			console.error("Bad module name", id, modulePath);
 		} else {
 			modules.push(module);
-			moduleIds.push(id);
 		}
 	}
-	// console.log(modules);
+
+	modules.sort((a, b) => {
+		var sortDiff = a.sortOrder() - b.sortOrder();
+		if (sortDiff !== 0) return sortDiff;
+
+		return a.getName().localeCompare(b.getName());
+	});
+
+	moduleIds = modules.map(x => x.getId());
+
+	console.log(modules, moduleIds);
 }
 
 function initDOM() {
@@ -186,7 +195,7 @@ function renderIndex() {
 		var supported = module.isSupported() === true;
 		return (
 			<div
-				class={"moduleTile m_" + id + (supported ? "" : " unsupported")}
+				class={"moduleTile m_" + id + (supported ? "" : " unsupported") + " " + module.classNames()}
 				title={supported ? module.getName() : "Not supported on this device/browser"}
 				onClick={ev => {
 					if (ev.defaultPrevented) return;
@@ -207,7 +216,7 @@ function renderIndex() {
 
 function renderModule(module: Module) {
 	document.title = module.getName();
-	main.className = "modulePage m_" + module.getId();
+	main.className = "modulePage m_" + module.getId() + " " + module.classNames();
 
 	//export current module for easy debugging
 	(window as any).__currentModule = currentModule;

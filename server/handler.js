@@ -32,7 +32,8 @@ class Response {
 
 	clear() {
 		this.statusCode = 500;
-		this.headers = { 'x-foo-bar': 'baz' };
+		this.headers = {};
+		// this.headers = { 'x-foo-bar': 'baz' };
 		this.body = null;
 		// this.multiValueHeader = {};//doesn't work
 		// this.multiValueHeaders = {};//doesn't work

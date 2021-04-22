@@ -3,29 +3,45 @@ Tasks
 -------------------------------------------------------------------------
 
 - next:
-	- logo
-
-	- midi
-		- toggle items on/off
-		- option to capture sysex, remember
-		- refactor <terminal> to a class
-		- global error handler shows any error to user
-	- touch
-	- browser info
-		- IP, user agent, local ip, server ip, etc.
-		- what http proocol we used to load the page (e.g. http/3)
-	- basic webgl
-		- spining cube thumb
-		- something cool looking fractal for bigger
-	- notes
-	- speaker test
-	- time
-
-	- credits (convert to module)
 	- xx hide search box since it's not implemented
+	- xx logo
+	- xx credits
+
+	- more design pass
+		- xx flex main page, more size
+		- xx sort by name + sort
+		- xx link colors
+
+		- look good on narrow device
+	- sources:
+		- export js sources for source maps
+		- crunch/minify js
+		- export css sources for source maps
+		- crunch/minify css
+
+
+	- modules:
+		- midi
+			- toggle items on/off
+			- option to capture sysex, remember
+			- refactor <terminal> to a class
+			- global error handler shows any error to user
+		- touch
+		- browser info
+			- IP, user agent, local ip, server ip, etc.
+			- what http proocol we used to load the page (e.g. http/3)
+		- basic webgl
+			- spining cube thumb
+			- something cool looking fractal for bigger
+		- notes
+		- speaker test
+		- time
+		- basic webcam/mic?
+
+	- about
+	- source
+
 	- first release
-
-
 
 - issues
 	- On a certain tablet, after I refresh it loads AND shows the loading throbber
@@ -50,9 +66,11 @@ Ideas
 	- serve the original sources so source maps work deployed
 	- works offline (PWA/manifest.json/background worker)
 	- modules can have alternate names and typing one in the URL takes us to the real module
+		- and show a reccommended short name if appropriate e.g. "CameraAndMicrophone" tells you you can just use /camera or /mic
 	- Firefox double-requests CSS?
 	- sitemap.xml?
 	- lookd/works decenty on mobile
+	- serve modification time for caching, allow caching root
 
 
 - modules
@@ -62,6 +80,7 @@ Ideas
 	- Webgl and feature tests
 	- Wasm test
 	- Camera/mic check (and pick from multiple sources)
+		- fullscreen the camera view if desired
 		- can we do slow-mo capture?
 		- Save audio clip (wav or mp3)
 	- Basic speaker test, select an output, pan to any speaker (even past l/r)
@@ -108,6 +127,7 @@ Ideas
 	- file hash calculation (drag and drop, automatically states if hashes match (or if they are exactly binary equal), or better yet, if the aren't equal calculate a number of hashes and warn about any collisions, or if just doing sums warn about slimiar not not exact hashes (esp. if more than 1 start or end chars match))
 	- WebRTC file transfer (server only helps the connection get started, files are 100% P2P between open browser windows, refuse to proxy packets through server if clients can't directly connect)
 		- wonder if we can do this with Lambda functions and no data storage
+		- and wile you can have the connection, might as well allow chatting
 	- quick lookup for port numbers, mime-types
 	- quick search box that starts focused, type a few letters of the module you want to interact, hit enter
 	- load a remote site (as server), render image or pdf, show load timings, link to load speed sites, pick a place to request from?, inject cookies or headers?

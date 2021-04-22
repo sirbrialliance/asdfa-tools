@@ -14,7 +14,7 @@ export default abstract class Module {
 	 *   - false: a generic error is displayed
 	 *   - "name=id": The given English name and https://caniuse.com/{id} path is used to display an error.
 	 */
-	isSupported(): boolean | HTMLElement | string { return true;}
+	isSupported(): boolean | HTMLElement | string { return true; }
 
 	/** The page for the module has been opened. Called after render(). */
 	opened(): void {}
@@ -39,6 +39,16 @@ export default abstract class Module {
 
 	closed(): void {}
 
+	///Special sort order, lowest first, ties are alphabetized.
+	sortOrder(): number { return 0; }
+	///Space-separated CSS class names to apply to our containers.
+	classNames(): string { return ""; }
+
 	getId(): string { return this.constructor.name; }
+}
+
+export abstract class MetaModule extends Module {
+	sortOrder() { return 10; }
+	classNames(): string { return "meta"; }
 }
 
