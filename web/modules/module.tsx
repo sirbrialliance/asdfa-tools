@@ -52,3 +52,119 @@ export abstract class MetaModule extends Module {
 	classNames(): string { return "meta"; }
 }
 
+
+export interface DeviceInfo<DT> {
+	id: string;
+	el: HTMLElement;
+	device: DT;
+}
+
+export abstract class DeviceModule<DT> extends Module {
+	devices: Record<string, DeviceInfo<DT>> = {};
+	gridEl: HTMLElement;
+	noDevicesEl = <span class="noDevices">No devices found.</span>;
+	_needsRender = true;
+
+	///Returns an array of devices available to the browser.
+	abstract getDevices() : Promise<[string, DT][]>;
+	/**
+	 * Called when we see a new device.
+	 */
+	abstract openDevice(deviceInfo: DeviceInfo<DT>): Promise<void>;
+	///Called when we see a device disappear.
+	abstract closeDevice(deviceInfo: DeviceInfo<DT>): Promise<void>;
+	///Renders/updates the device's representation. Returns an HTML element to represent the device, possibly returning the existing device.el.
+	abstract renderDevice(deviceInfo: DeviceInfo<DT>): HTMLElement;
+
+	render() {
+		return this.gridEl = <div class="deviceGrid"></div>;
+	}
+
+	_deferDeviceRender() {
+		this._needsRender = true;
+		setTimeout(() => {
+			if (this._needsRender) this.renderDevices();
+		}, 0);
+	}
+
+	renderDevices() {
+		var num = 0;
+		for (let id in this.devices) {
+			++num;
+			let deviceInfo = this.devices[id];
+			let el = this.renderDevice(deviceInfo);
+			if (deviceInfo.el && el !== deviceInfo.el) {
+				deviceInfo.el.parentElement.replaceChild(el, deviceInfo.el);
+			} else {
+				this.gridEl.appendChild(el);
+			}
+			deviceInfo.el = el;
+		}
+
+		this.noDevicesEl.remove();
+		if (!num) this.gridEl.appendChild(this.noDevicesEl);
+
+		this._needsRender = false;
+	}
+
+	async updateDevices() {
+		//get devices
+		var devices = await this.getDevices();
+		var changes: Promise<void>[] = [];
+
+		//check for added devices
+		var existingIds: Record<string, true> = {};
+		for (let [id, device] of devices) {
+			existingIds[id] = true;
+
+			let deviceInfo = this.devices[id];
+			if (!deviceInfo) {
+				//new device
+				changes.push(this.addDevice(id, device));
+			} else {
+				//existing device, no action
+			}
+		}
+
+		//check for removed devices
+		for (let id in this.devices) {
+			if (existingIds[id]) continue;
+			changes.push(this.removeDevice(id));
+		}
+
+		await Promise.all(changes);
+	}
+
+	closed() {
+		var promises = [];
+		for (let id in this.devices) {
+			promises.push(this.closeDevice(this.devices[id]));
+		}
+		this.devices = {};
+		//await Promise.all(promises)...
+	}
+
+	async addDevice(id: string, device: DT): Promise<void> {
+		if (this.devices[id]) return;//already added
+		this.devices[id] = {
+			device: device,
+			el: null,
+			id: id,
+		};
+		await this.openDevice(this.devices[id]);
+
+		this._deferDeviceRender();
+	}
+
+	async removeDevice(id: string): Promise<void> {
+		if (!this.devices[id]) return;//already removed
+		let deviceInfo = this.devices[id];
+		await this.closeDevice(deviceInfo);
+		if (deviceInfo.el) deviceInfo.el.remove();
+		delete this.devices[id];
+
+		this._deferDeviceRender();
+	}
+
+}
+

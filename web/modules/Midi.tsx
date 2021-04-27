@@ -1,17 +1,14 @@
-import Module from './Module';
+import {DeviceModule, DeviceInfo} from './Module';
 import * as util from '../lib/util';
 
-export default class Midi extends Module {
+export default class Midi extends DeviceModule<WebMidi.MIDIPort> {
 	midi: WebMidi.MIDIAccess;
 	terminal: HTMLElement;
 	inputsEl: HTMLElement;
 	outputsEl: HTMLElement;
-	openPorts: WebMidi.MIDIPort[] = [];
-
-	__onStateChange: (ev: Event) => void;
 
 	renderThumb(): HTMLElement {
-		return <span>See connected MIDI devices and view incoming MIDI events.</span>
+		return <span>See connected MIDI devices and view events.</span>
 	}
 
 	getName(): string {
@@ -22,97 +19,117 @@ export default class Midi extends Module {
 		return ('requestMIDIAccess' in navigator) || "MIDI API=midi";
 	}
 
-	render() {
-		return [
-			<div class="ioBox input">
-				<h3>Inputs</h3>
-				{this.inputsEl = <ul class="inputs"/>}
-			</div>,
-			<h3>Outputs</h3>,
-			this.outputsEl = <ul class="outputs"/>,
-			this.terminal = <terminal/>,
+
+	async getDevices() {
+		var ports: WebMidi.MIDIPort[] = [
+			...Array.from(this.midi.inputs.values()),
+			...Array.from(this.midi.outputs.values())
 		];
+		return ports.map(port => [port.id, port]) as [string, WebMidi.MIDIPort][];
+	}
+
+	async openDevice(deviceInfo: DeviceInfo<WebMidi.MIDIPort>) {
+		var port = deviceInfo.device;
+		try {
+			await port.open();
+			console.log("Opened " + port.id + "-" + port.name, port);
+		} catch (ex) {
+			console.error("Could not open " + port.id + "-" + port.name + " " +  ex);
+		}
+
+		port.onstatechange = ev => {
+			if (port.state === "disconnected") this.removeDevice(port.id);
+		};
+
+		if (port.type === "input") {
+			(port as WebMidi.MIDIInput).onmidimessage = _ev => {
+				this.handleMessage(deviceInfo, _ev as WebMidi.MIDIMessageEvent);
+			};
+		}
+	}
+
+	async closeDevice(deviceInfo: DeviceInfo<WebMidi.MIDIPort>) {
+		let port = deviceInfo.device;
+		if (port.type === "input") (port as WebMidi.MIDIInput).onmidimessage = null;
+		port.onstatechange = null;
+		await port.close();
+		console.log("Closed " + port.id + "-" + port.name);
+	}
+
+	renderDevice(deviceInfo: DeviceInfo<WebMidi.MIDIPort>): HTMLElement {
+		let port = deviceInfo.device;
+		return <terminal class="device">
+			<h3>
+				{`${port.type}: ${port.name}`} {" "}
+				{(port.manufacturer && <small>{port.manufacturer}</small>)}
+			</h3>
+		</terminal>;
 	}
 
 	opened() {
-		this.__onStateChange = this.onStateChange.bind(this);
+		super.opened();
 
-		navigator.requestMIDIAccess({sysex: false}).then(midi => {
+		navigator.requestMIDIAccess({sysex: true}).then(async midi => {
 			this.midi = midi;
 
-			midi.addEventListener("statechange", this.__onStateChange);
+			midi.onstatechange = ev => this.onStateChange(ev);
 
-			// console.log("MIDI", Array.from(midi.inputs.values()), Array.from(midi.outputs.values()));
-			for (let port of Array.from(this.midi.inputs.values())) this.openPort(port);
-			for (let port of Array.from(this.midi.outputs.values())) this.openPort(port);
-
-			this.updateDeviceList();
+			await this.updateDevices();
 		}, function(err) {
 			console.error(err);
 		});
 	}
 
 	closed() {
+		super.closed();
+
 		if (this.midi) {
-			this.midi.removeEventListener("statechange", this.__onStateChange);
-			for (let port of this.openPorts) {
-				port.close();//todo: wait for promise
-			}
-			this.openPorts = [];
+			this.midi.onstatechange = null;
 			this.midi = null;
 		}
 	}
 
-	updateDeviceList() {
-		this.inputsEl.textContent = '';
-		this.outputsEl.textContent = '';
-
-		for (let port of Array.from(this.midi.inputs.values())) {
-			this.inputsEl.appendChild(<li>{port.name + " (" + port.manufacturer + ")"}</li>);
-		}
-		for (let port of Array.from(this.midi.outputs.values())) {
-			this.outputsEl.appendChild(<li>{port.name + " (" + port.manufacturer + ")"}</li>);
-		}
-	}
-
 	onStateChange(ev: WebMidi.MIDIConnectionEvent) {
-
-		// let port = ev.port;
-
-		// if (port.state === "disconnected") {
-		// 	if (port.type === "output") {
-		// 		delete outPorts[port.id];
-		// 	}
-		// 	return;
-		// }
-
-
+		this.addDevice(ev.port.id, ev.port);//todo: .catch
 	}
 
-	async openPort(port: WebMidi.MIDIPort) {
-		try {
-			await port.open();
-			console.log("Opened " + port.id + "-" + port.name + " " + port);
-		} catch (ex) {
-			console.error("Could not open " + port.id + "-" + port.name + " " +  ex + " " + port);
+	handleMessage(deviceInfo: DeviceInfo<WebMidi.MIDIPort>, ev: WebMidi.MIDIMessageEvent) {
+		var note = this.parseMIDIMessage(ev.data);
+
+		var message: HTMLElement;
+
+		const MAX_MESSAGES = 10;
+
+		var existingMessage = null;
+
+		if (note) {
+			//delete any previous message with the same input id
+			existingMessage = deviceInfo.el.querySelector(`[data-input="${note.id}"]`);
+
+			message = <div class="event" data-input={note.id}>
+				{note.t === "n" ? "Note: " : "CC:   "}
+				{("#" + note.w).padStart(4, ' ')  + " "}
+				Value: {note.v.toString().padStart(3, ' ') + " "}
+				Channel: {note.c.toString().padStart(2, ' ') + " "}
+				<span class="binary">{this.prettyBytes(ev.data)}</span>
+			</div>;
+			this.prettyBytes(ev.data) + " " + JSON.stringify(note);
+		} else {
+			message = <div class="event unknown">
+				<span class="binary">{this.prettyBytes(ev.data)}</span>
+			</div>;
 		}
 
-		if (port.type === "input") {
-			port.addEventListener("midimessage", _ev => {
-				let ev = _ev as WebMidi.MIDIMessageEvent;
-				var note = this.parseMIDIMessage(ev.data);
-
-				if (note) {
-					note.v = Math.round(note.v * 1000) / 1000;
-					console.log(this.prettyBytes(ev.data) + " " + JSON.stringify(note));
-				} else {
-					console.log(this.prettyBytes(ev.data));
-				}
-			});
+		if (existingMessage) existingMessage.parentElement.replaceChild(message, existingMessage);
+		else {
+			var otherMessages = deviceInfo.el.querySelectorAll(".event");
+			if (otherMessages.length >= MAX_MESSAGES) {
+				otherMessages.item(0).remove();
+			}
+			deviceInfo.el.appendChild(message);
 		}
-
-		this.openPorts.push(port);
 	}
+
 
 	parseMIDIMessage(data: Uint8Array) {
 		var type = data[0];
@@ -120,7 +137,7 @@ export default class Midi extends Module {
 
 		if (data.length > 2) {
 			what = data[1];
-			value = data[2] / 127;
+			value = data[2];
 			channel = type & 0xF;
 		}
 

@@ -1,5 +1,21 @@
 
 main.m_Midi {
-	display: flex;
+	display: grid;
+
+	.device {
+		position: relative;
+
+		.event {
+			white-space: pre;
+			font-family: monospace;
+
+			animation: dataFlash 800ms forwards;
+		}
+
+		@keyframes dataFlash {
+			0% { color: yellow; }
+			100% { color: #888;}
+		}
+	}
 
 }

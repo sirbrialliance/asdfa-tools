@@ -13,13 +13,15 @@ Tasks
 		- export css sources for source maps
 		- crunch/minify css
 
+	- global error handler shows any error to user
 
 	- modules:
 		- midi
-			- toggle items on/off
-			- option to capture sysex, remember
+			- show all inputs, outputs as boxes
+				- vizualize what's being sent/recvd
+			- always ue sysex
 			- refactor <terminal> to a class
-			- global error handler shows any error to user
+			- each output box has the option to copy form an input, with or without delay
 		- touch
 		- browser info
 			- IP, user agent, local ip, server ip, etc.
@@ -28,9 +30,21 @@ Tasks
 			- spining cube thumb
 			- something cool looking fractal for bigger
 		- notes
-		- speaker test
 		- time
 		- basic webcam/mic?
+		- user media?
+			- show all cameras in grid, tap to toggle
+				- mirror, fullscreen, stop
+			- show all mic inputs
+				- histogram of input data
+				- start/stop capture
+			- show all outputs
+				- button to toggle each mic, toggle 2s output delay
+				- histogram shows our outputs (one per speaker?)
+				- trigger 1-3 test audio clips
+					- one must specifically output to each speaker
+		- zz speaker test - redundant with user media
+
 
 
 	- first release
@@ -57,6 +71,7 @@ Ideas
 	- Load and function as much as possible if Internet is down (and make it clear when in "offline mode" )
 	- serve the original sources so source maps work deployed
 	- works offline (PWA/manifest.json/background worker)
+		- it it seems we should be online, if live load fails ask user if tey want to use the cached copy
 	- modules can have alternate names and typing one in the URL takes us to the real module
 		- and show a reccommended short name if appropriate e.g. "CameraAndMicrophone" tells you you can just use /camera or /mic
 	- Firefox double-requests CSS?
@@ -136,6 +151,10 @@ Ideas
 	- Display tests: links to testufo, lagom.nl, rtings.com
 	- Encding tool: encode/decode: URL, HTML chars, base64, rot13, binary ("1010" => ASCII), etc.
 	- image crunching (like tinypng, but everything is done client-side) and conversion (also client-side, change image formats, including to newer web formats)
+	- https://www.h-schmidt.net/FloatConverter/IEEE754.html
+	- https://d3ward.github.io/toolz/src/adblock.html
+	- 360 potato viewer
+	- What API does testufo use to note monitor refresh rate, primary monitor, etc.
 
 	- Serial:
 		- add option to choose text encoding for send/recv (including hex and base64)
