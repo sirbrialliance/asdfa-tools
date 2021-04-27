@@ -57,12 +57,15 @@ export default class Midi extends DeviceModule<WebMidi.MIDIPort> {
 	}
 
 	renderDevice(deviceInfo: DeviceInfo<WebMidi.MIDIPort>): HTMLElement {
+		if (deviceInfo.el) return deviceInfo.el;//don't re-render DOM
+
 		let port = deviceInfo.device;
 		return <terminal class="device">
 			<h3>
 				{`${port.type}: ${port.name}`} {" "}
 				{(port.manufacturer && <small>{port.manufacturer}</small>)}
 			</h3>
+			{port.type === "input" && <div class="event info">&lt;interact with the device to see events&gt;</div> || ""}
 		</terminal>;
 	}
 
@@ -109,8 +112,11 @@ export default class Midi extends DeviceModule<WebMidi.MIDIPort> {
 			message = <div class="event" data-input={note.id}>
 				{note.t === "n" ? "Note: " : "CC:   "}
 				{("#" + note.w).padStart(4, ' ')  + " "}
-				Value: {note.v.toString().padStart(3, ' ') + " "}
-				Channel: {note.c.toString().padStart(2, ' ') + " "}
+				<value>
+					Value: {note.v.toString().padStart(3, ' ')}
+					<bar style={{width: note.v / 127 * 100 + '%'}}/>
+				</value>{" "}
+				Channel: {(note.c + 1).toString().padStart(2, ' ') + " "}
 				<span class="binary">{this.prettyBytes(ev.data)}</span>
 			</div>;
 			this.prettyBytes(ev.data) + " " + JSON.stringify(note);
@@ -122,6 +128,7 @@ export default class Midi extends DeviceModule<WebMidi.MIDIPort> {
 
 		if (existingMessage) existingMessage.parentElement.replaceChild(message, existingMessage);
 		else {
+			deviceInfo.el.querySelectorAll(".event.info").forEach(el => el.remove());
 			var otherMessages = deviceInfo.el.querySelectorAll(".event");
 			if (otherMessages.length >= MAX_MESSAGES) {
 				otherMessages.item(0).remove();

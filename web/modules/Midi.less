@@ -2,6 +2,24 @@
 main.m_Midi {
 	display: grid;
 
+	value {
+		display: inline-block;
+		margin: 0; padding: 0;
+		position: relative;
+
+		bar {
+			display: inline-block;
+			background-image:
+				linear-gradient(to top, #888 0%, #888 5%, #00000000 5%, #00000000 100%),
+				linear-gradient(to right, rgb(0, 0, 0) 0%, rgb(0, 45, 192) 46%, rgba(0,255,6,1) 100%)
+			;
+			position: absolute;
+			top: 0; bottom: 0; left: 0; right: 0;
+			z-index: -1;
+			background-size: 95px 100%;
+		}
+	}
+
 	.device {
 		position: relative;
 
@@ -10,6 +28,10 @@ main.m_Midi {
 			font-family: monospace;
 
 			animation: dataFlash 800ms forwards;
+
+			&.info {
+				animation: none;
+			}
 		}
 
 		@keyframes dataFlash {

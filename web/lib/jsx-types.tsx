@@ -251,6 +251,8 @@ declare global { namespace JSX {
 
   interface IntrinsicElements {
 		terminal: NodeFactory;
+		value: NodeFactory;
+		bar: NodeFactory;
 
 		a: NodeFactory;
 		abbr: NodeFactory;
