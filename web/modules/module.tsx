@@ -1,3 +1,4 @@
+import { restartModule } from '../main'
 
 /* Module boilerplate:
 
@@ -62,6 +63,11 @@ export default abstract class Module {
 	}
 
 	closed(): void {}
+
+	/** Call to act like we just unloaded and then loaded this module. */
+	reload() {
+		restartModule()
+	}
 
 	///Special sort order, lowest first, ties are alphabetized.
 	sortOrder(): number { return 0; }

@@ -145,6 +145,10 @@ function navTo(url: string) {
 	updatePage();
 }
 
+export function restartModule() {
+	updatePage()
+}
+
 function updatePage() {
 	main.textContent = '';
 	main.className = '';

@@ -106,6 +106,7 @@ Ideas
 			- burst a pile of UDP packets at different rates and track packet loss
 			- how to serve that doesn't have notable cost?
 				- https://www.measurementlab.net/develop/ ?
+			- test.webrtc.org has a throughput test...
 	- jot down notes, saved in browser, can export/import
 		- update when changed in another tab
 		- bonus: option to save data by unique, random user key, keep changes on server for a week, other browsers with same key update their notes from sever ("No expectation of privacy", liability terms)
@@ -169,5 +170,6 @@ Ideas
 		- webusb fallback?
 	- user media:
 		- access screen too
+		- browser controls for PTZ cameras https://webrtc.github.io/samples/src/content/getusermedia/pan-tilt-zoom/
 
 
