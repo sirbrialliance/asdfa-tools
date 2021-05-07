@@ -3,9 +3,6 @@ Tasks
 -------------------------------------------------------------------------
 
 - next:
-	- xx about
-	- xx source
-	- xx look good on narrow device
 
 	- sources:
 		- export js sources for source maps
@@ -17,11 +14,8 @@ Tasks
 
 	- modules:
 		- midi
-			- show all inputs, outputs as boxes
-				- vizualize what's being sent/recvd
-			- always ue sysex
-			- refactor <terminal> to a class
 			- each output box has the option to copy form an input, with or without delay
+			- style the device grid
 		- touch
 		- browser info
 			- IP, user agent, local ip, server ip, etc.
@@ -31,8 +25,7 @@ Tasks
 			- something cool looking fractal for bigger
 		- notes
 		- time
-		- basic webcam/mic?
-		- user media?
+		- user media
 			- show all cameras in grid, tap to toggle
 				- mirror, fullscreen, stop
 			- show all mic inputs
@@ -78,6 +71,7 @@ Ideas
 	- sitemap.xml?
 	- lookd/works decenty on mobile
 	- serve modification time for caching, allow caching root
+	- refactor <terminal> to a class
 
 
 - modules
@@ -100,7 +94,7 @@ Ideas
 		- (and use metrics to get page load times/etc)
 		- latency test (open a handful of connections to local CloudFlare node running web workers, graph
 		results and measure latency as you go, full duplex)
-		- max packet size
+		- max packet size/MTU
 		- bandwidth
 			- burst a pile of UDP packets at different rates and track packet loss
 			- how to serve that doesn't have notable cost?
@@ -129,7 +123,9 @@ Ideas
 		 - could we use time.cloudflare.com and CloudFlare workers?
 			 - doesn't look like it for UDP (NTP)
 			 - maybe spin up a t5g.nano/lightsail to do time sync, have it aggressively follow a stratum 0 server. (can also use for bandwidth, packet loss tests)
-			 	- then have it source NTP packet data, but send it to the browser over WebRTC
+			 	- then have it source NTP packet data, but send it to the browser over WebRTC so we can benefit its underlying timing trick
+			 		- ...can a lambda function send (and recieve replies to) UDP data while running? Could we possibly do everything in a 1-2s burst? (And if it gets enough traffic then do a lightsail)
+			 			- https://aws.amazon.com/lambda/faqs/ says "Inbound network connections are blocked ..., and for outbound connections only TCP/IP and UDP/IP sockets are supported," so if we originate the connection, maybe yes.
 	- Tar command line builder (and xkcd joke)
 	- file hash calculation (drag and drop, automatically states if hashes match (or if they are exactly binary equal), or better yet, if the aren't equal calculate a number of hashes and warn about any collisions, or if just doing sums warn about slimiar not not exact hashes (esp. if more than 1 start or end chars match))
 	- WebRTC file transfer (server only helps the connection get started, files are 100% P2P between open browser windows, refuse to proxy packets through server if clients can't directly connect)
@@ -155,6 +151,9 @@ Ideas
 	- https://d3ward.github.io/toolz/src/adblock.html
 	- 360 potato viewer
 	- What API does testufo use to note monitor refresh rate, primary monitor, etc.
+	- Special input types (color picker, phone number text entry, etc.)
+	- Calculator: Possible to put SpeedCrunch or the like up for easy access?
+	- Sign generator: just type some text pick fg/bg colors and display it giant and fullscreen
 
 	- Serial:
 		- add option to choose text encoding for send/recv (including hex and base64)
