@@ -42,8 +42,15 @@ Tasks
 
 	- first release
 
+
 - issues
 	- On a certain tablet, after I refresh it loads AND shows the loading throbber
+
+
+- RTC:
+	- STUN test
+	- connect directly by host
+
 
 
 - credits/licenses

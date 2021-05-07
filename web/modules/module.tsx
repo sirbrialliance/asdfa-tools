@@ -1,4 +1,28 @@
 
+/* Module boilerplate:
+
+import Module from './Module';
+
+export default class FooBar extends Module {
+	renderThumb(): HTMLElement {
+		return <span>Lorem ipsum dolor sit amet...</span>
+	}
+
+	getName(): string { return "Foo Bar"; }
+
+	render() {
+		return [<span>hi</span>];
+	}
+
+	opened() {}
+
+	closed() {}
+}
+
+
+ */
+
+/** Basically a page. */
 export default abstract class Module {
 	abstract getName(): string;
 	abstract renderThumb(): HTMLElement;

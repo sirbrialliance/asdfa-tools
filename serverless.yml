@@ -43,3 +43,18 @@ functions:
                 method: GET
                 path: /{any1}/{any2}
 
+
+    wsConnect:
+        handler: server/wsHandler.connect
+        events:
+            - websocket:
+                route: $connect
+            - websocket:
+                route: $disconnect
+    wsMessage:
+        handler: server/wsHandler.message
+        events:
+            - websocket:
+                route: $default
+            - websocket:
+                route: $disconnect
