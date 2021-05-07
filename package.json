@@ -17,5 +17,7 @@
     "serverless-offline": "^6.9.0",
     "typescript": "^4.2.3"
   },
-  "dependencies": {}
+  "dependencies": {
+    "random-js": "^2.1.0"
+  }
 }

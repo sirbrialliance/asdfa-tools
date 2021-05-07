@@ -16,7 +16,15 @@
 
 		"paths": {
 			"lib/jsx-runtime": ["./web/lib/jsx-runtime"],
+			//"random-js": ["./node_modules/random-js/dist/random-js.esm.js"],
 		},
+		"allowJs": true,
+		// "explainFiles": true,
 	},
-	"include": ["web/**/*.tsx"],
+	"include": [
+		"web/**/*.tsx",
+	],
+	"files": [
+		"node_modules/random-js/dist/random-js.esm.js",
+	],
 }

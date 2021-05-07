@@ -44,6 +44,9 @@ export class NodeFactory {
 	href?: string;
 	src?: string;
 	alt?: string;
+	for?: string;
+
+	selected?: boolean;
 
 
 	name?: string;
