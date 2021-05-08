@@ -49,6 +49,7 @@ export class NodeFactory {
 	for?: string;
 
 	selected?: boolean;
+	checked?: boolean;
 
 
 	name?: string;

@@ -39,6 +39,7 @@ export default class TabSet {
 
 	selectTab(tabId: string): void {
 		this.currentTab = tabId
+		this.el.setAttribute("data-selected-tab", tabId)
 		for (let k in this.sections) {
 			let tab = this.sections[k]
 			if (k === tabId) {

@@ -2,6 +2,37 @@ import Module from './Module'
 import * as RJS from "random-js"
 import TabSet from '../lib/TabSet'
 
+
+const defaultList = [
+	"Armadillo",
+	"Bat",
+	"Camel",
+	"Dolphin",
+	"Elephant",
+	"Ferret",
+	"Gecko",
+	"Horse",
+	"Iguana",
+	"Jaguar",
+	"Koala",
+	"Lemur",
+	"Manatee",
+	"Narwhal",
+	"Octopus",
+	"Platypus",
+	"Quokka",
+	"Raccoon",
+	"Snake",
+	"Tiger",
+	"Turtle",
+	"Uakari",
+	"Vulture",
+	"Wolf",
+	"Xerus",
+	"Yak",
+	"Zebra",
+]
+
 export default class Random extends Module {
 	randomType: HTMLInputElement
 	resultsEl: HTMLElement
@@ -91,15 +122,28 @@ export default class Random extends Module {
 						{mkInput("stringChars", "Character Pool", "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-")}<br/>
 						{mkInput("stringLen", "String Length", 16)}<br/>
 					</section>
-					{/*
-					list pick
-					list shuffle */}
+					<section data-label="Pick from List" data-tab="listPick">
+						List, one entry per line:<br/>
+						{this.inputs["listPickItems"] = <textarea>{defaultList.join("\n")}</textarea> as HTMLInputElement}
+						<label>
+							Allow duplicates:
+							{this.inputs["listPickDupes"] = <input type="checkbox" checked /> as HTMLInputElement}
+						</label>
+					</section>
+
+					<section data-label="Shuffle List" data-tab="listShuffle">
+						List, one entry per line:<br/>
+						{this.inputs["listShuffleItems"] = <textarea>{defaultList.join("\n")}</textarea> as HTMLInputElement}
+						<button class="bigButton" onClick={ev => this.doRandomGen()}>Shuffle</button>
+					</section>
 
 				</tabset>)).el}
 
-				<p>
-					<label for="resultCount">Number to generate: </label>
-					{this.inputs["resultCount"] = <input type="text" value="10" /> as HTMLInputElement}
+				<p class="resultActionContainer">
+					<label for="resultCount">
+						Number to generate:{' '}
+						{this.inputs["resultCount"] = <input type="text" value="10" /> as HTMLInputElement}
+					</label>
 					<button class="bigButton" onClick={ev => this.doRandomGen()}>Go</button>
 				</p>
 			</div>,
@@ -121,9 +165,10 @@ export default class Random extends Module {
 	}
 
 	/** Takes the given random engine and generates results for the currently selected output. */
-	genResults(engine: RJS.Engine): HTMLElement[] {
+	genResults(engine: RJS.Engine, writeOutput = true): HTMLElement[] {
 		this.resultsEl.textContent = "Generating..."
 		let ret: HTMLElement[] = []
+		let count = this._getInput("resultCount")
 
 		let distribution: any //RJS.Distribution
 		switch (this.tabSet.currentTab) {
@@ -141,16 +186,30 @@ export default class Random extends Module {
 				let len = this._getInput("stringLen")
 				distribution = (eng: RJS.Engine) => d(eng, len)
 				break
-
-		}
-
-		switch (this.tabSet.currentTab) {
-			default:
-				let count = this._getInput("resultCount")
-				for (let i = 0; i < count; ++i) {
-					ret.push(<span class="item">{distribution(engine).toString()}</span>)
+			case "listPick":
+				let dupesOkay = this.inputs["listPickDupes"].checked
+				let list = this.inputs["listPickItems"].value.split("\n")
+				if (dupesOkay) {
+					distribution = (eng: RJS.Engine) => RJS.pick(eng, list)
+				} else {
+					if (count > list.length) count = list.length
+					let items = RJS.sample(engine, list, count)
+					ret = items.map(item => <span class="item">{item}</span>)
 				}
 				break
+			case "listShuffle":
+				let listTarget = this.inputs["listShuffleItems"].value.split("\n")
+				RJS.shuffle(engine, listTarget)
+				if (writeOutput) {
+					this.inputs["listShuffleItems"].value = listTarget.join("\n")
+				}
+				break
+		}
+
+		if (writeOutput && distribution) {
+			for (let i = 0; i < count; ++i) {
+				ret.push(<span class="item">{distribution(engine).toString()}</span>)
+			}
 		}
 
 		return ret
@@ -173,7 +232,7 @@ export default class Random extends Module {
 				//count number of needed bytes
 				let count = 0
 				let countGenerator = {next: () => count++}
-				this.genResults(countGenerator)
+				this.genResults(countGenerator, false)
 
 				let numBytes = count * 4
 				if (numBytes > 1000) throw "Need to download more than 1000 bytes data"
