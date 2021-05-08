@@ -206,7 +206,7 @@ export default class Random extends Module {
 				break
 		}
 
-		if (writeOutput && distribution) {
+		if (distribution) {
 			for (let i = 0; i < count; ++i) {
 				ret.push(<span class="item">{distribution(engine).toString()}</span>)
 			}
@@ -236,6 +236,7 @@ export default class Random extends Module {
 
 				let numBytes = count * 4
 				if (numBytes > 1000) throw "Need to download more than 1000 bytes data"
+				if (numBytes <= 0) throw "No entropy needed"
 
 				//Fetch that many bytes
 				this.resultsEl.textContent = `Fetching ${numBytes} random bytes...`
