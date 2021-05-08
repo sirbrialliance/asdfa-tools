@@ -21,7 +21,7 @@ export function jsxs(nodeType: string, props: NodeFactory): HTMLElement {
 		if (k === "children") {
 			var items = [];
 			if (props.children instanceof Array) {
-				items = props.children;
+				items = (props.children as any).flat();
 			} else {
 				items = [props.children];
 			}

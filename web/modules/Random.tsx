@@ -1,20 +1,32 @@
-import Module from './Module';
-import * as RJS from "random-js";
+import Module from './Module'
+import * as RJS from "random-js"
+import TabSet from '../lib/TabSet'
 
 export default class Random extends Module {
 	randomType: HTMLInputElement
-	numCount: HTMLInputElement
-	numMin: HTMLInputElement
-	numMax: HTMLInputElement
-	numResults: HTMLElement
+	resultsEl: HTMLElement
+	tabSet: TabSet
+	inputs: Record<string, HTMLInputElement>
 
-	getName() { return "Random"; }
+	constructor() {
+		super()
+		this.inputs = {}
+	}
+
+	getName() { return "Random" }
 
 	renderThumb(): HTMLElement {
 		return <span>Generate random numbers, shuffle or pick form a list.</span>
 	}
 
 	render() {
+		let mkInput = (id: string, label: string, defaultVal: string | number, classes = "") => {
+			let labelEl = <label for={id}>{label}: </label>
+			let el = <input type="text" id={id} value={defaultVal.toString()} /> as HTMLInputElement
+			this.inputs[id] = el
+			return [labelEl, el]
+		}
+
 		return [
 			<div class="sourceSelect">
 				<h2>Source</h2>
@@ -36,7 +48,7 @@ export default class Random extends Module {
 							<ul>
 								<li>
 									The seed + Mersenne option downloads just a little bit of random data and uses that to seed a
-									Mersenne twister that generates the actual random data.
+									Mersenne twister that generates the results data.
 								</li>
 								<li>
 									The download all bytes option uses random.org to fetch all the random data we need for generating
@@ -50,31 +62,49 @@ export default class Random extends Module {
 					Regardless of source, we use <a href="https://github.com/ckknight/random-js">Random.js</a> to convert the
 					random data to the chosen result type.
 				</p>
-				<label for="randomType">Random source: </label>
-				{this.randomType = <select id="randomType">
-					<option value="math">Math.random()</option>
-					<option value="secure" selected>Crypto.getRandomValues()</option>
-					<option value="random.org-seed">random.org (seed + Mersenne)</option>
-					<option value="random.org-raw">random.org (download all bytes)</option>
-				</select> as HTMLInputElement}
 			</div>,
-			<div class="numberGen">
-				<h2>Generate Numbers</h2>
-				Generate {this.numCount=<input type="text" class="inline" value="10"/> as HTMLInputElement} random
-				number(s) between {this.numMin=<input type="text" class="inline" value="1"/> as HTMLInputElement} and
-				{' '}{this.numMax=<input type="text" class="inline" value="100" /> as HTMLInputElement} (inclusive).<br/>
-				<button class="bigButton" onClick={ev => this.doRandomNumbers()}>Go</button>
-				{this.numResults=<div class="results"></div>}
-			</div>,
-			<div>
-				<h2>Generate String/Identifier</h2>
-			</div>,
-			<div>
-				<h2>Shuffle or Pick Items from List</h2>
-			</div>,
+			<div class="buttonsArea">
+				<p>
+					<label for="randomType">Random source: </label>
+					{this.randomType = <select id="randomType">
+						<option value="math">Math.random()</option>
+						<option value="secure" selected>Crypto.getRandomValues()</option>
+						<option value="random.org-seed">random.org (seed + Mersenne)</option>
+						<option value="random.org-raw">random.org (download all bytes)</option>
+					</select> as HTMLInputElement}
+				</p>
 
+				{(this.tabSet = new TabSet(<tabset class="tabSet">
+					<section data-label="Integers" data-tab="int">
+						{mkInput("intMin", "Min", 1)}<br/>
+						{mkInput("intMax", "Max", 100)} (inclusive)<br/>
+					</section>
 
-		];
+					<section data-label="Real Numbers" data-tab="real">
+						{mkInput("realMin", "Min", 0)}<br/>
+						{mkInput("realMax", "Max", 1)} (exclusive)<br/>
+					</section>
+					<section data-label="UUID" data-tab="uuid">
+						(no options)
+					</section>
+					<section data-label="String" data-tab="string">
+						{mkInput("stringChars", "Character Pool", "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-")}<br/>
+						{mkInput("stringLen", "String Length", 16)}<br/>
+					</section>
+					{/*
+					list pick
+					list shuffle */}
+
+				</tabset>)).el}
+
+				<p>
+					<label for="resultCount">Number to generate: </label>
+					{this.inputs["resultCount"] = <input type="text" value="10" /> as HTMLInputElement}
+					<button class="bigButton" onClick={ev => this.doRandomGen()}>Go</button>
+				</p>
+			</div>,
+			this.resultsEl=<div class="results"></div>,
+		]
 	}
 
 	opened() {
@@ -83,61 +113,98 @@ export default class Random extends Module {
 			if (this.randomType.value === "secure") this.randomType.value = "math"
 		}
 
-		this.doRandomNumbers()
+		this.doRandomGen()
 	}
 
+	_getInput(id: string): number {
+		return +this.inputs[id].value
+	}
 
-	closed() {}
+	/** Takes the given random engine and generates results for the currently selected output. */
+	genResults(engine: RJS.Engine): HTMLElement[] {
+		this.resultsEl.textContent = "Generating..."
+		let ret: HTMLElement[] = []
 
-	async doRandomNumbers() {
-		this.numResults.textContent = "Generating...";
+		let distribution: any //RJS.Distribution
+		switch (this.tabSet.currentTab) {
+			case "int":
+				distribution = RJS.integer(this._getInput("intMin"), this._getInput("intMax"))
+				break
+			case "real":
+				distribution = RJS.real(this._getInput("realMin"), this._getInput("realMax"))
+				break
+			case "uuid":
+				distribution = RJS.uuid4
+				break
+			case "string":
+				let d = RJS.string(this.inputs['stringChars'].value)
+				let len = this._getInput("stringLen")
+				distribution = (eng: RJS.Engine) => d(eng, len)
+				break
 
-		var isLoading = true;
-		var addResult = (num: number) => {
-			if (isLoading) {
-				this.numResults.textContent = "";
-				isLoading = false;
-			}
+		}
 
-			this.numResults.appendChild(<span class="item">{num}</span>)
-		};
+		switch (this.tabSet.currentTab) {
+			default:
+				let count = this._getInput("resultCount")
+				for (let i = 0; i < count; ++i) {
+					ret.push(<span class="item">{distribution(engine).toString()}</span>)
+				}
+				break
+		}
+
+		return ret
+	}
+
+	async doRandomGen() {
+		this.resultsEl.textContent = "Generating..."
 
 		try {
-			var min = +this.numMin.value | 0;
-			var max = +this.numMax.value | 0;
-			var count = +this.numCount.value | 0;
-			if (min >= max) throw "min must be < max"
-			if (count < 0) throw "count must be >= 1"
-			if (count > 1000) throw "count must not be > 1000"
-
-			var type = this.randomType.value
-			var dist = RJS.integer(min, max)
-			var generator: RJS.Engine
+			let type = this.randomType.value
+			let generator: RJS.Engine
 			if (type === "random.org-seed") {
-				this.numResults.textContent = "Fetching...";
+				this.resultsEl.textContent = "Fetching 4 random bytes..."
 
 				let res = await fetch("https://www.random.org/cgi-bin/randbyte?nbytes=4&format=f")
 				if (!res.ok) throw "Failed to fetch random data. " + res.statusText
-				var bytes = await res.arrayBuffer()
+				let bytes = await res.arrayBuffer()
 				generator = RJS.MersenneTwister19937.seedWithArray(new Uint32Array(bytes))
 			} else if (type === "random.org-raw") {
-				throw "todo"
+				//count number of needed bytes
+				let count = 0
+				let countGenerator = {next: () => count++}
+				this.genResults(countGenerator)
+
+				let numBytes = count * 4
+				if (numBytes > 1000) throw "Need to download more than 1000 bytes data"
+
+				//Fetch that many bytes
+				this.resultsEl.textContent = `Fetching ${numBytes} random bytes...`
+
+				let res = await fetch("https://www.random.org/cgi-bin/randbyte?nbytes=" + numBytes + "&format=f")
+				if (!res.ok) throw "Failed to fetch random data. " + res.statusText
+
+				//Make a generator from it
+				let arrayView = new Uint32Array(await res.arrayBuffer())
+				let arrayIdx = 0
+				generator = {next: () => {
+					if (arrayIdx >= arrayView.length) throw "Tried to use more entropy then prefetched (bug)"
+					return arrayView[arrayIdx++]
+				}}
+
 			} else if (type === "secure") {
 				generator = RJS.browserCrypto
 			} else {
 				generator = RJS.nativeMath
 			}
 
-			for (let i = 0; i < count; i++) {
-				addResult(dist(generator))
-			}
+			let els = this.genResults(generator)
+			this.resultsEl.textContent = ""
+			els.forEach(el => this.resultsEl.append(el, ' '))
 		} catch (ex) {
 			console.error(ex)
-			this.numResults.textContent = "Error: " + (ex.message || ex)
+			this.resultsEl.textContent = "Error: " + (ex.message || ex)
 		}
 	}
 
-	genNumbers() {
-
-	}
 }

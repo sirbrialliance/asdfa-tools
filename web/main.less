@@ -225,6 +225,37 @@ terminal {
 	}
 }
 
+tabset {
+	display: block;
+	margin: 0;
+	padding: 0;
+
+	// > .tabTitles {}
+
+	h2 {
+		display: inline-block;
+		font-size: 120%;
+		padding: 5px;
+		margin: 5px 5px 0;
+		border: 1px solid gray;
+		border-radius: 5px 5px 0 0;
+		border-bottom: none;
+		cursor: pointer;
+
+		&.selected {
+			color: white;
+			background: gray;
+		}
+	}
+
+	> section {
+		width: 100%;
+		border: 1px solid gray;
+		padding: 5px;
+		margin: 0;
+	}
+}
+
 
 .subsection {
 	border: 1px solid gray;
