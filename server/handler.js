@@ -77,7 +77,7 @@ class Response {
 
 	//http 2 or 3 server push resources (https://www.cloudflare.com/website-optimization/http2/serverpush/)
 	pushRes() {
-		this._addPush("/main.js", "script");
+		this._addPush("/main.min.js", "script");
 		this._addPush("/main.css", "style");
 		this._addPush("/logo.png", "image");
 		return this;

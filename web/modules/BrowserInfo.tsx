@@ -2,6 +2,7 @@
 import Module from './Module';
 
 export default class BrowserInfo extends Module {
+	getId() { return "BrowserInfo" }
 	render(): HTMLElement {
 		return <span>{navigator.userAgent}</span>;
 	}

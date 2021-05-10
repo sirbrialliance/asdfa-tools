@@ -34,6 +34,7 @@ const defaultList = [
 ]
 
 export default class Random extends Module {
+	getId() { return "Random" }
 	randomType: HTMLInputElement
 	resultsEl: HTMLElement
 	tabSet: TabSet

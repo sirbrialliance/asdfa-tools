@@ -1,6 +1,7 @@
 import Module from './Module';
 
 export default class Notes extends Module {
+	getId() { return "Notes" }
 	getName(): string {
 		return "Notes";
 	}

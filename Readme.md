@@ -57,7 +57,7 @@ And if you want to test on your LAN on other devices:
 
 ## Deploy
 
-	grunt
+	grunt clean default
 	# the default grunt tasks minifies JS too, so double-check if anything broke
 	serverless deploy
 	# test. Once satisfied run:

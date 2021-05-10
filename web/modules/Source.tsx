@@ -2,6 +2,7 @@ import {MetaModule} from './Module';
 import * as util from '../lib/util';
 
 export default class Source extends MetaModule {
+	getId() { return "Source" }
 	renderThumb(): HTMLElement {
 		return <span>View sources for this site, submit pull requests, etc.</span>
 	}

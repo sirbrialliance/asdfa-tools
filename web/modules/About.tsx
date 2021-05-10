@@ -2,6 +2,8 @@ import {MetaModule} from './Module';
 import * as util from '../lib/util';
 
 export default class About extends MetaModule {
+	getId() { return "About" }
+
 	renderThumb(): HTMLElement {
 		return <span>About this site, contact.</span>
 	}

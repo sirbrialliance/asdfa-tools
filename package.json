@@ -10,18 +10,18 @@
     "@typescript-eslint/eslint-plugin": "^4.22.1",
     "@typescript-eslint/parser": "^4.22.1",
     "eslint": "^7.25.0",
-    "google-closure-compiler": "^20210505.0.0",
     "grunt": "^1.4.0",
     "grunt-concurrent": "^3.0.0",
     "grunt-contrib-clean": "^2.0.0",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-less": "^3.0.0",
+    "grunt-contrib-uglify": "^5.0.1",
     "grunt-contrib-watch": "^1.1.0",
     "less": "^4.1.1",
-    "merge-source-maps": "^0.6.0",
     "serverless-offline": "^7.0.0",
     "typescript": "^4.2.4",
-    "typescript-eslint-language-service": "^4.1.4"
+    "typescript-eslint-language-service": "^4.1.4",
+    "uglify-js": "^3.13.5"
   },
   "dependencies": {
     "random-js": "^2.1.0"

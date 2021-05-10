@@ -2,6 +2,7 @@ import {MetaModule} from './Module';
 import * as util from '../lib/util';
 
 export default class Credits extends MetaModule {
+	getId() { return "Credits" }
 	renderThumb(): HTMLElement {
 		return <span>Whodunit, copyright notices.</span>
 	}

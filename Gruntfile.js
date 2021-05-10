@@ -45,7 +45,7 @@ export default ${JSON.stringify(webFiles({bgImages: true}).map(x => x.substr(3, 
 
 		var files = grunt.file.expand(['web/**']);
 		// Grab basically everything, including source files for source map usage when distributed
-		files = files.filter(x => !x.match(/^index\.html$/) && !grunt.file.isDir(x));
+		files = files.filter(x => !x.match(/\bindex\.html$|^web\/third/) && !grunt.file.isDir(x));
 		// files = files.filter(x => !x.match(/\.(less|tsx)$/) && !grunt.file.isDir(x));
 
 		if (options.bgImages) {
@@ -54,8 +54,6 @@ export default ${JSON.stringify(webFiles({bgImages: true}).map(x => x.substr(3, 
 
 		if (options.includeBuilt) {
 			//not actually in "___/", but usually that will be stripped off when this flag is set
-			files.push("___/main.js");
-			files.push("___/main.js.map");
 			files.push("___/main.min.js");
 			files.push("___/main.min.js.map");
 			files.push("___/main.css");
@@ -90,59 +88,17 @@ export default ${JSON.stringify(webFiles({bgImages: true}).map(x => x.substr(3, 
 		return subTask;
 	}
 
-	async function closureCompile(input, output) {
-		return new Promise(async (resolve, reject) => {
-			// var outFile = await fsp.open(output, "w");
-
-			var child = child_process.spawn(closuePath, [
-				input,
-				"--js_output_file", output,
-				"--create_source_map", output + ".map",
-			], {
-				stdio: 'inherit',
-				// stdio: ['inherit', 'pipe', 'inherit'],
-				env: {...process.env},
-			});
-
-			// //child.stdout.pipe(outFile);
-			// child.stdout.on("data", data => {
-			// 	outFile.write(data);
-			// });
-
-			child.on('close', code => {
-				if (code !== 0) reject(new Error("Closure compile process failed, exited with code " + code));
-				else resolve();
-				// outFile.close();
-			});
-		});
-	}
-
 	async function buildIndexHTML() {
 		var done = this.async();
 		try {
-			//closure compile loader:
-			await closureCompile("loader.js", "build/loader.min.js");
-
 			var template = await fsp.readFile("web/index.html");
 			var minOutput = await fsp.readFile("build/loader.min.js");
 
 			var content = template.toString().replace("{loader}", minOutput);
 
-			await fsp.writeFile("build/out/index.html", content);
+			grunt.file.write("build/out/index.html", content);
+			// await fsp.writeFile("build/out/index.html", content);
 
-			done();
-		} catch (ex) {
-			done(ex);
-		}
-	}
-
-	async function mainJSClosure() {
-		var done = this.async();
-		try {
-			await closureCompile("build/main.js", "build/out/main.min.js");
-			// var fd = await fsp.open("build/out/main.js", "a+");
-			// await fd.write("\n//# sourceMappingURL=main.js.map\n");
-			// await fd.close();
 			done();
 		} catch (ex) {
 			done(ex);
@@ -177,15 +133,13 @@ export default ${JSON.stringify(webFiles({bgImages: true}).map(x => x.substr(3, 
 				],
 				dest: 'build/out/',
 			},
-			// 'srcMap': {
-			// 	src: "build/main.js.map",
-			// 	dest: "build/out/main.js.map",
-			// },
 			'nonMinJs': {//dev/watch only
 				src: "build/main.js",
 				dest: "build/out/main.min.js",
 			},
 		},
+
+
 
 
 		_watch: {
@@ -197,7 +151,7 @@ export default ${JSON.stringify(webFiles({bgImages: true}).map(x => x.substr(3, 
 			'indexHTML': {
 				options: {atBegin: true,},
 				files: ["web/index.html", "loader.js"],
-				tasks: ['indexHTML'],
+				tasks: ['uglify:loader', 'indexHTML'],
 			},
 			'staticRes': {
 				options: {atBegin: true,},
@@ -226,28 +180,40 @@ export default ${JSON.stringify(webFiles({bgImages: true}).map(x => x.substr(3, 
 			},
 		},
 
-		"merge-source-maps": {
+		uglify: {
 			'build': {
-				src: ['build/out/*.min.js'],
-				expand: true,
-			}
+				options: {
+					sourceMap: {
+						content: "inline",
+					},
+				},
+				files: {
+					'build/out/main.min.js': ['build/main.js'],
+				},
+			},
+
+			'loader': {
+				options: {
+					mangle: {
+						reserved: ["require", "define", "requireList"]
+					},
+				},
+				files: { 'build/loader.min.js': 'loader.js' },
+			},
 		},
-
-
 
 		typeScript: {},
 		typeScriptWatch: {},
 		serverlessLocal: {},
 		contentList: {},
 		indexHTML: {},
-		mainJSClosure: {},
 
 		concurrent: {
 			'build': [
-				'indexHTML',
+				['uglify:loader', 'indexHTML'],
 				'less',
 				'copy',
-				['contentList', 'typeScript', 'mainJSClosure', 'merge-source-maps']
+				['contentList', 'typeScript', 'uglify:build']
 			],
 			'watch': {
 				tasks: ['_watch', 'typeScriptWatch', 'serverlessLocal'],
@@ -263,7 +229,7 @@ export default ${JSON.stringify(webFiles({bgImages: true}).map(x => x.substr(3, 
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('merge-source-maps');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
 
 	grunt.renameTask('watch', '_watch');
 
@@ -274,10 +240,7 @@ export default ${JSON.stringify(webFiles({bgImages: true}).map(x => x.substr(3, 
 	));
 	grunt.registerTask('serverlessLocal', "Run service locally", getShellTask("serverless", ["offline", "--color"]));
 	grunt.registerTask('indexHTML', "Build index.html", buildIndexHTML);
-	grunt.registerTask('mainJSClosure', "Closure compile main.js", mainJSClosure);
 
-
-	//grunt.registerTask('arrgh', "arrgh", getShellTask("echo", ["fizz", "baz"]));
 
 	grunt.registerTask('watch', ['concurrent:watch']);
 	grunt.registerTask('default', ['concurrent:build']);

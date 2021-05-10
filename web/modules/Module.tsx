@@ -44,7 +44,7 @@ export default abstract class Module {
 	///Space-separated CSS class names to apply to our containers.
 	classNames(): string { return ""; }
 
-	getId(): string { return this.constructor.name; }
+	abstract getId(): string
 }
 
 export abstract class MetaModule extends Module {

@@ -2,6 +2,8 @@ import {DeviceModule, DeviceInfo} from './Module';
 import * as util from '../lib/util';
 
 export default class Midi extends DeviceModule<WebMidi.MIDIPort> {
+	getId() { return "Midi" }
+
 	midi: WebMidi.MIDIAccess;
 	terminal: HTMLElement;
 	inputsEl: HTMLElement;

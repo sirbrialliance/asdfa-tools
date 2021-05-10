@@ -2,6 +2,7 @@ import Module from './Module';
 import * as util from '../lib/util';
 
 export default class UserMedia extends Module {
+	getId() { return "UserMedia" }
 	videoEl: HTMLVideoElement;
 	stream: MediaStream;
 

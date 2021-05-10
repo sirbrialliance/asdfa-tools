@@ -1,6 +1,7 @@
 import Module from './Module';
 
 export default class Time extends Module {
+	getId() { return "Time" }
 	getName(): string {
 		return "Time";
 	}

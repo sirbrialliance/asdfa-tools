@@ -4,6 +4,7 @@ import * as util from '../lib/util';
 const commonRates = [300, 1200, 2400, 4800, 9600, 19200, 38400, 57600, 74880, 115200];
 
 export default class SerialTerminal extends Module {
+	getId() { return "SerialTerminal" }
 	port: SerialPort;
 	ports: SerialPort[] = [];
 	trayEl: HTMLElement;
