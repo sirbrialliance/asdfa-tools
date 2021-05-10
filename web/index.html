@@ -41,7 +41,7 @@
 		function itemLoad() { if (++startState === 2) require(['main']); }
 
 		//Mini AMD loader, see loader.js in sources:
-		var require,define,requireList;!function(){var e={},r={};(require=function(n){n.pop&&(n=n[0]);var i=e[n];return i||(i={id:n,exports:{}},e[n]=i.module=i,i.exports=r[n].apply(i,r[n].deps.map(i.require=function(e){return i[e]||require(function(e,r){e=e.replace(/^(?:\.\/|(\.\.\/))/,r.replace(/[^\/]+$/g,"")+"$1");for(;e!==(e=e.replace(/[^\/]+\/\.\.\/?/g,"")););return e}(e,i.id))}))||i.exports),i.exports}).config=valueOf,(define=function(e,n,i){(r[e]="function"!=typeof(i=i||n)?function(){return i}:i).deps=n.pop?n:[]}).amd={},requireList=function(e){var n=[];for(var i in r)e&&!e(i)||n.push(i);return n}}();
+		{loader}
 	</script>
 	<noscript>
 		<div id="noscript">

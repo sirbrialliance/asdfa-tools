@@ -5,7 +5,11 @@
 
 		"noImplicitAny": true,
 		"removeComments": false,
+
+		//source maps
 		"sourceMap": true,
+		"mapRoot": "build/",
+		"sourceRoot": "web/",
 
 		"lib": ["es6", "dom", "ES2017"],
 		"module": "amd",
@@ -16,7 +20,6 @@
 
 		"paths": {
 			"lib/jsx-runtime": ["./web/lib/jsx-runtime"],
-			//"random-js": ["./node_modules/random-js/dist/random-js.esm.js"],
 		},
 		// "explainFiles": true, //debug
 
@@ -36,6 +39,6 @@
 		"web/**/*.tsx",
 	],
 	"files": [
-		"node_modules/random-js/dist/random-js.esm.js",
+		"web/third/random-js.esm.js",
 	],
 }

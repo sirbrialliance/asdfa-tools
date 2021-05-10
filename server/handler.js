@@ -43,7 +43,7 @@ class Response {
 
 	resource(file) {
 		try {
-			this.body = fs.readFileSync("build/" + file).toString('base64');
+			this.body = fs.readFileSync("build/out/" + file).toString('base64');
 			this.isBase64Encoded = true;
 			this.statusCode = 200;
 			this.headers['Content-Type'] = getMime(file.split('.').pop());

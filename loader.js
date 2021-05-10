@@ -1,8 +1,12 @@
+// ==ClosureCompiler==
+// @compilation_level ADVANCED_OPTIMIZATION
+// @js_externs require, define, requireList
+// ==/ClosureCompiler==
 /**
 This is @developit/hazelnut, modified to add a module listing function.
-This file isn't used directly, but when you make a change copy the script into
-https://javascript-minifier.com/ then paste the result in index.html.
+The build closure compiles this and drops it in index.html
 */
+
 var require, define, requireList;
 (function() {
 	var modules = {},
@@ -37,7 +41,7 @@ var require, define, requireList;
 
 	function rel(name, path) {
 		name = name.replace(/^(?:\.\/|(\.\.\/))/, path.replace(/[^\/]+$/g,'') + '$1');
-		while ( name !== (name=name.replace(/[^\/]+\/\.\.\/?/g, '') ) );
+		while ( name !== (name=name.replace(/[^\/]+\/\.\.\/?/g, '') ) ) {}
 		return name;
 	}
 })();
