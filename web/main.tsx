@@ -35,6 +35,9 @@ initDOM();
 
 
 function initModules() {
+	//apply shim for loading paths
+	(window as any).define("random-js", ["../node_modules/random-js/dist/random-js.esm"], (mod: any) => mod);
+
 	for (let modulePath of modulePaths) {
 		let moduleClass = window.require(modulePath).default;
 		let module = new moduleClass() as Module;

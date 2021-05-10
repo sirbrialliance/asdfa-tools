@@ -79,11 +79,7 @@ class Response {
 	pushRes() {
 		this._addPush("/main.js", "script");
 		this._addPush("/main.css", "style");
-		// this.multiValueHeader['Link'] = this.multiValueHeader['Link'] || [];
-		// this.multiValueHeader['Link'].push(
-		// 	"</main.js>; rel=preload;",
-		// 	"</main.css>; rel=preload;",
-		// );
+		this._addPush("/logo.png", "image");
 		return this;
 	}
 

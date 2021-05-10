@@ -37,6 +37,10 @@ export default class Credits extends MetaModule {
 					Loading throbber from <a href="https://loading.io/css/">loading.io</a>
 					<span class="whichLicense">Public Domain</span>
 				</li>
+				<li>
+					<a href="https://github.com/ckknight/random-js">Random.js</a>
+					<span class="whichLicense">Copyright &copy; Cameron Knight, MIT License</span>
+				</li>
 			</ul>,
 			<hr/>,
 			<div class="licenseDetail">

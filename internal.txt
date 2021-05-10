@@ -38,6 +38,8 @@ Tasks
 					- one must specifically output to each speaker
 		- zz speaker test - redundant with user media
 
+		- should just point About to Readme.md
+		- and Code to the repo
 
 
 	- first release

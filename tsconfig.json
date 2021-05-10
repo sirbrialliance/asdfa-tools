@@ -16,7 +16,26 @@
 
 		"paths": {
 			"lib/jsx-runtime": ["./web/lib/jsx-runtime"],
+			//"random-js": ["./node_modules/random-js/dist/random-js.esm.js"],
 		},
+		// "explainFiles": true, //debug
+
+		"allowJs": true, //lets us inject lib files
+
+		"noFallthroughCasesInSwitch": true,
+		//"noImplicitOverride": true,
+		"noImplicitReturns": true,
+		"noPropertyAccessFromIndexSignature": true,
+		"noUncheckedIndexedAccess": true,
+
+		"plugins": [
+			{"name": "typescript-eslint-language-service"}
+		]
 	},
-	"include": ["web/**/*.tsx"],
+	"include": [
+		"web/**/*.tsx",
+	],
+	"files": [
+		"node_modules/random-js/dist/random-js.esm.js",
+	],
 }

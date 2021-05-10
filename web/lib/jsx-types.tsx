@@ -24,6 +24,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE
 */
 
+/* eslint-disable @typescript-eslint/no-namespace */
+
 export type EventHandler = (ev: Event) => void;
 
 type AnyCSSStyleDeclaration = {
@@ -44,6 +46,10 @@ export class NodeFactory {
 	href?: string;
 	src?: string;
 	alt?: string;
+	for?: string;
+
+	selected?: boolean;
+	checked?: boolean;
 
 
 	name?: string;
@@ -253,6 +259,7 @@ declare global { namespace JSX {
 		terminal: NodeFactory;
 		value: NodeFactory;
 		bar: NodeFactory;
+		tabset: NodeFactory;
 
 		a: NodeFactory;
 		abbr: NodeFactory;

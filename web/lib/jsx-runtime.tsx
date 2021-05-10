@@ -15,11 +15,11 @@ export function jsx(nodeType: string, props: NodeFactory): HTMLElement {
 export function jsxs(nodeType: string, props: NodeFactory): HTMLElement {
 	// console.log("jsxs: " , arguments);
 
-	var el = document.createElement(nodeType);
+	let el = document.createElement(nodeType)
 
 	for (let k in props) {
 		if (k === "children") {
-			var items = [];
+			let items = []
 			if (props.children instanceof Array) {
 				items = (props.children as any).flat();
 			} else {

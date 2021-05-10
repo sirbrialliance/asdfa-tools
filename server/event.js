@@ -4,7 +4,7 @@ var process = require('process');
 
 /*
 
-Cloud/local events are way different.
+Cloud/local events are maybe different.
 
 docs https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
 
@@ -67,89 +67,51 @@ Actual/cloud request object (+mixin from docs): {
 	isBase64Encoded: false
 }
 
-serverless-offline object: {
-  body: null,
-  headers: {
-    Host: 'localhost:3000',
-    Connection: 'keep-alive',
-    Pragma: 'no-cache',
-    'Cache-Control': 'no-cache',
-    DNT: '1',
-    'Upgrade-Insecure-Requests': '1',
-    'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36',
-    Accept: '...',
-    'Sec-Fetch-Site': 'none',
-    'Sec-Fetch-Mode': 'navigate',
-    'Sec-Fetch-User': '?1',
-    'Sec-Fetch-Dest': 'document',
-    'Accept-Encoding': 'gzip, deflate, br',
-    'Accept-Language': 'en-US,en;q=0.9'
-  },
-  httpMethod: 'GET',
-  isBase64Encoded: false,
-  multiValueHeaders: {
-    Host: [ 'localhost:3000' ],
-    Connection: [ 'keep-alive' ],
-    Pragma: [ 'no-cache' ],
-    'Cache-Control': [ 'no-cache' ],
-    DNT: [ '1' ],
-    'Upgrade-Insecure-Requests': [ '1' ],
-    'User-Agent': [
-      'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36'
-    ],
-    Accept: [
-      '...'
-    ],
-    'Sec-Fetch-Site': [ 'none' ],
-    'Sec-Fetch-Mode': [ 'navigate' ],
-    'Sec-Fetch-User': [ '?1' ],
-    'Sec-Fetch-Dest': [ 'document' ],
-    'Accept-Encoding': [ 'gzip, deflate, br' ],
-    'Accept-Language': [ 'en-US,en;q=0.9' ]
-  },
-  multiValueQueryStringParameters: { bin: [ 'bo' ], ja: [ 'ha@aa' ] },
-  path: '/foo/baz',
-  pathParameters: { any1: 'foo', any2: 'baz' },
-  queryStringParameters: { bin: 'bo', ja: 'ha@aa' },
-  requestContext: {
-    accountId: 'offlineContext_accountId',
-    apiId: 'offlineContext_apiId',
-    authorizer: {
-      claims: undefined,
-      scopes: undefined,
-      principalId: 'offlineContext_authorizer_principalId'
-    },
-    domainName: 'offlineContext_domainName',
-    domainPrefix: 'offlineContext_domainPrefix',
-    extendedRequestId: 'ckn4uy858003fwodi8mi301ry',
-    httpMethod: 'GET',
-    identity: {
-      accessKey: null,
-      accountId: 'offlineContext_accountId',
-      apiKey: 'offlineContext_apiKey',
-      apiKeyId: 'offlineContext_apiKeyId',
-      caller: 'offlineContext_caller',
-      cognitoAuthenticationProvider: 'offlineContext_cognitoAuthenticationProvider',
-      cognitoAuthenticationType: 'offlineContext_cognitoAuthenticationType',
-      cognitoIdentityId: 'offlineContext_cognitoIdentityId',
-      cognitoIdentityPoolId: 'offlineContext_cognitoIdentityPoolId',
-      principalOrgId: null,
-      sourceIp: '127.0.0.1',
-      user: 'offlineContext_user',
-      userAgent: 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36',
-      userArn: 'offlineContext_userArn'
-    },
-    path: '/foo/baz',
-    protocol: 'HTTP/1.1',
-    requestId: 'ckn4uy858003gwodi08df87ne',
-    requestTime: '05/Apr/2021:11:18:45 -0600',
-    requestTimeEpoch: 1617643125690,
-    resourceId: 'offlineContext_resourceId',
-    resourcePath: '/{any1}/{any2}',
-    stage: 'dev'
-  },
-  resource: '/{any1}/{any2}',
-  stageVariables: undefined
+serverless-offline object:
+	version: '2.0',
+	routeKey: 'GET /{any}',
+	rawPath: '/favicon.ico',
+	rawQueryString: '',
+	cookies: [],
+	headers: {
+		Host: 'localhost:3000',
+		Connection: 'keep-alive',
+		Pragma: 'no-cache',
+		'Cache-Control': 'no-cache',
+		'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36',
+		DNT: '1',
+		Accept: '...',
+		'Sec-Fetch-Site': 'same-origin',
+		'Sec-Fetch-Mode': 'no-cors',
+		'Sec-Fetch-Dest': 'image',
+		Referer: 'http://localhost:3000/',
+		'Accept-Encoding': 'gzip, deflate, br',
+		'Accept-Language': 'en-US,en;q=0.9'
+	},
+	queryStringParameters: null,
+	requestContext: {
+		accountId: 'offlineContext_accountId',
+		apiId: 'offlineContext_apiId',
+		authorizer: { jwt: [Object] },
+		domainName: 'offlineContext_domainName',
+		domainPrefix: 'offlineContext_domainPrefix',
+		http: {
+			method: 'GET',
+			path: '/favicon.ico',
+			protocol: 'HTTP/1.1',
+			sourceIp: '127.0.0.1',
+			userAgent: 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36'
+		},
+		requestId: 'offlineContext_resourceId',
+		routeKey: 'GET /{any}',
+		stage: '$default',
+		time: '07/May/2021:14:22:09 -0600',
+		timeEpoch: 1620418929197
+	},
+	body: null,
+	pathParameters: { any: 'favicon.ico' },
+	isBase64Encoded: false,
+	stageVariables: undefined
 }
 
 
@@ -369,7 +331,13 @@ And disconnect:
 // */
 
 function fixupEvent(ev) {
+	// serverless-offline 7.0.0 doesn't seem to have the issue
+	return ev;
+
+/*
 	if (!process.env.IS_OFFLINE) return ev;
+
+	console.log("ev is ", ev)
 
 	var ret = {
 		version: '2.0',
@@ -406,6 +374,7 @@ function fixupEvent(ev) {
 	};
 
 	return ret;
+*/
 }
 
 module.exports = {

@@ -1,10 +1,12 @@
 # ASDFA: A Set of Decently Functional Assessments
 
-A set of browser-based and browser tests written for running on asdfa.net, such as browser information, camera/mic/speaker tests, MIDI input testing, and so on.
+A set of browser-based and browser tests, such as browser information, camera/microphone/speaker tests, MIDI input testing, and so on.
+
+Written for running on [asdfa.net](https://asdfa.net/).
 
 ## Project Goals
 
-(See also: See also: web/modules/About.tsx)
+(See also: [web/modules/About.tsx](web/modules/About.tsx))
 
 > What can we find out, test, or verify, from an ordinary webpage?
 
@@ -29,7 +31,7 @@ To keep costs down and speeds up here's how things are currently set up to work:
 	- Origin resources are served out of AWS Lambda+API Gateway.
 		- All the resources/files are bundled with the function itself.
 		- Much of the site could be served from an S3 bucket, but:
-			- S3 websites don't support HTTPS, only HTTP. (Could proxy through CloudFront for SSL, but that's another cost.
+			- S3 websites don't support HTTPS, only HTTP. (Could proxy through CloudFront for SSL, but that's another cost.)
 			- Different modules have different URLs, it's nice not to have to make many copies of index.html in a bunch of folders.
 		- CloudFlare workers were also considered, but it's plausibly likely we'd go over the free invocation limit. (Though they did later add transform rules.)
 
@@ -37,6 +39,8 @@ To keep costs down and speeds up here's how things are currently set up to work:
 
 ## Setup
 
+	git clone https://github.com/sirbrialliance/asdfa-tools
+	cd asdfa-tools
 	npm install
 	npm install -g grunt-cli typescript serverless
 
@@ -55,10 +59,10 @@ And if you want to test on your LAN on other devices:
 
 	grunt
 	serverless deploy
-	# test
+	# test. Once satisfied run:
 	serverless deploy --stage prod
 
-Quick update a function:
+Quick update a function (`webResource`, in this case):
 
 	serverless deploy function --function webResource
 
