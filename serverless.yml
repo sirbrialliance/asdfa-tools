@@ -43,3 +43,10 @@ functions:
                 method: GET
                 path: /{any1}/{any2}
 
+    baseHit:
+        handler: server/baseHit.baseHit
+        events:
+            - httpApi:
+                method: GET
+                path: /api/baseHit
+

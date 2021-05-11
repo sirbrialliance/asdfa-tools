@@ -19,17 +19,23 @@ module.exports = function(grunt) {
 			}
 		});
 
-		grunt.file.write("server/contentList.js", `"use strict";
+		let content = `"use strict";
 //Automatically generated, don't hand-edit.
 module.exports = {
 	modules: ${JSON.stringify(modules)},
 	webFiles: ${JSON.stringify(webFiles({includeBuilt: true}))},
 };
-`);
+`;
+		let current = grunt.file.read("server/contentList.js");
+		if (current !== content) grunt.file.write("server/contentList.js", content);
 
-		grunt.file.write("web/lib/BGImageList.tsx", `//Automatically generated, don't hand-edit.
+		content = `//Automatically generated, don't hand-edit.
 export default ${JSON.stringify(webFiles({bgImages: true}).map(x => x.substr(3, x.length - 7)))};
-`);
+`;
+		current = grunt.file.read("web/lib/BGImageList.tsx");
+		if (content !== current) grunt.file.write("web/lib/BGImageList.tsx", content);
+
+
 	}
 
 	/**
@@ -133,10 +139,10 @@ export default ${JSON.stringify(webFiles({bgImages: true}).map(x => x.substr(3, 
 				],
 				dest: 'build/out/',
 			},
-			'nonMinJs': {//dev/watch only
-				src: "build/main.js",
-				dest: "build/out/main.min.js",
-			},
+			// 'nonMinJs': {//dev/watch only
+			// 	src: "build/main.js",
+			// 	dest: "build/out/main.min.js",
+			// },
 		},
 
 
@@ -173,11 +179,11 @@ export default ${JSON.stringify(webFiles({bgImages: true}).map(x => x.substr(3, 
 				],
 				tasks: ['contentList'],
 			},
-			'nonMinJs': {
-				options: {atBegin: true,},
-				files: ['out/main.js'],
-				tasks: ['copy:nonMinJs'],
-			},
+			// 'nonMinJs': {
+			// 	options: {atBegin: true,},
+			// 	files: ['build/main.js'],
+			// 	tasks: ['copy:nonMinJs'],
+			// },
 		},
 
 		uglify: {
@@ -236,7 +242,7 @@ export default ${JSON.stringify(webFiles({bgImages: true}).map(x => x.substr(3, 
 	grunt.registerTask('contentList', "Build a list of modules, files, etc. we have/use.", buildModuleList);
 	grunt.registerTask('typeScript', "Compile TypeScript", getShellTask("tsc", ['--pretty']));
 	grunt.registerTask('typeScriptWatch', "Compile TypeScript, watch changes", getShellTask(
-		"tsc", ["-w", "--preserveWatchOutput", '--pretty']
+		"tsc", ["-w", "--preserveWatchOutput", '--pretty', '--outFile', 'build/out/main.min.js']
 	));
 	grunt.registerTask('serverlessLocal', "Run service locally", getShellTask("serverless", ["offline", "--color"]));
 	grunt.registerTask('indexHTML', "Build index.html", buildIndexHTML);

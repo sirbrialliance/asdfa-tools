@@ -33,5 +33,6 @@ module.exports = {
 			"error",
 			"never"
 		],
+		"@typescript-eslint/no-empty-function": "off",
 	}
 }

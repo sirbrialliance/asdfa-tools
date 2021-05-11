@@ -47,6 +47,7 @@ class Response {
 			this.isBase64Encoded = true;
 			this.statusCode = 200;
 			this.headers['Content-Type'] = getMime(file.split('.').pop());
+			this.headers['Cache-Control'] = "public";
 		} catch (ex) {
 			console.error(ex);
 			return this.error(500, "Server file error");

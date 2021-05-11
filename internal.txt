@@ -5,8 +5,6 @@ Tasks
 - next:
 
 	- sources:
-		- export js sources for source maps
-		- crunch/minify js
 		- export css sources for source maps
 		- crunch/minify css
 
@@ -19,12 +17,20 @@ Tasks
 		- touch
 		- browser info
 			- IP, user agent, local ip, server ip, etc.
-			- what http proocol we used to load the page (e.g. http/3)
+			- what http protocol we used to load the page (e.g. http/3)
+			- browscap.ini
+
+			- links:
+				- acid test
+				- https://html5test.com/
+				- https://www.webrtc-experiment.com/DetectRTC/
 		- basic webgl
 			- spining cube thumb
 			- something cool looking fractal for bigger
 		- notes
 		- time
+			- device time and "simple" server time only for now
+			- current epoch
 		- user media
 			- show all cameras in grid, tap to toggle
 				- mirror, fullscreen, stop
@@ -40,6 +46,8 @@ Tasks
 
 		- should just point About to Readme.md
 		- and Code to the repo
+		- fade in bg image?
+		- maybe base bg image on epoch (hourly) for better caching?
 
 
 	- first release
