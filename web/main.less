@@ -206,8 +206,12 @@ terminal {
 
 .deviceGrid {
 	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(425px, 1fr));
+	grid-auto-rows: 256px;
+	column-gap: 8px;
+	row-gap: 8px;
 
-	.device {
+	> .device {
 		border: 1px solid #cccccc;
 		background: #FFFFFF22;
 		border-radius: 10px;

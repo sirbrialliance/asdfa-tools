@@ -35,6 +35,10 @@ export default class Credits extends MetaModule {
 					<span class="whichLicense">Public Domain</span>
 				</li>
 				<li>
+					<a href="https://openclipart.org/detail/189270/keyboard-by-arvin61r58-189270">MIDI BG</a>
+					<span class="whichLicense">Public Domain</span>
+				</li>
+				<li>
 					Loading throbber from <a href="https://loading.io/css/">loading.io</a>
 					<span class="whichLicense">Public Domain</span>
 				</li>

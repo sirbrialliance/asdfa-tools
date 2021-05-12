@@ -44,6 +44,8 @@ export function jsxs(nodeType: string, props: NodeFactory): HTMLElement {
 					el.style[k] = style[k];
 				}
 			}
+		} else if (k === 'selected' || k === 'checked') {
+			if (props[k] !== false) el.setAttribute(k, '')
 		} else if (k.startsWith("on")) {
 			el.addEventListener(k.toLowerCase().substring(2), (props as any)[k] as EventHandler);
 		} else {//anything with a "-" in it

@@ -57,6 +57,8 @@ export interface DeviceInfo<DT> {
 	id: string;
 	el: HTMLElement;
 	device: DT;
+	/** Random data we might want to hang on to: */
+	stuff: Record<string, any>
 }
 
 export abstract class DeviceModule<DT> extends Module {
@@ -150,7 +152,8 @@ export abstract class DeviceModule<DT> extends Module {
 			device: device,
 			el: null,
 			id: id,
-		};
+			stuff: {},
+		}
 		await this.openDevice(this.devices[id]);
 
 		this._deferDeviceRender();

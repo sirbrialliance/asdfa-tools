@@ -4,10 +4,6 @@ Tasks
 
 - next:
 
-	- sources:
-		- export css sources for source maps
-		- crunch/minify css
-
 	- global error handler shows any error to user
 
 	- modules:
@@ -59,6 +55,12 @@ Tasks
 - credits/licenses
 	- https://github.com/developit/hazelnut/blob/master/LICENSE
 - https://web.tools/, asdfa.io?
+
+-------------------------------------------------------------------------
+Bugs
+-------------------------------------------------------------------------
+
+- Make DeviceModule order deterministic (module.getDeviceKeys(): string[])
 
 -------------------------------------------------------------------------
 Ideas

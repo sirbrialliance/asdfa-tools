@@ -20,8 +20,23 @@ main.m_Midi {
 		}
 	}
 
-	.device {
+	.deviceGrid > .device {
 		position: relative;
+		grid-template-columns: repeat(auto-fill, minmax(425px, 1fr));
+		grid-auto-rows: 256px;
+		background: #00000055;
+
+		&:before {
+			content: "";
+			position: absolute;
+			top: 0; bottom: 0; left: 0; right: 0;
+			z-index: -1;
+			background: url(midiDeviceBG.svg);
+			background-size: 412px;
+			background-repeat: repeat-x;
+			background-position: center;
+			opacity: .15;
+		}
 
 		.event {
 			white-space: pre;
