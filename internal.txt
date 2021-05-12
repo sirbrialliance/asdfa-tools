@@ -7,9 +7,6 @@ Tasks
 	- global error handler shows any error to user
 
 	- modules:
-		- midi
-			- each output box has the option to copy form an input, with or without delay
-			- style the device grid
 		- touch
 		- browser info
 			- IP, user agent, local ip, server ip, etc.

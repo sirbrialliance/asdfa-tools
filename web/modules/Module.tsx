@@ -79,6 +79,7 @@ export abstract class DeviceModule<DT> extends Module {
 	abstract renderDevice(deviceInfo: DeviceInfo<DT>): HTMLElement;
 
 	render() {
+		this._deferDeviceRender()
 		return this.gridEl = <div class="deviceGrid"></div>;
 	}
 
@@ -103,8 +104,8 @@ export abstract class DeviceModule<DT> extends Module {
 			deviceInfo.el = el;
 		}
 
-		this.noDevicesEl.remove();
-		if (!num) this.gridEl.appendChild(this.noDevicesEl);
+		if (num && this.noDevicesEl.parentElement) this.noDevicesEl.parentElement.removeChild(this.noDevicesEl)
+		if (!num) this.gridEl.appendChild(this.noDevicesEl)
 
 		this._needsRender = false;
 	}
