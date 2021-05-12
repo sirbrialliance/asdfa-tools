@@ -118,9 +118,10 @@ export default ${JSON.stringify(webFiles({bgImages: true}).map(x => x.substr(3, 
 			'build': {
 				options: {
 					sourceMap: true,
-					sourceMapBasepath: 'build/out',
+					sourceMapBasepath: 'web',
+					sourceMapRootpath: '',
 					sourceMapURL: 'main.css.map',
-					sourceMapRootpath: '..',
+					compress: true,
 				},
 				files: {
 					'build/out/main.css': 'web/main.less',
@@ -250,4 +251,5 @@ export default ${JSON.stringify(webFiles({bgImages: true}).map(x => x.substr(3, 
 
 	grunt.registerTask('watch', ['concurrent:watch']);
 	grunt.registerTask('default', ['concurrent:build']);
+	grunt.registerTask('build', ['default']);//because I keep trying to run "grunt build"
 };

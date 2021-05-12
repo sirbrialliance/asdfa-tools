@@ -18,8 +18,12 @@ export default class Source extends MetaModule {
 				<p>
 					Pull requests in line with the site vision are welcome!
 				</p>
+				<p>
+					Additionally, this page is rigged up with source maps and the original source files.
+					Just hit F12 (or otherwise open your browser's dev tools) and you can peruse things from the sources tab.
+				</p>
 			</div>
-		];
+		]
 	}
 }
 
