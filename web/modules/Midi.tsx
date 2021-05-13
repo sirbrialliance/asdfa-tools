@@ -1,7 +1,16 @@
 import {DeviceModule, DeviceInfo} from './Module'
 import * as util from '../lib/util'
 
-export default class Midi extends DeviceModule<WebMidi.MIDIPort> {
+
+class MIDIDeviceInfo implements DeviceInfo {
+	id: string
+	el: HTMLElement
+	device: WebMidi.MIDIPort
+	selectEl: HTMLSelectElement
+	outputTarget: string
+}
+
+export default class Midi extends DeviceModule<MIDIDeviceInfo> {
 	getId() { return "Midi" }
 
 	midi: WebMidi.MIDIAccess
@@ -18,14 +27,20 @@ export default class Midi extends DeviceModule<WebMidi.MIDIPort> {
 	isSupported() { return ('requestMIDIAccess' in navigator) || "MIDI API=midi" }
 
 	async getDevices() {
-		let ports: WebMidi.MIDIPort[] = [
+		let ports = [
 			...Array.from(this.midi.inputs.values()),
 			...Array.from(this.midi.outputs.values())
 		]
-		return ports.map(port => [port.id, port]) as [string, WebMidi.MIDIPort][]
+		return ports.map(port => {
+			return {
+				...new MIDIDeviceInfo,
+				id: port.id,
+				device: port,
+			}
+		})
 	}
 
-	async openDevice(deviceInfo: DeviceInfo<WebMidi.MIDIPort>) {
+	async openDevice(deviceInfo: MIDIDeviceInfo) {
 		let port = deviceInfo.device
 		try {
 			await port.open()
@@ -35,7 +50,7 @@ export default class Midi extends DeviceModule<WebMidi.MIDIPort> {
 		}
 
 		port.onstatechange = ev => {
-			if (port.state === "disconnected") this.removeDevice(port.id)
+			if (port.state === "disconnected") this.removeDevice(this.devices[port.id])
 		}
 
 		if (port.type === "input") {
@@ -45,7 +60,7 @@ export default class Midi extends DeviceModule<WebMidi.MIDIPort> {
 		}
 	}
 
-	async closeDevice(deviceInfo: DeviceInfo<WebMidi.MIDIPort>) {
+	async closeDevice(deviceInfo: MIDIDeviceInfo) {
 		let port = deviceInfo.device
 		if (port.type === "input") (port as WebMidi.MIDIInput).onmidimessage = null
 		port.onstatechange = null
@@ -53,7 +68,7 @@ export default class Midi extends DeviceModule<WebMidi.MIDIPort> {
 		console.log("Closed " + port.id + "-" + port.name)
 	}
 
-	renderDevice(deviceInfo: DeviceInfo<WebMidi.MIDIPort>): HTMLElement {
+	renderDevice(deviceInfo: MIDIDeviceInfo): HTMLElement {
 		if (deviceInfo.el) return deviceInfo.el //don't re-render DOM
 
 		let port = deviceInfo.device
@@ -62,15 +77,15 @@ export default class Midi extends DeviceModule<WebMidi.MIDIPort> {
 		if (port.type === "input") {
 			content.push(<div class="event info">&lt;interact with the device to see events&gt;</div>)
 		} else {
-			deviceInfo.stuff["select"] = <select
-				onChange={ev => deviceInfo.stuff['outputTarget'] = (ev.target as HTMLSelectElement).value}>
-			</select>
+			deviceInfo.selectEl = <select
+				onChange={ev => deviceInfo.outputTarget = (ev.target as HTMLSelectElement).value}>
+			</select> as HTMLSelectElement
 
-			deviceInfo.stuff['outputTarget'] = ''
+			deviceInfo.outputTarget = ''
 			content.push(<div class="selectOutput">
 				<label>
 					Copy events from:
-					{deviceInfo.stuff["select"]}
+					{deviceInfo.selectEl}
 				</label>
 				<br/>
 				<small>TODO: need to test that actually works</small>
@@ -87,10 +102,10 @@ export default class Midi extends DeviceModule<WebMidi.MIDIPort> {
 		</terminal>
 	}
 
-	updateOutputSelect(deviceInfo: DeviceInfo<WebMidi.MIDIPort>) {
+	updateOutputSelect(deviceInfo: MIDIDeviceInfo) {
 		if (deviceInfo.device.type !== "output") return
 
-		let el = deviceInfo.stuff["select"] as HTMLSelectElement
+		let el = deviceInfo.selectEl
 		el.textContent = ''
 
 		;(['', ...Object.keys(this.devices)]).forEach(id => {
@@ -98,7 +113,7 @@ export default class Midi extends DeviceModule<WebMidi.MIDIPort> {
 			if (id === '' || otherDevice.device.type === "input") {
 				el.appendChild(<option
 					value={id}
-					selected={deviceInfo.stuff['outputTarget'] === id}
+					selected={deviceInfo.outputTarget === id}
 				>
 					{otherDevice ? otherDevice.device.name : '-- None --'}
 				</option>)
@@ -137,13 +152,13 @@ export default class Midi extends DeviceModule<WebMidi.MIDIPort> {
 	}
 
 	onStateChange(ev: WebMidi.MIDIConnectionEvent) {
-		this.addDevice(ev.port.id, ev.port);//todo: .catch
+		this.addDevice({...new MIDIDeviceInfo, id: ev.port.id, device: ev.port}) //todo: .catch
 	}
 
-	handleMessage(deviceInfo: DeviceInfo<WebMidi.MIDIPort>, ev: WebMidi.MIDIMessageEvent) {
+	handleMessage(deviceInfo: MIDIDeviceInfo, ev: WebMidi.MIDIMessageEvent) {
 		if (deviceInfo.device.type === "input") {
 			for (let k in this.devices) {
-				if (this.devices[k].stuff["outputTarget"] as string === deviceInfo.id) {
+				if (this.devices[k].outputTarget as string === deviceInfo.id) {
 					//replicate to output
 					this.handleMessage(this.devices[k], ev)
 				}

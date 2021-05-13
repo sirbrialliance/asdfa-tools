@@ -28,6 +28,8 @@ export function jsxs(nodeType: string, props: NodeFactory): HTMLElement {
 			for (let child of items) {
 				if (child instanceof HTMLElement) {
 					el.appendChild(child);
+				} else if (child === undefined || child === null) {
+					continue
 				} else {
 					let textNode = document.createTextNode(child);
 					el.appendChild(textNode);

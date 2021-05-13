@@ -35,6 +35,9 @@ Tasks
 				- histogram shows our outputs (one per speaker?)
 				- trigger 1-3 test audio clips
 					- one must specifically output to each speaker
+			- can get stuck with capture still on if we leave while starting
+			- deal with entry when we don't have permission yet
+			- deal with having no user gesture yet, so we can't analyze input sound
 		- zz speaker test - redundant with user media
 
 		- should just point About to Readme.md

@@ -10,7 +10,7 @@
 		// "sourceMap": true,
 		"inlineSourceMap": true,
 		// "mapRoot": "build/",
-		"sourceRoot": "web/",
+		// "sourceRoot": "web/",
 
 		"lib": ["es6", "dom", "ES2017"],
 		"module": "amd",

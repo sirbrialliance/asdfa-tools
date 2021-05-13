@@ -1,68 +1,106 @@
-import Module from './Module';
-import * as util from '../lib/util';
+import {DeviceModule, DeviceInfo} from './Module'
+import * as util from '../lib/util'
+import VUMeter from '../lib/VUMeter'
 
-export default class UserMedia extends Module {
+class UserMediaDeviceInfo implements DeviceInfo {
+	id: string
+	el: HTMLElement
+
+	device: MediaDeviceInfo
+	stream: MediaStream
+	error: string
+
+	videoEl: HTMLVideoElement
+	vuMeter: VUMeter
+
+	constructor(device: MediaDeviceInfo) {
+		this.device = device
+		this.id = device.deviceId
+	}
+}
+
+export default class UserMedia extends DeviceModule<UserMediaDeviceInfo> {
+	videoEl: HTMLVideoElement
+	stream: MediaStream
+	audio: AudioContext
+
 	getId() { return "UserMedia" }
-	videoEl: HTMLVideoElement;
-	stream: MediaStream;
 
 	renderThumb(): HTMLElement {
 		return <span>Test your camera, microphone, and speakers.</span>
 	}
+	getName(): string { return "User Media" }
 
 	isSupported() {
 		if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-			return true;
+			return true
 		} else {
-			return "User Media API=stream";
+			return "User Media API=stream"
 		}
 	}
 
-	getName(): string {
-		return "User Media";
+	async getDevices() {
+		let devices = await navigator.mediaDevices.enumerateDevices()
+		return devices.map(v => new UserMediaDeviceInfo(v))
 	}
 
-	render() {
-		return [
-			<div>
-				{this.videoEl = <video/> as HTMLVideoElement}
-			</div>
-		];
+	async openDevice(deviceInfo: UserMediaDeviceInfo) {
+		try {
+			switch (deviceInfo.device.kind) {
+				case "audioinput":
+					deviceInfo.stream = await navigator.mediaDevices.getUserMedia({
+						audio: {deviceId: deviceInfo.device.deviceId},
+					})
+					deviceInfo.vuMeter = new VUMeter(this.audio, deviceInfo.stream)
+					break
+				case 'videoinput':
+					deviceInfo.stream = await navigator.mediaDevices.getUserMedia({
+						video: {deviceId: deviceInfo.device.deviceId},
+					})
+					let videoEl = <video></video> as HTMLVideoElement
+					videoEl.playsInline = true
+					videoEl.autoplay = true
+					videoEl.controls = true
+					videoEl.srcObject = deviceInfo.stream
+					deviceInfo.videoEl = videoEl
+					break
+				case 'audiooutput':
+					//todo
+					break
+			}
+		} catch (ex) {
+			console.error(ex)
+			deviceInfo.error = ex.message || ex
+		}
+	}
+
+	async closeDevice(deviceInfo: UserMediaDeviceInfo) {
+		deviceInfo.stream?.getTracks().forEach(t => t.stop())
+		deviceInfo.stream = null
+		deviceInfo.vuMeter?.close()
+	}
+
+	renderDevice(deviceInfo: UserMediaDeviceInfo) {
+		let videoEl: HTMLVideoElement
+
+		return <div class="device">
+			<h3>{deviceInfo.device.label}</h3>
+			{deviceInfo.videoEl}
+			{deviceInfo.vuMeter?.el}
+
+		</div>
+
 	}
 
 	opened() {
-		navigator.mediaDevices.enumerateDevices().then(async devices => {
-			let video: MediaDeviceInfo = null;
-			let audio: MediaDeviceInfo = null;
-
-			for (let device of devices) {
-				if (!audio && device.kind == "audioinput") audio = device;
-				if (!video && device.kind == "videoinput") video = device;
-			}
-
-			this.stream = await navigator.mediaDevices.getUserMedia({
-				audio: audio ? {deviceId: audio.deviceId} : undefined,
-				video: video ? {deviceId: video.deviceId} : undefined,
-			});
-
-			this.videoEl.playsInline = true;
-			this.videoEl.autoplay = true;
-			this.videoEl.controls = true;
-			this.videoEl.srcObject = this.stream;
-
-			devices = await navigator.mediaDevices.enumerateDevices();
-
-			console.log("devices", devices);
-		}, function(err) {
-			console.error(err);
-		});
+		super.opened()
+		this.audio = new AudioContext()
 	}
 
 	closed() {
-		if (this.stream) {
-			this.stream.getTracks().forEach(t => t.stop());
-			this.stream = null;
-		}
+		this.audio.close()
+		super.closed()
 	}
+
 }
 
