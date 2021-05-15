@@ -41,6 +41,7 @@ export default class UserMedia extends DeviceModule<UserMediaDeviceInfo> {
 
 	async getDevices() {
 		let devices = await navigator.mediaDevices.enumerateDevices()
+		console.log("Media devices:", devices)
 		return devices.map(v => new UserMediaDeviceInfo(v))
 	}
 

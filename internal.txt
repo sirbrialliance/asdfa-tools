@@ -2,24 +2,9 @@
 Tasks
 -------------------------------------------------------------------------
 
-- next:
+- first release
+		- xx Done for this pass: midi, credits, source code, serial, random
 
-	- global error handler shows any error to user
-
-	- modules:
-		- touch
-		- browser info
-			- IP, user agent, local ip, server ip, etc.
-			- what http protocol we used to load the page (e.g. http/3)
-			- browscap.ini
-
-			- links:
-				- acid test
-				- https://html5test.com/
-				- https://www.webrtc-experiment.com/DetectRTC/
-		- basic webgl
-			- spining cube thumb
-			- something cool looking fractal for bigger
 		- notes
 		- time
 			- device time and "simple" server time only for now
@@ -28,8 +13,11 @@ Tasks
 			- show all cameras in grid, tap to toggle
 				- mirror, fullscreen, stop
 			- show all mic inputs
-				- histogram of input data
+				- xx histogram of input data
+				- tune histogram min/max
+				- hide duplicate devices (e.g. two audio with same groupId)
 				- start/stop capture
+				- deal with having no user gesture yet, so we can't analyze input sound
 			- show all outputs
 				- button to toggle each mic, toggle 2s output delay
 				- histogram shows our outputs (one per speaker?)
@@ -37,23 +25,35 @@ Tasks
 					- one must specifically output to each speaker
 			- can get stuck with capture still on if we leave while starting
 			- deal with entry when we don't have permission yet
-			- deal with having no user gesture yet, so we can't analyze input sound
-		- zz speaker test - redundant with user media
+		- About: just show a rendered Readme.md
+		- merge in STUN
+		- hide WebRTC, BrowserInfo modules
+		- disable rtc-related lambda functions
 
-		- should just point About to Readme.md
-		- and Code to the repo
-		- fade in bg image?
-		- maybe base bg image on epoch (hourly) for better caching?
+		- On a certain tablet, after I refresh it loads AND shows the loading throbber
+
+- things
+	- resolve *.asdfa.net, write up a CloudFlare worker to look up the module and redirect
+	- maybe base bg image on epoch (hourly) for better caching?
+	- fade in bg image?
+	- global error handler shows any error to user
+	- speaker test - redundant with user media
+	- touch
+	- basic webgl
+		- spinning cube thumb
+		- something cool looking fractal for bigger
+	- browser info
+		- IP, user agent, local ip, server ip, etc.
+		- what http protocol we used to load the page (e.g. http/3)
+		- browscap.ini
+
+		- links:
+			- acid test
+			- https://html5test.com/
+			- https://www.webrtc-experiment.com/DetectRTC/
 
 
-	- first release
 
-- issues
-	- On a certain tablet, after I refresh it loads AND shows the loading throbber
-
-
-- credits/licenses
-	- https://github.com/developit/hazelnut/blob/master/LICENSE
 - https://web.tools/, asdfa.io?
 
 -------------------------------------------------------------------------
