@@ -7,4 +7,4 @@ package-lock.json
 .serverless
 server/contentList.js
 bg-src/
-web/lib/BGImageList.tsx
+web/lib/contentList.tsx

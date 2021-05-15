@@ -31,13 +31,13 @@ var require, define, requireList;
 		(factories[id] = (typeof(factory = factory || deps)!=='function') ? function(){return factory;} : factory).deps = deps.pop ? deps : [];
 	}).amd = {};
 
-	requireList = function(filterFunc) {
-		var ret = [];
-		for (var k in factories) {
-			if (!filterFunc || filterFunc(k)) ret.push(k);
-		}
-		return ret;
-	}
+	// requireList = function(filterFunc) {
+	// 	var ret = [];
+	// 	for (var k in factories) {
+	// 		if (!filterFunc || filterFunc(k)) ret.push(k);
+	// 	}
+	// 	return ret;
+	// }
 
 	function rel(name, path) {
 		name = name.replace(/^(?:\.\/|(\.\.\/))/, path.replace(/[^\/]+$/g,'') + '$1');

@@ -4,6 +4,15 @@ var stream = require("stream");
 
 Array.prototype.contains = function(v) { return this.indexOf(v) >= 0; };
 
+const disabledModules = [
+	//abstract
+	'Module',
+
+	//not ready:
+	'WebRTC',
+	'BrowserInfo',
+]
+
 module.exports = function(grunt) {
 	const closuePath = "node_modules/google-closure-compiler-windows/compiler.exe";
 	// const closuePath = "node_modules/.bin/google-closure-compiler";
@@ -15,26 +24,34 @@ module.exports = function(grunt) {
 		grunt.file.recurse('web/modules', (path, root, subdir, filename) => {
 			if (filename.match(/\.tsx$/)) {
 				let name = filename.replace(/\.tsx$/, "");
-				if (name !== "Module") modules.push(name);
+				if (disabledModules.indexOf(name) < 0) modules.push(name);
 			}
 		});
 
-		let content = `"use strict";
+		function updateFile(file, content) {
+			var current = undefined;
+			try {
+				current = grunt.file.read(file);
+			} catch (ex) {
+				current = undefined;
+			}
+			if (current !== content) grunt.file.write(file, content);
+		}
+
+		updateFile("server/contentList.js", `"use strict";
 //Automatically generated, don't hand-edit.
 module.exports = {
 	modules: ${JSON.stringify(modules)},
 	webFiles: ${JSON.stringify(webFiles({includeBuilt: true}))},
 };
-`;
-		let current = grunt.file.read("server/contentList.js");
-		if (current !== content) grunt.file.write("server/contentList.js", content);
+`);
 
-		content = `//Automatically generated, don't hand-edit.
-export default ${JSON.stringify(webFiles({bgImages: true}).map(x => x.substr(3, x.length - 7)))};
-`;
-		current = grunt.file.read("web/lib/BGImageList.tsx");
-		if (content !== current) grunt.file.write("web/lib/BGImageList.tsx", content);
-
+		updateFile("web/lib/contentList.tsx", `//Automatically generated, don't hand-edit.
+export default {
+	bgImages: ${JSON.stringify(webFiles({bgImages: true}).map(x => x.substr(3, x.length - 7)))},
+	modules: ${JSON.stringify(modules)},
+}
+`);
 
 	}
 
