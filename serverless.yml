@@ -50,3 +50,18 @@ functions:
                 method: GET
                 path: /api/baseHit
 
+
+    wsConnect:
+        handler: server/wsHandler.connect
+        events:
+            - websocket:
+                route: $connect
+            - websocket:
+                route: $disconnect
+    wsMessage:
+        handler: server/wsHandler.message
+        events:
+            - websocket:
+                route: $default
+            - websocket:
+                route: $disconnect

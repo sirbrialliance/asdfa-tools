@@ -1,4 +1,31 @@
+import { restartModule } from '../main'
 
+/* Module boilerplate:
+
+import Module from './Module';
+
+export default class FooBar extends Module {
+		getId() { return "FooBar" }
+
+    renderThumb(): HTMLElement {
+        return <span>Lorem ipsum dolor sit amet...</span>
+    }
+
+    getName(): string { return "Foo Bar"; }
+
+    render() {
+        return [<span>hi</span>];
+    }
+
+    opened() {}
+
+    closed() {}
+}
+
+
+ */
+
+/** Basically a page. */
 export default abstract class Module {
 	abstract getName(): string
 	abstract renderThumb(): HTMLElement
@@ -38,6 +65,11 @@ export default abstract class Module {
 	}
 
 	closed(): void {}
+
+	/** Call to act like we just unloaded and then loaded this module. */
+	reload() {
+		restartModule()
+	}
 
 	///Special sort order, lowest first, ties are alphabetized.
 	sortOrder(): number { return 0 }

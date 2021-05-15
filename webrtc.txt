@@ -1,0 +1,44 @@
+
+Need to connect clients:
+	- Need STUN server and a way to talk to each other.
+		- STUN: https://webrtc.github.io/samples/src/content/peerconnection/trickle-ice/
+			- https://www.voip-info.org/stun/ lists some public stun servers, https://gist.github.com/mondain/b0ec1cf5f60ae726202e has more
+				stun.l.google.com:19302
+				stun1.l.google.com:19302
+				stun2.l.google.com:19302
+				stun3.l.google.com:19302
+				stun4.l.google.com:19302
+				stun.services.mozilla.com:3478
+				stun.stunprotocol.org:3478
+Mozilla: stun.services.mozilla.com
+SkyWay: stun.skyway.io:3478
+		- Talk:
+			- can have the users copy-paste, but cumbersome if non-trivial payloads
+
+
+	- xx Amazon Kinesis dones't seem to be a good solution, paying $.03 per connection pair. (Could reuse pairs, but then privacy...)
+
+- So probably:
+	- Connect choosing:
+		- Direct connect, no STUN or messaging, just IP and port
+		- asdfa conn service
+
+- asdfa conn service:
+	- public STUN server
+	- API Gateway+lambda+WS+SNS to make a WS connection between clients and allow us to "bootstrap" comms
+	- SNS: no data storage at all, just pub/sub, just pass messages from one end to the other
+	- Link set up ids: (need to know the "user code" to WS connection id mapping)
+		- Store in DynamoDB (and use TTL to auto-purge) or
+		- reformat the AWS connection id to be the user code?
+			- connectionId: 'e4naievbPHcCE_Q=', so about 11-12 bytes or 88-96 bits
+				- xkcd says ~11 bits per common word, so 8-9 common words
+					- "club relief scenery secret worse lung scene mat mistake"
+					- "earn tip immediate theatrical bell strange value guest tell"
+					- so probably not very useable
+				- (26 caseless letters + 10 numerals - ~5 similar) = ~32 easy chars = 6bits/char = 15-16 chars
+					- a-z + 0-9, case insensitive, 0=O=o but we use o, 1=L=l=I=i but we use i
+					- "w5va 25hv 10cd vj4z"
+					- "hsrh sw92 u534 634b"
+					- plausible, could add a qrcode too
+			- What if AWS changes format or makes it longer?
+
