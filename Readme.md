@@ -6,17 +6,17 @@ Written for running on [asdfa.net](https://asdfa.net/).
 
 ## Project Goals
 
-(See also: [web/modules/About.tsx](web/modules/About.tsx))
-
 > What can we find out, test, or verify, from an ordinary webpage?
 
-Ever want see if your touchscreen is working right, if your camera/microphone work, or if your MIDI device is working right? All these tasks and more can be done from within a modern browser. asdfa-tools targets having a bunch of these such utilities that are quick and easy to use.
+Ever want see if your touchscreen is working right, if your camera/microphone work, or if your MIDI device is working right? All these tasks and more can be done from within a modern browser. [asdfa-tools](https://github.com/sirbrialliance/asdfa-tools/) targets having a bunch of these such utilities that are quick and easy to use.
+
+It'd be best if we had:
 
 - All useful basic tests we can run from a web browser.
 - No ads.
 - Fast to load.
 - No nonsense or privacy invasions.
-- Cheap to host. Targeting under $1/month.
+- Cheap to host. Targeting under $1/month. <small>(Then I'm not tempted to add ads, which incidentally aren't no-nonsense, don't respect privacy, and are the bane of web performance.)</small>
 
 ## Infrastructure
 
@@ -58,8 +58,7 @@ And if you want to test on your LAN on other devices:
 ## Deploy
 
 	grunt clean default
-	# the default grunt tasks minifies JS too, so double-check if anything broke
-	serverless deploy
+	# the default grunt tasks minifies JS too, so double-check if anything broke serverless deploy
 	# test. Once satisfied run:
 	serverless deploy --stage prod
 
@@ -70,3 +69,7 @@ Quick update a function (`webResource`, in this case):
 And maybe find out why it broke:
 
 	serverless logs --function webResource # add -t for log tailing
+
+# Contact
+
+To contact the site owner, reach out to [GitHub username for code repo, with exact misspelling]@gmail.com.

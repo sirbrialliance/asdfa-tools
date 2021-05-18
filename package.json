@@ -6,6 +6,8 @@
   "license": "MIT",
   "devDependencies": {
     "@types/dom-serial": "^1.0.0",
+    "@types/markdown-it": "^12.0.1",
+    "@types/punycode": "^2.1.0",
     "@types/webmidi": "^2.0.4",
     "@typescript-eslint/eslint-plugin": "^4.22.1",
     "@typescript-eslint/parser": "^4.22.1",
@@ -18,6 +20,7 @@
     "grunt-contrib-uglify": "^5.0.1",
     "grunt-contrib-watch": "^1.1.0",
     "less": "^4.1.1",
+    "markdown-it": "^12.0.6",
     "serverless-offline": "^7.0.0",
     "typescript": "^4.2.4",
     "typescript-eslint-language-service": "^4.1.4",

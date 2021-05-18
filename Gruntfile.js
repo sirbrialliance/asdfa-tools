@@ -1,6 +1,7 @@
 var child_process = require("child_process");
 var fsp = require("fs/promises");
 var stream = require("stream");
+var md = require("markdown-it");
 
 Array.prototype.contains = function(v) { return this.indexOf(v) >= 0; };
 
@@ -14,10 +15,6 @@ const disabledModules = [
 ]
 
 module.exports = function(grunt) {
-	const closuePath = "node_modules/google-closure-compiler-windows/compiler.exe";
-	// const closuePath = "node_modules/.bin/google-closure-compiler";
-
-
 	function buildModuleList() {
 		var modules = [];
 
@@ -27,6 +24,10 @@ module.exports = function(grunt) {
 				if (disabledModules.indexOf(name) < 0) modules.push(name);
 			}
 		});
+
+		var aboutMD = grunt.file.read("Readme.md");
+		var markdown = new md({html: true});
+		var aboutHTML = markdown.render(aboutMD);
 
 		function updateFile(file, content) {
 			var current = undefined;
@@ -50,6 +51,7 @@ module.exports = {
 export default {
 	bgImages: ${JSON.stringify(webFiles({bgImages: true}).map(x => x.substr(3, x.length - 7)))},
 	modules: ${JSON.stringify(modules)},
+	aboutHTML: ${JSON.stringify(aboutHTML)},
 }
 `);
 

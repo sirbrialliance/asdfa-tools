@@ -1,5 +1,6 @@
-import {MetaModule} from './Module';
-import * as util from '../lib/util';
+import {MetaModule} from './Module'
+import * as util from '../lib/util'
+import contentList from '../lib/contentList'
 
 export default class About extends MetaModule {
 	getId() { return "About" }
@@ -9,35 +10,19 @@ export default class About extends MetaModule {
 	}
 
 	getName(): string {
-		return "About";
+		return "About"
 	}
 
 	render() {
+		let contentEl = <div class="readmeMD" />
+		contentEl.innerHTML = contentList.aboutHTML
 		return [
-			<div>
-				<p>
-					This site, a collection of browser-based tests/utilities, is built and maintained by an individual.
-				</p>
-				<p>What's the goal?</p>
-				<blockquote>What can we find out, test, or verify, from an ordinary webpage?</blockquote>
-				<p>
-					Ever want see if your touchscreen is working right, if your camera/microphone works, or if your
-					MIDI device is working right? That's the sort of thing we're after.
-				</p>
-				<p>And it'd be best if we had:
-					<ul>
-						<li>All the useful basic tests we can run from a web browser and a pile of related utilities.</li>
-						<li>No ads.</li>
-						<li>Fast to load.</li>
-						<li>No nonsense or privacy invasions.</li>
-						<li>Really cheap for me to host. (Then I'm not tempted to add ads, which incidentally aren't no-nonsense, don't respect privacy, and are the bane of web performance.)</li>
-					</ul>
-				</p>
-				<p>
-					To contact the site owner, reach out to [GitHub username for code repo, with exact misspelling]@gmail.com.
-				</p>
-			</div>
-		];
+			<small>
+				(The content below is the same as in{" "}
+				<a href="https://github.com/sirbrialliance/asdfa-tools/blob/master/Readme.md">Readme.md</a>.)
+			</small>,
+			contentEl
+		]
 	}
 }
 
