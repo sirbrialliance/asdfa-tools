@@ -29,6 +29,9 @@ Tasks
 					- one must specifically output to each speaker
 			- can get stuck with capture still on if we leave while starting
 			- deal with entry when we don't have permission yet
+		- STUN
+			- allow click permission button any time we haven't gotten user media yet that page load
+			- refine mdns comment (depends on browser, may get different result when you grant permission)
 
 		- On a certain tablet, after I refresh it loads AND shows the loading throbber (sometimes can happen w/ other things)
 
