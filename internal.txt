@@ -3,7 +3,11 @@ Tasks
 -------------------------------------------------------------------------
 
 - first release
-		- xx Done for this pass: midi, credits, source code, serial, random
+		- nn Done for this pass: midi, credits, source code, serial, random, about
+		- xx About: just show a rendered Readme.md
+		- xx merge in STUN
+		- xx hide WebRTC, BrowserInfo modules
+		- xx disable rtc-related lambda functions
 
 		- notes
 		- time
@@ -25,12 +29,8 @@ Tasks
 					- one must specifically output to each speaker
 			- can get stuck with capture still on if we leave while starting
 			- deal with entry when we don't have permission yet
-		- About: just show a rendered Readme.md
-		- merge in STUN
-		- hide WebRTC, BrowserInfo modules
-		- disable rtc-related lambda functions
 
-		- On a certain tablet, after I refresh it loads AND shows the loading throbber
+		- On a certain tablet, after I refresh it loads AND shows the loading throbber (sometimes can happen w/ other things)
 
 - things
 	- resolve *.asdfa.net, write up a CloudFlare worker to look up the module and redirect
