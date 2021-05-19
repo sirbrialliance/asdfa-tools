@@ -3,37 +3,39 @@ Tasks
 -------------------------------------------------------------------------
 
 - first release
-		- nn Done for this pass: midi, credits, source code, serial, random, about
-		- xx About: just show a rendered Readme.md
-		- xx merge in STUN
-		- xx hide WebRTC, BrowserInfo modules
-		- xx disable rtc-related lambda functions
+	- nn Done for this pass: midi, credits, source code, serial, random, about, notes
+	- xx About: just show a rendered Readme.md
+	- xx merge in STUN
+	- xx hide WebRTC, BrowserInfo modules
+	- xx disable rtc-related lambda functions
 
-		- notes
-		- time
-			- device time and "simple" server time only for now
-			- current epoch
-		- user media
-			- show all cameras in grid, tap to toggle
-				- mirror, fullscreen, stop
-			- show all mic inputs
-				- xx histogram of input data
-				- tune histogram min/max
-				- hide duplicate devices (e.g. two audio with same groupId)
-				- start/stop capture
-				- deal with having no user gesture yet, so we can't analyze input sound
-			- show all outputs
-				- button to toggle each mic, toggle 2s output delay
-				- histogram shows our outputs (one per speaker?)
-				- trigger 1-3 test audio clips
-					- one must specifically output to each speaker
-			- can get stuck with capture still on if we leave while starting
-			- deal with entry when we don't have permission yet
-		- STUN
-			- allow click permission button any time we haven't gotten user media yet that page load
-			- refine mdns comment (depends on browser, may get different result when you grant permission)
+	- time
+		- device time and "simple" server time only for now
+		- current epoch
+	- user media
+		- show all cameras in grid, tap to toggle
+			- mirror, fullscreen, stop
+		- show all mic inputs
+			- xx histogram of input data
+			- tune histogram min/max
+			- hide duplicate devices (e.g. two audio with same groupId)
+			- start/stop capture
+			- deal with having no user gesture yet, so we can't analyze input sound
+		- show all outputs
+			- button to toggle each mic, toggle 2s output delay
+			- histogram shows our outputs (one per speaker?)
+			- trigger 1-3 test audio clips
+				- one must specifically output to each speaker
+		- can get stuck with capture still on if we leave while starting
+		- deal with entry when we don't have permission yet
+	- STUN
+		- allow click permission button any time we haven't gotten user media yet that page load
+		- refine mdns comment (depends on browser, may get different result when you grant permission)
+		- breaks badly on a certain device (userMedia stuff)
+	- Record pages/bandwidth
+		- Use Dynamo DB to record bytes sent + request count of resources on a monthly bases
+		- WebSocket calls too
 
-		- On a certain tablet, after I refresh it loads AND shows the loading throbber (sometimes can happen w/ other things)
 
 - things
 	- resolve *.asdfa.net, write up a CloudFlare worker to look up the module and redirect
@@ -54,6 +56,8 @@ Tasks
 			- acid test
 			- https://html5test.com/
 			- https://www.webrtc-experiment.com/DetectRTC/
+	- On a certain tablet, after I refresh it loads AND shows the loading throbber (sometimes can happen w/ other things)
+		- can't repro anymore, but it looked to not be clearing <body> before rendering a page?
 
 
 

@@ -14,6 +14,10 @@ provider:
     memorySize: 128 # don't need much
     apiGateway:
         minimumCompressionSize: 200
+    #websocketsApiName:
+    websocketsApiRouteSelectionExpression: $request.body.action
+
+
 
 custom:
     serverless-offline:
@@ -43,13 +47,12 @@ functions:
                 method: GET
                 path: /{any1}/{any2}
 
-    baseHit:
-        handler: server/baseHit.baseHit
+    time:
+        handler: server/time.time
         events:
-            - httpApi:
-                method: GET
-                path: /api/baseHit
-
+            - websocket:
+                route: time
+                routeResponseSelectionExpression: $default
 
     # wsConnect:
     #     handler: server/wsHandler.connect
