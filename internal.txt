@@ -11,10 +11,10 @@ Tasks
 		- xx server serve changes
 		- xx fix source maps
 
-		- releasable
-			- node_modules
-			- config for dev/prod
-			- cert handling (self-generated, Cloudflare will have real cert)
+		- xx releasable
+			- xx node_modules
+			- xx config for dev/prod
+			- xx cert handling (self-generated, Cloudflare will have real cert)
 
 
 

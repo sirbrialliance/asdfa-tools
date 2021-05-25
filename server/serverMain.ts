@@ -29,6 +29,12 @@ function pushBaseResources(res: express.Response) {
 
 let app = express()
 
+app.get("/", (req, res) => {
+	pushBaseResources(res)
+	res.status(200)
+	res.sendFile("index.html", {root: "web"})
+})
+
 app.use(express.static('web', {
 	setHeaders: (res, path, stat) => {
 		if (path.indexOf(".") < 0) {
