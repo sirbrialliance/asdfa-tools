@@ -5,13 +5,15 @@ import * as spdy from 'spdy'
 import * as express from 'express'
 
 import contentList from './contentList'
+import config from './config'
+import conf from './config'
 
 var moduleList = contentList.modules
 var moduleListLowercase = moduleList.map(x => x.toLowerCase())
 
 const certFiles = {
-	key: fs.readFileSync('../server/localhost-privkey.pem'),
-	cert: fs.readFileSync('../server/localhost-cert.pem')
+	cert: fs.readFileSync(config.certFile),
+	key: fs.readFileSync(config.keyFile),
 }
 
 function addPush(res: express.Response, url: string, type: string) {
@@ -66,5 +68,5 @@ app.get(/./, (req, res, next) => {
 
 let server = spdy.createServer({...certFiles,}, app)
 
-server.listen(443)
+server.listen(config.port)
 

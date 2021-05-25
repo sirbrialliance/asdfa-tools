@@ -153,5 +153,23 @@ ABC
 # Certs
 # -------------------------------------------------------------------------
 
-...todo...
+# We expect our CDN, Cloudflare to handle our "real" certs, but make a self-signed one
+# for it to verify it's us it's talking to.
+su www-node
+cd ~
+mkdir certs
+cd certs
+
+# go to Cloudflare -> domain -> SSL/TLS -> Origin Server -> Create Certificate
+# Fill it out then for each part:
+cat > cert.pem
+[paste cert]
+[ctrl-d]
+
+cat > cert.key
+[paste key]
+[ctrl-d]
+
+# we're not using this method: openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -subj '/CN=origin.asdfa.net'
+
 
