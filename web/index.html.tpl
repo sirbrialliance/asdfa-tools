@@ -27,25 +27,12 @@
 </head>
 <body>
 	<script type="text/javascript">
-		var mainJS =  document.createElement("SCRIPT");
-		mainJS.src = "main.min.js";
-		mainJS.addEventListener("load", itemLoad);
-		document.head.appendChild(mainJS);
-
-		var mainCSS = document.createElement("LINK");
-		mainCSS.rel = 'stylesheet'; mainCSS.type = "text/css"; mainCSS.href = "main.css";
-		mainCSS.addEventListener("load", itemLoad);
-		document.head.appendChild(mainCSS);
-
-		var startState = 0;
-		function itemLoad() { if (++startState === 2) require(['main']); }
-
-		//Mini AMD loader, see loader.js in sources:
+		//see loader.js for source:
 		{loader}
 	</script>
 	<noscript>
 		<div id="noscript">
-			Testing if your browser will run JavaScirpt...<br>
+			Testing if your browser will run JavaScript...<br>
 			...<br>
 			...<br>
 			...<br>

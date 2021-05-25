@@ -16,8 +16,8 @@ module.exports = {
 		"@typescript-eslint"
 	],
 	"rules": {
-		"no-var": ["warn"],
 		"prefer-const": "off",
+		"no-var": "off",
 		// "no-unused-vars": ["warn", "all"],
 		"no-unused-vars": "off",
 		"@typescript-eslint/no-unused-vars": "off",

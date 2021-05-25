@@ -1,10 +1,10 @@
 *.sublime-workspace
 node_modules/
-build/
-package-lock.json
 .vscode/
 .tscache/
-.serverless
-server/contentList.js
+build/
+
 bg-src/
+
+server/contentList.ts
 web/lib/contentList.tsx

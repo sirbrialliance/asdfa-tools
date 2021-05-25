@@ -1,7 +1,8 @@
 var child_process = require("child_process");
-var fsp = require("fs/promises");
+var fsp = require("fs-extra"); //require("fs/promises");
 var stream = require("stream");
 var md = require("markdown-it");
+var path = require("path");
 
 Array.prototype.contains = function(v) { return this.indexOf(v) >= 0; };
 
@@ -39,12 +40,11 @@ module.exports = function(grunt) {
 			if (current !== content) grunt.file.write(file, content);
 		}
 
-		updateFile("server/contentList.js", `"use strict";
-//Automatically generated, don't hand-edit.
-module.exports = {
+		updateFile("server/contentList.ts", `//Automatically generated, don't hand-edit.
+export default {
 	modules: ${JSON.stringify(modules)},
 	webFiles: ${JSON.stringify(webFiles({includeBuilt: true}))},
-};
+}
 `);
 
 		updateFile("web/lib/contentList.tsx", `//Automatically generated, don't hand-edit.
@@ -94,16 +94,17 @@ export default {
 		return files;
 	}
 
-	function getShellTask(command, args = []) {
+	function getShellTask(command, args = [], cwd = undefined) {
 		function subTask() {
 			var done = this.async();
-			grunt.log.writeln("Starting " + command + " with " + JSON.stringify(args));
+			grunt.log.writeln("Starting " + command + " " + args.join(" "));
 			// Beware: https://github.com/nodejs/node-v0.x-archive/issues/2318
 			// To workaround we run cmd.exe as the target instead.
 			var args2 = ["/S", "/C", command, ...args];
 			var child = child_process.spawn("cmd.exe", args2, {
 				stdio: 'inherit',
 				env: {...process.env},
+				cwd: cwd,
 			});
 			child.on('close', code => {
 				if (code !== 0) done(new Error("Child process failed, exited with code " + code));
@@ -116,13 +117,12 @@ export default {
 	async function buildIndexHTML() {
 		var done = this.async();
 		try {
-			var template = await fsp.readFile("web/index.html");
-			var minOutput = await fsp.readFile("build/loader.min.js");
+			var template = await fsp.readFile("web/index.html.tpl");
+			var minOutput = await fsp.readFile("build/tmp/loader.min.js");
 
 			var content = template.toString().replace("{loader}", minOutput);
 
-			grunt.file.write("build/out/index.html", content);
-			// await fsp.writeFile("build/out/index.html", content);
+			grunt.file.write("build/web/index.html", content);
 
 			done();
 		} catch (ex) {
@@ -143,7 +143,7 @@ export default {
 					compress: true,
 				},
 				files: {
-					'build/out/main.css': 'web/main.less',
+					'build/web/main.css': 'web/main.less',
 				}
 			}
 		},
@@ -157,15 +157,9 @@ export default {
 				src: [
 					...webFiles(),
 				],
-				dest: 'build/out/',
+				dest: 'build/web/',
 			},
-			// 'nonMinJs': {//dev/watch only
-			// 	src: "build/main.js",
-			// 	dest: "build/out/main.min.js",
-			// },
 		},
-
-
 
 
 		_watch: {
@@ -176,7 +170,7 @@ export default {
 			},
 			'indexHTML': {
 				options: {atBegin: true,},
-				files: ["web/index.html", "loader.js"],
+				files: ["web/index.html.tpl", "loader.js"],
 				tasks: ['uglify:loader', 'indexHTML'],
 			},
 			'staticRes': {
@@ -199,50 +193,54 @@ export default {
 				],
 				tasks: ['contentList'],
 			},
-			// 'nonMinJs': {
-			// 	options: {atBegin: true,},
-			// 	files: ['build/main.js'],
-			// 	tasks: ['copy:nonMinJs'],
-			// },
 		},
 
 		uglify: {
 			'build': {
 				options: {
+					beautify: true,
 					sourceMap: {
 						content: "inline",
 					},
 				},
 				files: {
-					'build/out/main.min.js': ['build/main.js'],
+					'build/web/main.min.js': ['build/tmp/main.js'],
 				},
 			},
 
 			'loader': {
 				options: {
 					mangle: {
-						reserved: ["require", "define", "requireList"]
+						reserved: ["require", "define"]
 					},
 				},
-				files: { 'build/loader.min.js': 'loader.js' },
+				files: { 'build/tmp/loader.min.js': 'loader.js' },
 			},
 		},
 
-		typeScript: {},
-		typeScriptWatch: {},
-		serverlessLocal: {},
+		typeScriptWeb: {},
+		typeScriptWebWatch: {},
+		typeScriptServer: {},
+		typeScriptServerWatch: {},
+		serveLocal: {},
 		contentList: {},
 		indexHTML: {},
+		cpNodeModules: {},
+
+
+		// fixSourceMaps: {},
 
 		concurrent: {
 			'build': [
 				['uglify:loader', 'indexHTML'],
 				'less',
 				'copy',
-				['contentList', 'typeScript', 'uglify:build']
+				['contentList', 'typeScriptWeb', 'uglify:build'],
+				['contentList', 'typeScriptServer'],
+				'cpNodeModules',
 			],
 			'watch': {
-				tasks: ['_watch', 'typeScriptWatch', 'serverlessLocal'],
+				tasks: ['_watch', 'typeScriptWebWatch', 'typeScriptServerWatch', 'serveLocal'],
 				options: {
 					logConcurrentOutput: true,
 				}
@@ -260,12 +258,75 @@ export default {
 	grunt.renameTask('watch', '_watch');
 
 	grunt.registerTask('contentList', "Build a list of modules, files, etc. we have/use.", buildModuleList);
-	grunt.registerTask('typeScript', "Compile TypeScript", getShellTask("tsc", ['--pretty']));
-	grunt.registerTask('typeScriptWatch', "Compile TypeScript, watch changes", getShellTask(
-		"tsc", ["-w", "--preserveWatchOutput", '--pretty', '--outFile', 'build/out/main.min.js']
+
+	for (let type of ['Web', 'Server']) {
+		let dir = type === "Web" ? "web" : "server";
+		let extras = [];
+		if (type === "web") {
+			//override default watch output since we won't be doing a minify step
+			extras = ['--outFile', 'build/web/main.min.js'];
+		}
+
+		grunt.registerTask(`typeScript${type}`, `Compile TypeScript (${type})`, getShellTask(
+			"tsc", ['--pretty', '-p', dir]
+		));
+		grunt.registerTask(`typeScript${type}Watch`, `Compile TypeScript (${type}), watch changes`, getShellTask(
+			"tsc", ["-w", "--preserveWatchOutput", '--pretty', '-p', dir, ...extras]
+		));
+	}
+
+	grunt.registerTask('serveLocal', "Run server locally", getShellTask(
+		"nodemon", ["-w", "../server", "-w", ".", "serverMain.js"],
+		"build"
 	));
-	grunt.registerTask('serverlessLocal', "Run service locally", getShellTask("serverless", ["offline", "--color"]));
+
 	grunt.registerTask('indexHTML', "Build index.html", buildIndexHTML);
+
+	// grunt.registerTask('fixSourceMaps', "Fix source map", () => {
+	// 	var data = grunt.file.read("build/web/main.min.js.map");
+	// 	data = data.replace(/\.\.\/)
+	// }
+
+	grunt.registerTask('cpNodeModules', "Copies non-dev node_modules to build", async function() {
+		var done = this.async();
+		try {
+			if (await fsp.exists("build/node_modules")) {
+				await fsp.rm("build/node_modules", {recursive: true});
+			}
+
+			grunt.verbose.writeln("Listing prod node_modules...");
+
+			var folders = await new Promise((res, rej) => {
+				child_process.exec("npm ls --prod=true --parseable=true", (err, stdout, stderr) => {
+					if (err) rej(err);
+					else {
+						res(stdout.trim().split("\n"));
+					}
+				});
+			});
+
+			//remove leading folder that is just the project directory
+			folders.shift();
+
+			grunt.log.writeln("Copying " + folders.length + " folders");
+			grunt.verbose.writeln("Namely: " + folders.join(", "));
+
+			await fsp.mkdirp("build/node_modules");
+
+			for (let folder of folders) {
+				let name = path.basename(folder);
+				let target = "build/node_modules/" + name;
+				grunt.verbose.writeln(`Will copy ${folder} to ${target}`);
+				await fsp.copy(folder, target, {recursive: true});
+			}
+
+			done();
+		} catch (ex) {
+			console.error("Module copy error:", ex, ex.stack);
+			grunt.log.error(ex);
+			done(false);
+		}
+	});
 
 
 	grunt.registerTask('watch', ['concurrent:watch']);

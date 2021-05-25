@@ -1,0 +1,157 @@
+# -------------------------------------------------------------------------
+# Getting started
+# -------------------------------------------------------------------------
+do not try to run this as a shell script directly.
+
+# Spin up a server. Right now I'm using a ~$1/mo VPS from RackNerd.
+#   https://my.racknerd.com/cart.php?a=add&pid=358
+#   https://lowendbox.com/blog/1-vps-1-usd-vps-per-month/
+#
+# Debian 10 as the OS
+
+declare -x SERVER_IP="127.1.2.3" # <-- change this
+
+#make sure you have an SSH key set up, then
+ssh-copy-id root@$SERVER_IP
+ssh root@$SERVER_IP
+
+passwd
+	# enter a new password...
+
+# -------------------------------------------------------------------------
+# install/setup
+# -------------------------------------------------------------------------
+
+timedatectl set-timezone UTC
+echo something.example.com > /etc/hostname
+
+apt update
+apt-get dist-upgrade
+reboot
+
+apt install htop fail2ban sysstat sudo ntp curl supervisor rsync
+
+# -------------------------------------------------------------------------
+# Make a user
+# -------------------------------------------------------------------------
+
+
+#If desired:
+	nano /etc/sudoers
+	# add: %sudo ALL=(ALL) NOPASSWD: ALL
+
+declare -x USER_ACCT=someusername
+
+adduser --disabled-password $USER_ACCT
+adduser $USER_ACCT sudo
+
+mkdir /home/$USER_ACCT/.ssh
+cp ~/.ssh/authorized_keys /home/$USER_ACCT/.ssh/authorized_keys
+chmod 700 /home/$USER_ACCT/.ssh && chmod 600 /home/$USER_ACCT/.ssh/*
+chown -R $USER_ACCT:$USER_ACCT /home/$USER_ACCT/.ssh
+
+# Should now be able to ssh user_acct@ip from your source machine and use sudo
+# TEST THAT NOW
+
+# -------------------------------------------------------------------------
+# Adjust/harden SSH settings
+# -------------------------------------------------------------------------
+
+cat >> /etc/ssh/sshd_config <<ABC
+PermitRootLogin no
+PasswordAuthentication no
+PermitEmptyPasswords no
+AllowAgentForwarding yes
+ABC
+
+sshd -t # should be happy
+
+service sshd reload
+
+
+
+# -------------------------------------------------------------------------
+# fail2ban
+# -------------------------------------------------------------------------
+
+# Looks like fail2ban has a good enough setup by default
+
+#if desired:
+	nano /etc/fail2ban/jail.conf
+	# in [DEFAULT] add:
+	ignoreip = your_ip_here
+
+	service fail2ban restart
+
+
+# -------------------------------------------------------------------------
+# NTP
+# -------------------------------------------------------------------------
+
+nano /etc/ntp.conf
+	# find the "pool" lines
+	# remove them and add
+	pool time.cloudflare.com iburst
+	pool time.nist.gov
+
+
+timedatectl set-ntp off # we want NTPd to manage the clock
+service ntp stop
+ntpd -gq
+service ntp start
+
+# Optional: things you can check:
+	ntptime
+	ntpq -c peers
+	timedatectl
+
+
+# -------------------------------------------------------------------------
+# Node JS
+# -------------------------------------------------------------------------
+
+# OS Repo will have some old, crusty Node JS version, get something better
+curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash -
+apt-get install -y nodejs
+
+# -------------------------------------------------------------------------
+# Supervisor (to run node)
+# -------------------------------------------------------------------------
+
+adduser --disabled-login www-node
+chmod g+rwx /home/www-node/
+adduser $USER_ACCT www-node
+
+cat > /etc/supervisor/conf.d/asdfa-tools.conf <<ABC
+[program:asdfa-tools]
+directory=/home/www-node/asdfa-tools/
+command=node serverMain.js
+environment=ASDFA_TOOLS_ENV="prod"
+
+redirect_stderr=true
+stdout_logfile=/var/log/supervisor/asdfa-tools.log
+autorestart=true
+user=www-node
+
+ABC
+
+cat > /etc/supervisor/conf.d/asdfa-tools-dev.conf <<ABC
+[program:asdfa-tools-dev]
+directory=/home/www-node/asdfa-tools-dev/
+command=node serverMain.js
+environment=ASDFA_TOOLS_ENV="dev"
+
+redirect_stderr=true
+stdout_logfile=/var/log/supervisor/asdfa-tools-dev.log
+autorestart=true
+user=www-node
+
+ABC
+
+
+# -------------------------------------------------------------------------
+# Certs
+# -------------------------------------------------------------------------
+
+...todo...
+

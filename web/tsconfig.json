@@ -10,18 +10,17 @@
 		// "sourceMap": true,
 		"inlineSourceMap": true,
 		// "mapRoot": "build/",
-		// "sourceRoot": "web/",
+		"sourceRoot": "web/",
 
 		"lib": ["es6", "dom", "ES2017"],
 		"module": "amd",
 		"moduleResolution": "node",
 
-		"rootDir": "web",
-		"outFile": "build/main.js",
+		"outFile": "../build/tmp/main.js",
 
 		"paths": {
-			"lib/jsx-runtime": ["./web/lib/jsx-runtime"],
-			"random-js": ["./third/random-js.esm.js"],
+			"lib/jsx-runtime": ["./lib/jsx-runtime"],
+			// "random-js": ["./third/random-js.esm.js"],
 		},
 		// "explainFiles": true, //debug
 
@@ -38,9 +37,9 @@
 		]
 	},
 	"include": [
-		"web/**/*.tsx",
+		"**/*.tsx",
 	],
 	"files": [
-		"web/third/random-js.esm.js",
+		"third/random-js.esm.js",
 	],
 }

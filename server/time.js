@@ -1,5 +1,4 @@
 var process = require("process");
-var AWS = require('aws-sdk');
 var config = require('./config');
 
 var timeOffset = null;

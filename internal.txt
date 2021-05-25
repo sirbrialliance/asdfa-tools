@@ -4,10 +4,21 @@ Tasks
 
 - first release
 	- nn Done for this pass: midi, credits, source code, serial, random, about, notes
-	- xx About: just show a rendered Readme.md
-	- xx merge in STUN
-	- xx hide WebRTC, BrowserInfo modules
-	- xx disable rtc-related lambda functions
+
+	- serverless-less rework
+		- xx grunt build changes
+		- xx server is now typescript
+		- xx server serve changes
+		- xx fix source maps
+
+		- releasable
+			- node_modules
+			- config for dev/prod
+			- cert handling (self-generated, Cloudflare will have real cert)
+
+
+
+	- MIDI load throws error
 
 	- time
 		- device time and "simple" server time only for now
@@ -33,7 +44,7 @@ Tasks
 		- refine mdns comment (depends on browser, may get different result when you grant permission)
 		- breaks badly on a certain device (userMedia stuff)
 	- Record pages/bandwidth
-		- Use Dynamo DB to record bytes sent + request count of resources on a monthly bases
+		- Use simple sqlite DB to record bytes sent + request count of resources on a monthly bases
 		- WebSocket calls too
 
 
@@ -68,6 +79,7 @@ Bugs
 -------------------------------------------------------------------------
 
 - Make DeviceModule order deterministic (module.getDeviceKeys(): string[])
+- spdy package uses a deprecated node api and causes logspam (using it mostly for quick integration with Express)
 
 -------------------------------------------------------------------------
 Ideas
@@ -174,6 +186,12 @@ Ideas
 	- Special input types (color picker, phone number text entry, etc.)
 	- Calculator: Possible to put SpeedCrunch or the like up for easy access?
 	- Sign generator: just type some text pick fg/bg colors and display it giant and fullscreen
+	- https://dvcs.w3.org/hg/d4e/raw-file/tip/key-event-test.html
+	- regex tool
+	- Map:
+		- Map-based area/distance calculator? Maybe also outline a roof and its angle and get the surface area?
+		- Maybe grab local data from openstreetmap and allow offline access?
+			- perhaps can integrate with another provider's ariel view? Also https://help.openstreetmap.org/questions/6849/how-can-i-see-the-aerial-imagery-without-editing-the-map
 
 	- Serial:
 		- add option to choose text encoding for send/recv (including hex and base64)
@@ -183,5 +201,4 @@ Ideas
 	- user media:
 		- access screen too
 		- browser controls for PTZ cameras https://webrtc.github.io/samples/src/content/getusermedia/pan-tilt-zoom/
-
 

@@ -23,17 +23,12 @@ It'd be best if we had:
 To keep costs down and speeds up here's how things are currently set up to work:
 
 - Page
-	- Most of the site is static HTML and JavaSciprt.
+	- Most of the site is static HTML and JavaScript.
 	- We use history.pushSate to make individual tests (modules) have their own URI.
 	- Using the correct prefech headers, we have CloudFlare do HTTP/2 (or 3) server-push for core resources.
 - Servers
-	- Use free ClourFlare account for CDN.
-	- Origin resources are served out of AWS Lambda+API Gateway.
-		- All the resources/files are bundled with the function itself.
-		- Much of the site could be served from an S3 bucket, but:
-			- S3 websites don't support HTTPS, only HTTP. (Could proxy through CloudFront for SSL, but that's another cost.)
-			- Different modules have different URLs, it's nice not to have to make many copies of index.html in a bunch of folders.
-		- CloudFlare workers were also considered, but it's plausibly likely we'd go over the free invocation limit. (Though they did later add transform rules.)
+	- Use free CloudFlare account for CDN.
+	- Origin resources are served off a cheap ~$1/month VPS (currently using RackNerd from [this list](https://lowendbox.com/blog/1-vps-1-usd-vps-per-month/)).
 
 # Development/Build
 
@@ -42,7 +37,7 @@ To keep costs down and speeds up here's how things are currently set up to work:
 	git clone https://github.com/sirbrialliance/asdfa-tools
 	cd asdfa-tools
 	npm install
-	npm install -g grunt-cli typescript serverless
+	npm install -g grunt-cli typescript nodemon
 
 ## Writing code:
 
@@ -51,24 +46,15 @@ To keep costs down and speeds up here's how things are currently set up to work:
 
 Starts up tasks to redo certain build steps, watch for TypeScript changes, and starts a local server to serve content.
 
-And if you want to test on your LAN on other devices:
-
-	serverless offline --host 192.168.1.123 # replace with your own IP
-
 ## Deploy
 
 	grunt clean default
-	# the default grunt tasks minifies JS too, so double-check if anything broke serverless deploy
-	# test. Once satisfied run:
-	serverless deploy --stage prod
+	# the default grunt tasks minifies JS too, so double-check if anything broke in the build
 
-Quick update a function (`webResource`, in this case):
+Then copy the build folder to a server and rig thing sup to run `serverMain.js`. If you followed `serverSetup.txt` for your server you might do something like:
 
-	serverless deploy function --function webResource
+	rsync -ravz build/ webserver.example.com:/home/www-node/asdfa-tools-dev/ --exclude=tmp --chown=:www-node
 
-And maybe find out why it broke:
-
-	serverless logs --function webResource # add -t for log tailing
 
 # Contact
 
