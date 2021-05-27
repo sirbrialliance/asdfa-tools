@@ -27,6 +27,8 @@ export default class Midi extends DeviceModule<MIDIDeviceInfo> {
 	isSupported() { return ('requestMIDIAccess' in navigator) || "MIDI API=midi" }
 
 	async getDevices() {
+		if (!this.midi) return []
+
 		let ports = [
 			...Array.from(this.midi.inputs.values()),
 			...Array.from(this.midi.outputs.values())

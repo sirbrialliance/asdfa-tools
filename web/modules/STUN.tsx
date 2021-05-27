@@ -23,7 +23,7 @@ export default class STUN extends Module {
 		</span>;
 	}
 
-	getName(): string { return "Public/Private IP (STUN)"; }
+	getName(): string { return "Public/Private IPs (STUN)" }
 
 	render() {
 		this.terminal = new Terminal
@@ -39,10 +39,12 @@ export default class STUN extends Module {
 					Your local and remote IP addresses should appear below.
 				</p>
 				<p>
-					If this website doesn't have camera/microphone permission, results may be limited. For example,
-					your local IP address will likely be a randomish mDNS address instead of the actual LAN IP address.
+					Different browsers might show a mDNS address instead of the actual LAN IP address.
 				</p>
-				{this.userMediaButton}
+				<p>
+					Having camera/microphone permission may make a difference in what data is available.
+					{this.userMediaButton}
+				</p>
 				<p>
 					Some address entries may be duplicated (for different possible protocols).
 				</p>
@@ -54,12 +56,12 @@ export default class STUN extends Module {
 	async opened() {
 		let searchMessage = this.terminal.pin(<div class="loading">Searching...</div>)
 
-		//quick check to see if we have permission, disable button if we do
-		navigator.mediaDevices.enumerateDevices().then(devices => {
-			if (devices.length && devices.some(x => x.deviceId.length)) {
-				(this.userMediaButton as HTMLInputElement).disabled = true
-			}
-		})
+		// //quick check to see if we have permission, disable button if we do
+		// navigator.mediaDevices.enumerateDevices().then(devices => {
+		// 	if (devices.length && devices.some(x => x.deviceId.length)) {
+		// 		(this.userMediaButton as HTMLInputElement).disabled = true
+		// 	}
+		// })
 
 		var config: RTCConfiguration = {}
 
@@ -130,7 +132,11 @@ export default class STUN extends Module {
 	}
 
 	async requestUserMedia() {
-		await navigator.mediaDevices.getUserMedia({audio: true, video: true})
+		try {
+			await navigator.mediaDevices.getUserMedia({audio: true, video: true})
+		} catch (ex) {
+			console.error(ex)
+		}
 		this.reload()
 	}
 }

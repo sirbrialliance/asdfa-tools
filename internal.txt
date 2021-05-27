@@ -3,22 +3,7 @@ Tasks
 -------------------------------------------------------------------------
 
 - first release
-	- nn Done for this pass: midi, credits, source code, serial, random, about, notes
-
-	- serverless-less rework
-		- xx grunt build changes
-		- xx server is now typescript
-		- xx server serve changes
-		- xx fix source maps
-
-		- xx releasable
-			- xx node_modules
-			- xx config for dev/prod
-			- xx cert handling (self-generated, Cloudflare will have real cert)
-
-
-
-	- MIDI load throws error
+	- nn Done for this pass: midi, credits, source code, serial, random, about, notes, STUN
 
 	- time
 		- device time and "simple" server time only for now
@@ -39,10 +24,10 @@ Tasks
 				- one must specifically output to each speaker
 		- can get stuck with capture still on if we leave while starting
 		- deal with entry when we don't have permission yet
-	- STUN
-		- allow click permission button any time we haven't gotten user media yet that page load
-		- refine mdns comment (depends on browser, may get different result when you grant permission)
-		- breaks badly on a certain device (userMedia stuff)
+	- xx STUN
+		- xx allow click permission button any time we haven't gotten user media yet that page load
+		- xx refine mdns comment (depends on browser, may get different result when you grant permission)
+		- xx breaks badly on a certain device (userMedia stuff)
 	- Record pages/bandwidth
 		- Use simple sqlite DB to record bytes sent + request count of resources on a monthly bases
 		- WebSocket calls too
@@ -193,6 +178,9 @@ Ideas
 		- Maybe grab local data from openstreetmap and allow offline access?
 			- perhaps can integrate with another provider's ariel view? Also https://help.openstreetmap.org/questions/6849/how-can-i-see-the-aerial-imagery-without-editing-the-map
 
+- module revisions
+	- time:
+		- use UDP-like WebRTC instead of (TCP) websockets for more accurate time
 	- Serial:
 		- add option to choose text encoding for send/recv (including hex and base64)
 		- upload file, save recv'd data to file
