@@ -159,6 +159,10 @@ export default {
 				],
 				dest: 'build/web/',
 			},
+			// 'mainJSNoMin': {
+			// 	src: ['build/tmp/main.js'],
+			// 	dest: 'build/web/main.min.js',
+			// },
 		},
 
 
@@ -166,7 +170,6 @@ export default {
 			'buildSystem': {
 				files: ['Gruntfile.js', 'tsconfig.json'],
 				options: {reload: true},
-				tasks: ['default'],
 			},
 			'indexHTML': {
 				options: {atBegin: true,},
@@ -187,18 +190,30 @@ export default {
 				tasks: ['less'],
 			},
 			'contentList': {
-				options: {atBegin: true,},
+				options: {
+					atBegin: true,
+					event: ['added', 'deleted'],
+				},
 				files: [
 					'web/modules/**.tsx',
 				],
 				tasks: ['contentList'],
 			},
+			// Don't need a watch on this, typeScriptWebWatch will dump directly to main.min.js
+			// 'mainJS': { (normally the )
+			// 	options: {atBegin: true,},
+			// 	files: [
+			// 		'build/tmp/main.js',
+			// 	],
+			// 	// tasks: ['uglify:build'],
+			// 	tasks: ['copy:mainJSNoMin'],
+			// },
 		},
 
 		uglify: {
 			'build': {
 				options: {
-					beautify: true,
+					//beautify: true,
 					sourceMap: {
 						content: "inline",
 					},
@@ -240,7 +255,12 @@ export default {
 				'cpNodeModules',
 			],
 			'watch': {
-				tasks: ['_watch', 'typeScriptWebWatch', 'typeScriptServerWatch', 'serveLocal'],
+				tasks: [
+					'_watch',
+					'typeScriptWebWatch',
+					'typeScriptServerWatch',
+					['cpNodeModules', 'serveLocal'],
+				],
 				options: {
 					logConcurrentOutput: true,
 				}
@@ -262,7 +282,7 @@ export default {
 	for (let type of ['Web', 'Server']) {
 		let dir = type === "Web" ? "web" : "server";
 		let extras = [];
-		if (type === "web") {
+		if (type === "Web") {
 			//override default watch output since we won't be doing a minify step
 			extras = ['--outFile', 'build/web/main.min.js'];
 		}
@@ -276,8 +296,14 @@ export default {
 	}
 
 	grunt.registerTask('serveLocal', "Run server locally", getShellTask(
-		"nodemon", ["-w", "../server", "-w", ".", "serverMain.js"],
-		"build"
+		"nodemon", [
+			"-w", "../server",
+			"-w", ".",
+			"-i", "tmp/",
+			"-i", "web/",
+			"serverMain.js"
+		],
+		"build"//cwd
 	));
 
 	grunt.registerTask('indexHTML', "Build index.html", buildIndexHTML);

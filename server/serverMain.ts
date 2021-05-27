@@ -6,7 +6,6 @@ import * as express from 'express'
 
 import contentList from './contentList'
 import config from './config'
-import conf from './config'
 
 var moduleList = contentList.modules
 var moduleListLowercase = moduleList.map(x => x.toLowerCase())

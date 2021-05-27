@@ -13,7 +13,7 @@ switch (process.env['ASDFA_TOOLS_ENV']) {
 		conf = {
 			certFile: "/home/www-node/certs/cert.pem",
 			keyFile: "/home/www-node/certs/cert.key",
-			port: 8443,
+			port: 443,
 		}
 		break
 	case "dev":
