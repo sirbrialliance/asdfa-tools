@@ -14,20 +14,20 @@ var db: sqlite.Database
 	console.log("DB ready")
 })()
 
+export async function log(url: string, bytes: number) {
+	try {
+		let day = new Date().toISOString().substr(0, 10)
+		await db.run(`INSERT OR IGNORE INTO usage (day, url, requests, totalBytes) VALUES (?, ?, 0, 0)`, day, url)
+		await db.run(`UPDATE usage SET requests = requests + 1, totalBytes = totalBytes + ? WHERE day = ? AND url = ?`, bytes, day, url)
+	} catch (ex) {
+		console.error("Error recording hit:", ex.stack, new Error('here'))
+	}
+}
+
 export default function(req: express.Request, res: express.Response, next: express.NextFunction) {
 	res.on('close', async () => {
-		try {
-			//console.log(`Request for ${req.path} was ${res.getHeader("content-length")}`)
-
-			let day = new Date().toISOString().substr(0, 10)
-			let url = req.path
-			let bytes = +res.getHeader("content-length") || 0
-			await db.run(`INSERT OR IGNORE INTO usage (day, url, requests, totalBytes) VALUES (?, ?, 0, 0)`, day, url)
-			await db.run(`UPDATE usage SET requests = requests + 1, totalBytes = totalBytes + ? WHERE day = ? AND url = ?`, bytes, day, url)
-		} catch (ex) {
-			console.error("Error recording hit:", ex.stack, new Error('here'))
-		}
-
+		log(req.path, +res.getHeader("content-length") || 0)
 	})
 	next()
 }
+

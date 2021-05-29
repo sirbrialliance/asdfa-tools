@@ -4,6 +4,7 @@ interface Config {
 	certFile: string
 	keyFile: string
 	port: number
+	validHosts: string[]
 }
 
 var conf: Config
@@ -14,6 +15,7 @@ switch (process.env['ASDFA_TOOLS_ENV']) {
 			certFile: "/home/www-node/certs/cert.pem",
 			keyFile: "/home/www-node/certs/cert.key",
 			port: 443,
+			validHosts: ["asdfa.net"],
 		}
 		break
 	case "dev":
@@ -21,6 +23,7 @@ switch (process.env['ASDFA_TOOLS_ENV']) {
 			certFile: "/home/www-node/certs/cert.pem",
 			keyFile: "/home/www-node/certs/cert.key",
 			port: 8443,
+			validHosts: ["asdfa.net:8443"],
 		}
 		break
 	default://local dev
@@ -28,6 +31,7 @@ switch (process.env['ASDFA_TOOLS_ENV']) {
 			certFile: "../server/localhost-cert.pem",
 			keyFile: "../server/localhost-privkey.pem",
 			port: 443,
+			validHosts: ["localhost", "192.168.1.10"],
 		}
 		break
 }

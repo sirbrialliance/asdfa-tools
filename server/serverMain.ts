@@ -3,10 +3,12 @@ import * as process from 'process'
 
 import * as spdy from 'spdy'
 import * as express from 'express'
+import {server as WebSocketServer} from 'websocket'
 
 import contentList from './contentList'
 import config from './config'
 import usageLogger from './usageLogger'
+import * as time from './time'
 
 var moduleList = contentList.modules
 var moduleListLowercase = moduleList.map(x => x.toLowerCase())
@@ -77,4 +79,26 @@ app.get(/./, (req, res, next) => {
 let server = spdy.createServer({...certFiles,}, app)
 
 server.listen(config.port)
+
+let wsServer = new WebSocketServer({httpServer: server, disableNagleAlgorithm: true})
+
+wsServer.on('request', req => {
+	req.socket.on('error', (err: any) => {
+		if (err.code === "ECONNRESET") return
+		console.error("ws sock err", err)
+	})
+
+	if (!config.validHosts.includes(req.host)) {
+		req.reject(403)
+		return
+	}
+
+	if (req.resource === "/Time/api") {
+		time.onTimeWSConnection(req.accept())
+		return
+	}
+
+	req.reject(404)
+})
+
 

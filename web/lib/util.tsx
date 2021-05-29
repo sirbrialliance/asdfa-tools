@@ -34,3 +34,28 @@ export function init() {
 	// 	if (ev.key === "Shift") shiftKeyDown = false;
 	// });
 }
+
+export function stats(data: number[]) {
+	let sum = 0
+	data.forEach(x => sum += x)
+	let mean = sum / data.length
+	let sorted = data.slice()
+	sorted.sort()
+
+	let median = NaN
+	if (data.length) median = data[Math.floor(data.length / 2)]
+
+	let sigSum = 0
+	data.forEach(x => {
+		let err = x - mean
+		sigSum += err*err
+	})
+	let stdDev = Math.sqrt(sigSum / data.length)
+
+	return {
+		sum: sum,
+		mean: mean,
+		median: median,
+		stdDev: stdDev,
+	}
+}

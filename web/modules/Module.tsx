@@ -32,6 +32,7 @@ export default abstract class Module {
 
 	__beforeUnload: (ev: Event) => void
 	unloadConcern: string = null
+	isOpen = false
 
 	/**
 	 * Called before doing the usual render/open of the module.

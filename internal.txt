@@ -6,6 +6,11 @@ Tasks
 	- nn Done for this pass: midi, credits, source code, serial, random, about, notes, STUN
 
 	- time
+		- websocket support
+		- current time websocket call
+		- data/display handling
+			- date, time, timezone, server time, offset (and stats)
+		- style time display
 		- device time and "simple" server time only for now
 		- current epoch
 	- user media
@@ -26,6 +31,7 @@ Tasks
 		- deal with entry when we don't have permission yet
 
 	- ww Record hits/bandwidth for any websocket calls
+	- deal with node_modules from windows not working on Linux
 
 - things
 	- resolve *.asdfa.net, write up a CloudFlare worker to look up the module and redirect

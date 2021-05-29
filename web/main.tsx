@@ -156,7 +156,10 @@ function updatePage() {
 	main.textContent = ''
 	main.className = ''
 
-	if (currentModuleActive) currentModule?.closed()
+	if (currentModuleActive && currentModule) {
+		currentModule.isOpen = false
+		currentModule.closed()
+	}
 	currentModule = null; currentModuleActive = false
 
 	let page = document.location.pathname.substr(1)
@@ -173,6 +176,7 @@ function updatePage() {
 
 			if (supported === true) {
 				renderModule(currentModule)
+				currentModule.isOpen = true
 				currentModule.opened()
 				currentModuleActive = true
 			} else {
