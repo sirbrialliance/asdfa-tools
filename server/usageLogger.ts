@@ -17,7 +17,7 @@ var db: sqlite.Database
 export default function(req: express.Request, res: express.Response, next: express.NextFunction) {
 	res.on('close', async () => {
 		try {
-			console.log(`Request for ${req.path} was ${res.getHeader("content-length")}`)
+			//console.log(`Request for ${req.path} was ${res.getHeader("content-length")}`)
 
 			let day = new Date().toISOString().substr(0, 10)
 			let url = req.path

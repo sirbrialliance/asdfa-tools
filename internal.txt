@@ -24,14 +24,8 @@ Tasks
 				- one must specifically output to each speaker
 		- can get stuck with capture still on if we leave while starting
 		- deal with entry when we don't have permission yet
-	- xx STUN
-		- xx allow click permission button any time we haven't gotten user media yet that page load
-		- xx refine mdns comment (depends on browser, may get different result when you grant permission)
-		- xx breaks badly on a certain device (userMedia stuff)
-	- Record pages/bandwidth
-		- Use simple sqlite DB to record bytes sent + request count of resources on a monthly bases
-		- WebSocket calls too
 
+	- ww Record hits/bandwidth for any websocket calls
 
 - things
 	- resolve *.asdfa.net, write up a CloudFlare worker to look up the module and redirect
