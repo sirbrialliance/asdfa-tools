@@ -301,6 +301,8 @@ export default {
 			"-w", ".",
 			"-i", "tmp/",
 			"-i", "web/",
+			"--",
+			"--async-stack-traces",
 			"serverMain.js"
 		],
 		"build"//cwd

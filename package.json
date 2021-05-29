@@ -11,6 +11,7 @@
     "@types/node": "^15.3.1",
     "@types/punycode": "^2.1.0",
     "@types/spdy": "^3.4.4",
+    "@types/sqlite3": "^3.1.7",
     "@types/webmidi": "^2.0.4",
     "@typescript-eslint/eslint-plugin": "^4.22.1",
     "@typescript-eslint/parser": "^4.22.1",
@@ -34,6 +35,8 @@
   },
   "dependencies": {
     "express": "^4.17.1",
-    "spdy": "^4.0.2"
+    "spdy": "^4.0.2",
+    "sqlite": "^4.0.23",
+    "sqlite3": "^5.0.2"
   }
 }

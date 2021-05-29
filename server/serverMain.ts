@@ -6,6 +6,7 @@ import * as express from 'express'
 
 import contentList from './contentList'
 import config from './config'
+import usageLogger from './usageLogger'
 
 var moduleList = contentList.modules
 var moduleListLowercase = moduleList.map(x => x.toLowerCase())
@@ -27,6 +28,8 @@ function pushBaseResources(res: express.Response) {
 }
 
 let app = express()
+
+app.use(usageLogger)
 
 app.get("/", (req, res) => {
 	pushBaseResources(res)
