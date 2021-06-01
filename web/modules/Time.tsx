@@ -182,7 +182,8 @@ export default class Time extends Module {
 			for (let i = 0; i < count; i++) {
 				let res = await this._pingServer()
 				samples.push(res)
-				this.log.log(`Got #${i + 1}, RTT: ${res.rtt}ms, Offset: ${res.offset}ms\n`, "inbound")
+				//NB: seems the minifier may break the code (loop only once) without the ${count} below, I don't feel like fighting it.
+				this.log.log(`Got #${i + 1}/${count}, RTT: ${res.rtt}ms, Offset: ${res.offset}ms\n`, "inbound")
 			}
 
 			let rttStats = util.stats(samples.map(x => x.rtt))

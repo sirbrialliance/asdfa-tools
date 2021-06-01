@@ -6,13 +6,12 @@ Tasks
 	- nn Done for this pass: midi, credits, source code, serial, random, about, notes, STUN
 
 	- time
-		- websocket support
-		- current time websocket call
-		- data/display handling
-			- date, time, timezone, server time, offset (and stats)
-		- style time display
-		- device time and "simple" server time only for now
-		- current epoch
+		- xx websocket support
+		- xx current time websocket call
+		- xx style time display
+		- display user/server date, user's timezone
+		- server NTP sync stats
+		- much better filtering algo
 	- user media
 		- show all cameras in grid, tap to toggle
 			- mirror, fullscreen, stop
