@@ -29,7 +29,7 @@ export default class UserMedia extends DeviceModule<UserMediaDeviceInfo> {
 	renderThumb(): HTMLElement {
 		return <span>Test your camera, microphone, and speakers.</span>
 	}
-	getName(): string { return "User Media" }
+	getName(): string { return "Camera/Mic/Speaker Test" }
 
 	isSupported() {
 		if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -96,6 +96,10 @@ export default class UserMedia extends DeviceModule<UserMediaDeviceInfo> {
 	opened() {
 		super.opened()
 		this.audio = new AudioContext()
+		// if (this.audio.state === 'suspended') {
+		// 	//generally, no user gesture yet. Autostart when we can
+		// 	this.audio.resume().then(() => console.log('resume'), ex => console.error("no resume", ex))
+		// }
 	}
 
 	closed() {
