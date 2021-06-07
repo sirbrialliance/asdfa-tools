@@ -11,6 +11,7 @@ const disabledModules = [
 	'Module',
 
 	//not ready:
+	'UserMedia',
 	'WebRTC',
 	'BrowserInfo',
 ]

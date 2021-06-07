@@ -51,11 +51,18 @@ Starts up tasks to redo certain build steps, watch for TypeScript changes, and s
 	grunt clean default
 	# the default grunt tasks minifies JS too, so double-check if anything broke in the build
 
-Then copy the build folder to a server and rig things up to run `ASDFA_TOOLS_ENV="dev" node serverMain.js`. If you followed `serverSetup.txt` for your server you might do something like:
+### Development Server
+
+Then copy the build folder to a server and rig things up to run `ASDFA_TOOLS_ENV="dev" node serverMain.js`. If you followed [`serverSetup.txt`](https://github.com/sirbrialliance/asdfa-tools/blob/master/server/serverSetup.txt) for your server you might do something like:
 
 	rsync -ravz build/ webserver.example.com:/home/www-node/asdfa-tools-dev/ --exclude=tmp --chown=:www-node
 	ssh webserver.example.com -T sudo supervisorctl restart asdfa-tools-dev
 
+This should make the site available for testing on https://webserver.example.com:8443/
+
+### Production
+
+Save as dev, but `s/asdfa-tools-dev/asdfa-tools/` and `ASDFA_TOOLS_ENV="prod"` for https://webserver.example.com/
 
 # Contact
 

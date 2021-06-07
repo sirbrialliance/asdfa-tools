@@ -23,6 +23,7 @@ passwd
 # -------------------------------------------------------------------------
 
 timedatectl set-timezone UTC
+# pick a hostname and set it (we'll reboot in a moment and then it will take aefect)
 echo something.example.com > /etc/hostname
 
 apt update
@@ -36,15 +37,17 @@ apt install htop fail2ban sysstat sudo ntp curl supervisor rsync
 # -------------------------------------------------------------------------
 
 
-#If desired:
-	nano /etc/sudoers
+#Turn off password req for sudo (all keys, no passwords)
+nano /etc/sudoers
 	# add: %sudo ALL=(ALL) NOPASSWD: ALL
 
+# Make yourself a user account, change the name
 declare -x USER_ACCT=someusername
 
 adduser --disabled-password $USER_ACCT
 adduser $USER_ACCT sudo
 
+# Copy (and permission) root's authorized_keys to the new user
 mkdir /home/$USER_ACCT/.ssh
 cp ~/.ssh/authorized_keys /home/$USER_ACCT/.ssh/authorized_keys
 chmod 700 /home/$USER_ACCT/.ssh && chmod 600 /home/$USER_ACCT/.ssh/*
@@ -64,10 +67,10 @@ PermitEmptyPasswords no
 AllowAgentForwarding yes
 ABC
 
-sshd -t # should be happy
+# Check config, should output no errors and not fail:
+sshd -t
 
 service sshd reload
-
 
 
 # -------------------------------------------------------------------------
@@ -96,6 +99,8 @@ nano /etc/ntp.conf
 
 
 timedatectl set-ntp off # we want NTPd to manage the clock
+
+# Have NTP set clock fully now:
 service ntp stop
 ntpd -gq
 service ntp start
@@ -118,10 +123,13 @@ apt-get install -y nodejs
 # Supervisor (to run node)
 # -------------------------------------------------------------------------
 
+# Make a user for node to run as:
 adduser --disabled-login www-node
 chmod g+rwx /home/www-node/
+# Give your user permission to work with node-www's files
 adduser $USER_ACCT www-node
 
+# Set up supervisor:
 cat > /etc/supervisor/conf.d/asdfa-tools.conf <<ABC
 [program:asdfa-tools]
 directory=/home/www-node/asdfa-tools/
@@ -148,19 +156,21 @@ user=www-node
 
 ABC
 
+supervisorctl reload
+
 
 # -------------------------------------------------------------------------
 # Certs
 # -------------------------------------------------------------------------
 
-# We expect our CDN, Cloudflare to handle our "real" certs, but make a self-signed one
-# for it to verify it's us it's talking to.
+# We expect our CDN, Cloudflare, to handle our "real" certs, but we still want
+# A trusted cert to make sure communication is secure.
 su www-node
 cd ~
 mkdir certs
 cd certs
 
-# go to Cloudflare -> domain -> SSL/TLS -> Origin Server -> Create Certificate
+# log into CloudFlare and go to  -> [domain] -> SSL/TLS -> Origin Server -> Create Certificate
 # Fill it out then for each part:
 cat > cert.pem
 [paste cert]
