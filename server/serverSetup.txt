@@ -30,7 +30,7 @@ apt update
 apt-get dist-upgrade
 reboot
 
-apt install htop fail2ban sysstat sudo ntp curl supervisor rsync
+apt install htop fail2ban sysstat sudo ntp curl supervisor rsync libcap2-bin
 
 # -------------------------------------------------------------------------
 # Make a user
@@ -155,6 +155,9 @@ autorestart=true
 user=www-node
 
 ABC
+
+# Also need to let node use port 443
+setcap 'cap_net_bind_service=+ep' `which node`
 
 supervisorctl reload
 
