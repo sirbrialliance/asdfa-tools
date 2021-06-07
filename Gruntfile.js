@@ -160,6 +160,13 @@ export default {
 				],
 				dest: 'build/web/',
 			},
+			'build-node': {
+				src: [
+					'package.json',
+					'package-lock.json',
+				],
+				dest: 'build/',
+			},
 			// 'mainJSNoMin': {
 			// 	src: ['build/tmp/main.js'],
 			// 	dest: 'build/web/main.min.js',
@@ -243,7 +250,6 @@ export default {
 		indexHTML: {},
 		cpNodeModules: {},
 
-
 		// fixSourceMaps: {},
 
 		concurrent: {
@@ -253,7 +259,6 @@ export default {
 				'copy',
 				['contentList', 'typeScriptWeb', 'uglify:build'],
 				['contentList', 'typeScriptServer'],
-				'cpNodeModules',
 			],
 			'watch': {
 				tasks: [
@@ -356,7 +361,6 @@ export default {
 			done(false);
 		}
 	});
-
 
 	grunt.registerTask('watch', ['concurrent:watch']);
 	grunt.registerTask('default', ['concurrent:build']);

@@ -23,7 +23,7 @@ switch (process.env['ASDFA_TOOLS_ENV']) {
 			certFile: "/home/www-node/certs/cert.pem",
 			keyFile: "/home/www-node/certs/cert.key",
 			port: 8443,
-			validHosts: ["asdfa.net:8443"],
+			validHosts: ["asdfa-tools-dev.asdfa.net:8443", "asdfa.net:8443"],
 		}
 		break
 	default://local dev

@@ -167,7 +167,7 @@ export default class Time extends Module {
 
 	prettyTime(time: number) {
 		if (time < 800) return Math.round(time * 10) / 10 + "ms"
-		else if (time < 3600) return Math.round(time / 100) / 10 + "s"
+		else if (time < 120000) return Math.round(time / 100) / 10 + "s"
 		else return Math.round(time / 100 / 60) / 10 + "min"
 	}
 
