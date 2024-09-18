@@ -11,7 +11,7 @@ export function onTimeWSConnection(conn: websocket.connection) {
 
 	//todo: collect and send NTP stats here
 
-	conn.on('message', (msg: websocket.IMessage) => {
+	conn.on('message', (msg: websocket.Message) => {
 		let t2 = Date.now()
 		try {
 			if (msg.type !== "utf8") {

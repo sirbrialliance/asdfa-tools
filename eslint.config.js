@@ -1,4 +1,4 @@
-module.exports = {
+module.exports = [{
 	"env": {
 		"browser": true,
 		"es2021": true
@@ -22,7 +22,7 @@ module.exports = {
 		"no-unused-vars": "off",
 		"@typescript-eslint/no-unused-vars": "off",
 		"no-case-declarations": "off",
-		"@typescript-eslint/explicit-module-boundary-types": "off",//we're okay with using t he implied type of the parent class
+		"@typescript-eslint/explicit-module-boundary-types": "off",//we're okay with using the implied type of the parent class
 		"@typescript-eslint/no-explicit-any": "off",
 		"indent": [
 			"warn",
@@ -35,4 +35,4 @@ module.exports = {
 		],
 		"@typescript-eslint/no-empty-function": "off",
 	}
-}
+}];

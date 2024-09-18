@@ -42,7 +42,7 @@ To keep costs down and speeds up here's how things are currently set up to work:
 ## Writing code:
 
 	grunt watch
-	# open http://localhost:3000/
+	# open https://localhost:3000/
 
 Starts up tasks to redo certain build steps, watch for TypeScript changes, and starts a local server to serve content.
 

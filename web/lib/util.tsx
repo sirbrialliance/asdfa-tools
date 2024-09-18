@@ -9,7 +9,7 @@ export function toHex2(val: number) {
 	return ('0' + val.toString(16)).substr(-2).toUpperCase();
 }
 
-export function randomItems<T>(list: Array<T>, count: Number = 1) : Array<T> {
+export function randomItems<T>(list: Array<T>, count = 1) : Array<T> {
 	if (count >= list.length) return [...list];
 	var ret: Array<T> = [];
 	var usedIndexes: Set<number> = new Set();

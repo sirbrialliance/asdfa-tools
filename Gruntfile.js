@@ -3,6 +3,7 @@ var fsp = require("fs-extra"); //require("fs/promises");
 var stream = require("stream");
 var md = require("markdown-it");
 var path = require("path");
+var os = require("os");
 
 Array.prototype.contains = function(v) { return this.indexOf(v) >= 0; };
 
@@ -99,14 +100,25 @@ export default {
 		function subTask() {
 			var done = this.async();
 			grunt.log.writeln("Starting " + command + " " + args.join(" "));
-			// Beware: https://github.com/nodejs/node-v0.x-archive/issues/2318
-			// To workaround we run cmd.exe as the target instead.
-			var args2 = ["/S", "/C", command, ...args];
-			var child = child_process.spawn("cmd.exe", args2, {
-				stdio: 'inherit',
-				env: {...process.env},
-				cwd: cwd,
-			});
+
+			var child;
+			if (os.type() === "Windows_NT") {
+				// Beware: https://github.com/nodejs/node-v0.x-archive/issues/2318
+				// To workaround we run cmd.exe as the target instead.
+				var args2 = ["/S", "/C", command, ...args];
+				child = child_process.spawn("cmd.exe", args2, {
+					stdio: 'inherit',
+					env: {...process.env},
+					cwd: cwd,
+				});
+			} else {
+				child = child_process.spawn(command, args, {
+					stdio: 'inherit',
+					env: {...process.env},
+					cwd: cwd,
+				});
+			}
+
 			child.on('close', code => {
 				if (code !== 0) done(new Error("Child process failed, exited with code " + code));
 				else done();

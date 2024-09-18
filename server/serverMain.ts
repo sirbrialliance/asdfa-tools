@@ -89,6 +89,7 @@ wsServer.on('request', req => {
 	})
 
 	if (!config.validHosts.includes(req.host)) {
+		// console.error("Rejecting connection using " + req.host)
 		req.reject(403)
 		return
 	}

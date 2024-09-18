@@ -5,7 +5,7 @@ import * as util from '../lib/util'
 class MIDIDeviceInfo implements DeviceInfo {
 	id: string
 	el: HTMLElement
-	device: WebMidi.MIDIPort
+	device: MIDIPort
 	selectEl: HTMLSelectElement
 	outputTarget: string
 }
@@ -13,7 +13,7 @@ class MIDIDeviceInfo implements DeviceInfo {
 export default class Midi extends DeviceModule<MIDIDeviceInfo> {
 	getId() { return "Midi" }
 
-	midi: WebMidi.MIDIAccess
+	midi: MIDIAccess
 	terminal: HTMLElement
 	inputsEl: HTMLElement
 	outputsEl: HTMLElement
@@ -27,12 +27,16 @@ export default class Midi extends DeviceModule<MIDIDeviceInfo> {
 	isSupported() { return ('requestMIDIAccess' in navigator) || "MIDI API=midi" }
 
 	async getDevices() {
-		if (!this.midi) return []
+		if (!this.midi) {
+			console.log("No MIDI access.")
+			return []
+		}
 
-		let ports = [
-			...Array.from(this.midi.inputs.values()),
-			...Array.from(this.midi.outputs.values())
-		]
+		let ports: MIDIPort[] = []
+		this.midi.inputs.forEach((port, key, parent) => ports.push(port))
+		this.midi.outputs.forEach((port, key, parent) => ports.push(port))
+		//console.log("MIDI ports:", ports, this.midi.inputs, this.midi.outputs)
+
 		return ports.map(port => {
 			return {
 				...new MIDIDeviceInfo,
@@ -56,15 +60,15 @@ export default class Midi extends DeviceModule<MIDIDeviceInfo> {
 		}
 
 		if (port.type === "input") {
-			(port as WebMidi.MIDIInput).onmidimessage = _ev => {
-				this.handleMessage(deviceInfo, _ev as WebMidi.MIDIMessageEvent)
+			(port as MIDIInput).onmidimessage = _ev => {
+				this.handleMessage(deviceInfo, _ev as MIDIMessageEvent)
 			}
 		}
 	}
 
 	async closeDevice(deviceInfo: MIDIDeviceInfo) {
 		let port = deviceInfo.device
-		if (port.type === "input") (port as WebMidi.MIDIInput).onmidimessage = null
+		if (port.type === "input") (port as MIDIInput).onmidimessage = null
 		port.onstatechange = null
 		await port.close()
 		console.log("Closed " + port.id + "-" + port.name)
@@ -136,7 +140,7 @@ export default class Midi extends DeviceModule<MIDIDeviceInfo> {
 		navigator.requestMIDIAccess({sysex: true}).then(async midi => {
 			this.midi = midi
 
-			midi.onstatechange = ev => this.onStateChange(ev)
+			midi.onstatechange = ev => this.onStateChange(ev as MIDIConnectionEvent)
 
 			await this.updateDevices()
 		}, function(err) {
@@ -153,11 +157,11 @@ export default class Midi extends DeviceModule<MIDIDeviceInfo> {
 		}
 	}
 
-	onStateChange(ev: WebMidi.MIDIConnectionEvent) {
+	onStateChange(ev: MIDIConnectionEvent) {
 		this.addDevice({...new MIDIDeviceInfo, id: ev.port.id, device: ev.port}) //todo: .catch
 	}
 
-	handleMessage(deviceInfo: MIDIDeviceInfo, ev: WebMidi.MIDIMessageEvent) {
+	handleMessage(deviceInfo: MIDIDeviceInfo, ev: MIDIMessageEvent) {
 		if (deviceInfo.device.type === "input") {
 			for (let k in this.devices) {
 				if (this.devices[k].outputTarget as string === deviceInfo.id) {
@@ -166,7 +170,7 @@ export default class Midi extends DeviceModule<MIDIDeviceInfo> {
 				}
 			}
 		} else if (deviceInfo.device.type === "output") {
-			(deviceInfo.device as WebMidi.MIDIOutput).send(ev.data)
+			(deviceInfo.device as MIDIOutput).send(Array.from(ev.data))
 		}
 
 

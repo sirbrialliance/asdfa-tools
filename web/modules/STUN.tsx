@@ -42,7 +42,7 @@ export default class STUN extends Module {
 					Different browsers might show a mDNS address instead of the actual LAN IP address.
 				</p>
 				<p>
-					Having camera/microphone permission may make a difference in what data is available.
+					Having camera/microphone permission may make a difference in what data is available.<br />
 					{this.userMediaButton}
 				</p>
 				<p>

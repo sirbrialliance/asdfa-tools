@@ -30,8 +30,8 @@ switch (process.env['ASDFA_TOOLS_ENV']) {
 		conf = {
 			certFile: "../server/localhost-cert.pem",
 			keyFile: "../server/localhost-privkey.pem",
-			port: 443,
-			validHosts: ["localhost", "192.168.1.10"],
+			port: 3000,
+			validHosts: ["localhost:3000", "192.168.1.10:3000", "192.168.1.11:3000"],
 		}
 		break
 }

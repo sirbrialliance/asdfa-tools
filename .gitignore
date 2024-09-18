@@ -1,6 +1,7 @@
 *.sublime-workspace
 node_modules/
 .vscode/
+.idea/
 .tscache/
 build/
 
