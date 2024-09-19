@@ -9,6 +9,7 @@ import contentList from './contentList'
 import config from './config'
 import usageLogger from './usageLogger'
 import * as time from './time'
+import * as webRTC from './webRTC'
 
 var moduleList = contentList.modules
 var moduleListLowercase = moduleList.map(x => x.toLowerCase())
@@ -96,6 +97,11 @@ wsServer.on('request', req => {
 
 	if (req.resource === "/Time/api") {
 		time.onTimeWSConnection(req.accept())
+		return
+	}
+
+	if (req.resource === "/RTCConnect") {
+		webRTC.onWSConnection(req.accept())
 		return
 	}
 

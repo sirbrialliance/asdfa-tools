@@ -2,35 +2,47 @@
 Tasks
 -------------------------------------------------------------------------
 
-- first release
-	- nn Done for this pass: midi, credits, source code, serial, random, about, notes, STUN
+- Transfer
+	- base function
+	- update client statuses
+	- handle client going offline
+	- remove remembered client
+	- handle server connection loss gracefully?
 
-	- time
-		- xx websocket support
-		- xx current time websocket call
-		- xx style time display
-		- display user/server date, user's timezone
-		- server NTP sync stats
-		- much better filtering algo
-	- user media
-		- show all cameras in grid, tap to toggle
-			- mirror, fullscreen, stop
-		- show all mic inputs
-			- xx histogram of input data
-			- tune histogram min/max
-			- hide duplicate devices (e.g. two audio with same groupId)
-			- start/stop capture
-			- deal with having no user gesture yet, so we can't analyze input sound
-		- show all outputs
-			- button to toggle each mic, toggle 2s output delay
-			- histogram shows our outputs (one per speaker?)
-			- trigger 1-3 test audio clips
-				- one must specifically output to each speaker
-		- can get stuck with capture still on if we leave while starting
-		- deal with entry when we don't have permission yet
+	- option to not automatically add anyone trying to connect to you to the list
+	- option to autoconnect to known client
+		- some way to ensure it's the same client and not just someone with the same id?
+	- change my id
+		- better way of handling memorable names?
+	- QR code to connect
+	- more typeable ids
+	- RTC disconnect handling, etc.
 
-	- ww Record hits/bandwidth for any websocket calls
-	- deal with node_modules from windows not working on Linux
+
+
+- time
+	- display user/server date, user's timezone
+	- server NTP sync stats
+	- much better filtering algo
+- user media
+	- show all cameras in grid, tap to toggle
+		- mirror, fullscreen, stop
+	- show all mic inputs
+		- xx histogram of input data
+		- tune histogram min/max
+		- hide duplicate devices (e.g. two audio with same groupId)
+		- start/stop capture
+		- deal with having no user gesture yet, so we can't analyze input sound
+	- show all outputs
+		- button to toggle each mic, toggle 2s output delay
+		- histogram shows our outputs (one per speaker?)
+		- trigger 1-3 test audio clips
+			- one must specifically output to each speaker
+	- can get stuck with capture still on if we leave while starting
+	- deal with entry when we don't have permission yet
+
+- ww Record hits/bandwidth for any websocket calls
+- deal with node_modules from windows not working on Linux
 
 - things
 	- resolve *.asdfa.net, write up a CloudFlare worker to look up the module and redirect
