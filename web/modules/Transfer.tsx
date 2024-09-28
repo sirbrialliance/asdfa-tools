@@ -2,6 +2,8 @@ import Module from './Module';
 import * as RJS from "random-js"
 import Terminal from "../lib/Terminal"
 import ClientConnection from "../lib/ClientConnection"
+import * as ClientData from "../lib/RTCClientData"
+import RTCClientData, {RTCClientInfo} from "../lib/RTCClientData"
 
 interface Message {
 	action: string
@@ -56,7 +58,8 @@ export default class Transfer extends Module {
 	getId() { return "Transfer" }
 	isSupported() {
 		if (!('RTCPeerConnection' in window)) return "WebRTC=rtcpeerconnection"
-		if (!('crypto' in window)) return "crypto.getRandomValues()=getrandomvalues"
+		if (!('crypto' in window) || !('subtle' in window.crypto)) return "Web Cryptography=cryptography"
+		if (!('indexedDB' in window)) return "Indexed DB=indexeddb"
 		return true
 	}
 	getName() { return "Transfer" }
@@ -66,8 +69,8 @@ export default class Transfer extends Module {
 
 	ws: WebSocket
 	nextMsgId = 1
-	clientId: string//our client id
-	searchTargets: string[] = []//client ids we are interested in
+	clientInfo: ClientData.RTCClientInfo
+	searchTargets: ClientData.RTCClientInfo[] = []//clients we are interested in
 	searchTargetUIs: Record<string, ClientUI> = {}
 	log: Terminal
 
@@ -76,19 +79,52 @@ export default class Transfer extends Module {
 
 	public constructor() {
 		super()
-		this.clientId = localStorage.getItem("rtc.clientId") || ""
-		if (!this.clientId) {
-			this.clientId = RJS.string()(RJS.browserCrypto, 8)
-			localStorage.setItem("rtc.clientId", this.clientId)
+		this.log = new Terminal()
+
+	}
+
+	opened() {
+		RTCClientData.log = this.log
+		this.setupWS()
+
+		this.setupInfo().catch(ex => {
+			console.error(ex)
+			this.log.log(ex.message, "inbound error")
+		})
+
+		//
+		// try {
+		// 	let rawTargets = localStorage.getItem("rtc.searchTargets")
+		// 	if (rawTargets) this.searchTargets = JSON.parse(rawTargets)
+		// } catch (ex) {
+		// 	this.searchTargets = []
+		// }
+	}
+
+
+	closed() {
+		this.ws.close()
+
+		for (let k in this.searchTargetUIs) {
+			this.searchTargetUIs[k].conn?.close()
 		}
 
-		try {
-			let rawTargets = localStorage.getItem("rtc.searchTargets")
-			if (rawTargets) this.searchTargets = JSON.parse(rawTargets)
-		} catch (ex) {
-			this.searchTargets = []
-		}
+		RTCClientData.log = null
 	}
+
+	private async setupInfo() {
+		this.clientInfo = await ClientData.data.getMyData()
+
+		wait for WS connect
+		//tell server our id
+		//update visuals
+
+		//get other client infos
+			//subscrbe to them
+			//render them
+
+	}
+
 
 
 	render() {
@@ -100,24 +136,24 @@ export default class Transfer extends Module {
 		let ret = [
 			<h2>My id</h2>,
 			<div id="myId">
-				<input type="text" value={this.clientId} />
+				{/*<input type="text" value={this.clientId} />*/}
 				<button>Update</button>
 			</div>,
 			<h2>Other Clients</h2>,
 			this.clientsEl=<div id="clients">
 				{connectRow}
 			</div>,
-			(this.log = new Terminal()).el,
+			this.log.el,
 		]
 
-		for (let target of this.searchTargets) {
-			this.buildTargetBox(target)
-		}
+		// for (let target of this.searchTargets) {
+		// 	this.buildTargetBox(target)
+		// }
 
 		return ret
 	}
 
-	async opened() {
+	private setupWS() {
 		let wsPath = (location.protocol === "http:" ? "ws://" : "wss://") + location.host + "/RTCConnect"
 
 		this.ws = new WebSocket(wsPath)
@@ -127,19 +163,19 @@ export default class Transfer extends Module {
 			this.log.log("Connected.", "inbound")
 			// this.setStatus("idle")
 
-			this.wsSend({
-				action: "setId",
-				data: this.clientId,
-				reqId: this.nextMsgId++
-			})
+			// this.wsSend({
+			// 	action: "setId",
+			// 	data: this.clientId,
+			// 	reqId: this.nextMsgId++
+			// })
 
-			for (let id of this.searchTargets) {
-				this.wsSend({
-					action: "watchFor",
-					target: id,
-					reqId: this.nextMsgId++
-				})
-			}
+			// for (let id of this.searchTargets) {
+			// 	this.wsSend({
+			// 		action: "watchFor",
+			// 		target: id,
+			// 		reqId: this.nextMsgId++
+			// 	})
+			// }
 		}
 
 		this.ws.onmessage = ev => {
@@ -158,10 +194,6 @@ export default class Transfer extends Module {
 		}
 	}
 
-	closed() {
-		this.ws.close()
-	}
-
 	async wsSend(data: Message) {
 		var json = JSON.stringify(data)
 		this.log.log(json, "outbound")
@@ -169,20 +201,20 @@ export default class Transfer extends Module {
 	}
 
 	addTargetPressed() {
-		var newId = this.addTargetIdEl.value
-		this.addTargetIdEl.value = ""
-		if (!validId(newId) || this.searchTargets.includes(newId)) return
-
-		this.searchTargets.push(newId)
-		localStorage.setItem("rtc.searchTargets", JSON.stringify(this.searchTargets))
-
-		this.buildTargetBox(newId)
-
-		this.wsSend({
-			action: "watchFor",
-			target: newId,
-			reqId: this.nextMsgId++
-		})
+		// var newId = this.addTargetIdEl.value
+		// this.addTargetIdEl.value = ""
+		// if (!validId(newId) || this.searchTargets.includes(newId)) return
+		//
+		// this.searchTargets.push(newId)
+		// localStorage.setItem("rtc.searchTargets", JSON.stringify(this.searchTargets))
+		//
+		// this.buildTargetBox(newId)
+		//
+		// this.wsSend({
+		// 	action: "watchFor",
+		// 	target: newId,
+		// 	reqId: this.nextMsgId++
+		// })
 	}
 
 	private buildTargetBox(targetId: string) {
